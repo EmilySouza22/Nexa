@@ -1,0 +1,208 @@
+/* === IMPORTAÇÃO DE FONTE === */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+
+
+/* === CONFIG GERAIS === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif; /* aplicação da fonte global */
+}
+
+
+.login-container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+.login-info {
+    flex: 1;
+    background: linear-gradient(135deg, #F8A0CC 0%, #B39DDB 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    padding: 40px;
+    
+}
+
+.login-info h3 {
+    font-size: 28px;
+    text-align: center;
+    font-weight: 500;
+    max-width: 400px;
+    text-shadow: 0 3px 4px rgba(0, 0, 0, 0.5);
+     
+}
+
+.login-form {
+    flex: 1;
+    background-color: #2C2127; /* cor de fundo principal */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+.divisor {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.linha {
+    width: 150px;
+    height: 2px;
+}
+
+.iconePequeno {
+    width: 75px;
+    height: 75px;
+}
+
+.iconeGrande {
+    width: 120px;
+    height: 120px;
+    filter: drop-shadow(4px 4px 10px rgba(0, 0, 0, 0.5));
+}
+
+
+
+.login-form form {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-form label {
+    color: white;
+    font-size: 14px;
+    margin-bottom: 8px;
+    margin-top: 15px;
+}
+
+.login-form input {
+    padding: 12px;
+    border: none;
+    border-radius: 16px;
+    background-color: white;
+    font-size: 14px;
+    outline: none;
+}
+
+.login-form input:focus {
+    box-shadow: 0 0 0 2px #F8A0CC;
+}
+
+.esqueci-senha {
+    color: #F8A0CC;
+    font-size: 12px;
+    text-align: right;
+    margin-top: 8px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.esqueci-senha:hover {
+    text-decoration: underline;
+}
+
+
+/* botão Google */
+.btn-google {
+    background-color: white;
+    color: #2C2C2C;
+    border: none;
+    border-radius: 16px;
+    padding: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 20px; /* 👈 adiciona espaço abaixo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transition: background-color 0.3s;
+}
+
+.btn-google:hover {
+    background-color: #f0f0f0;
+}
+
+.google-icon {
+    width: 20px;
+    height: 20px;
+}
+
+/* Centralização e espaçamento do botão Entrar */
+.btn-entrar {
+    display: block;              
+    margin: 0 auto;             
+    width: 220px;
+    height: 50px;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    background-image:
+        linear-gradient(#2C2127, #2C2127),
+        linear-gradient(90deg, #F8A0CC, #B39DDB);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    text-align: center;
+}
+
+.btn-entrar:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 1px rgba(179, 157, 219, 0.18);
+}
+
+
+
+.cadastro-text {
+    color: white;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.cadastro-link {
+    color: #F8A0CC;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.cadastro-link:hover {
+    text-decoration: underline;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .login-container {
+        flex-direction: column;
+    }
+
+    .login-info {
+        padding: 30px 20px;
+    }
+
+    .login-form {
+        padding: 30px 20px;
+    }
+
+    .login-info h3 {
+        font-size: 22px;
+    }
+}
