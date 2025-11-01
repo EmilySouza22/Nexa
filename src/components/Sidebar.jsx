@@ -1,15 +1,34 @@
+import { useState } from "react";
 import "./Sidebar.css";
 import { icons } from "../utils/icons";
 
 function Sidebar({ userType }) {
   /*Criação de uma Side bar que para diferenciar vamos usar props, de acordo com o tipo de usuário */
 
+  const [isOpen, setIsOpen] = useState(false); /*Pra começar com ela fechada*/
+
+  const setaSidebar = () => {
+    setIsOpen(!isOpen);
+  };
+
+  let sidebarClass = "sidebar";
+  if (isOpen) {
+    sidebarClass = "sidebar aberta";
+  } else {
+    sidebarClass = "sidebar fechada";
+  }
+
+  let iconeSeta = icons.seta;
+  if (!isOpen) {
+    iconeSeta = icons.seta2;
+  }
+
   return (
-    <aside className="sidebar">
+    <aside className={sidebarClass}>
       <div className="sidebar-header">
         <h3>Seções</h3>
-        <button className="sidebar-button">
-          <img src={icons.seta} alt="Toggle" />
+        <button className="sidebar-button" onClick={setaSidebar}>
+          <img src={iconeSeta} alt="Toggle" />
         </button>
       </div>
       <nav className="sidebar-nav">
@@ -24,7 +43,7 @@ function Sidebar({ userType }) {
               <span>Meus ingressos</span>
             </a>
             <a href="#" className="sidebar-link">
-              <img src={icons.comemoracao} alt="Palco" className="icon" />
+              <img src={icons.microfone} alt="Palco" className="icon" />
               <span>Palco principal</span>
             </a>
             <a href="#" className="sidebar-link">
@@ -44,11 +63,11 @@ function Sidebar({ userType }) {
         {userType === "organizador" && (
           <>
             <a href="#" className="sidebar-link">
-              <img src={icons.calendario} alt="Eventos" className="icon" />
+              <img src={icons.comemoracao} alt="Eventos" className="icon" />
               <span>Meus eventos</span>
             </a>
             <a href="#" className="sidebar-link">
-              <img src={icons.comemoracao} alt="Novo evento" className="icon" />
+              <img src={icons.calendario} alt="Novo evento" className="icon" />
               <span>Novo evento</span>
             </a>
             <a href="#" className="sidebar-link">
@@ -64,7 +83,7 @@ function Sidebar({ userType }) {
           <span>Meu perfil</span>
         </a>
         <a href="#" className="sidebar-link">
-          <img src={icons.dados} alt="Configurações" className="icon" />
+          <img src={icons.configuracoes} alt="Configurações" className="icon" />
           <span>Configurações</span>
         </a>
       </div>

@@ -1,14 +1,39 @@
 .sidebar {
-  width: 250px;
-  height: 100vh;
-  background-color: #2C2127;
+  height: calc(100vh - 70px); /* subtrai a altura da navbar */
+  background-color: #2c2127;
   display: flex;
   flex-direction: column;
   padding: 20px;
-  color: white;
+  color: white; /*Seções*/
   position: fixed;
-  left: 0;
-  top: 70px; /* altura da navbar */
+  left: 0; 
+  top: 70px; 
+  overflow-y: auto; 
+  overflow-x: hidden; 
+  transition: width 0.3s ease, padding 0.3s ease; /*Transição ao abrir e fechar a sidebar*/
+}
+
+.sidebar.aberta {
+  width: 250px;
+}
+
+.sidebar.fechada {
+  width: 70px;
+  padding: 15px 5px;
+}
+
+/* Para esconder a sidebar quando fechada, menos o botão da seta que abre*/
+.sidebar.fechada .sidebar-nav,
+.sidebar.fechada .sidebar-footer,
+.sidebar.fechada h3 {
+  display: none;
+}
+
+/* Centraliza a seta quando fechada */
+.sidebar.fechada .sidebar-header {
+  justify-content: center;
+  padding-bottom: 0;
+  margin-bottom: 0;
 }
 
 .sidebar-header {
@@ -21,20 +46,27 @@
 
 .sidebar-header h3 {
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 500;
   margin: 0;
 }
 
 .sidebar-button {
+  /*pra ficar certinho e sem fundo o icon*/
   background: none;
   border: none;
   color: white;
-  font-size: 20px;
   cursor: pointer;
   padding: 5px;
 }
 
+.sidebar-button img {
+  /*tamanho do icon*/
+  width: 24px;
+  height: 24px;
+}
+
 .sidebar-nav {
+  /*pra separar as coisas*/
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -45,30 +77,29 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 15px;
-  color: white;
+  padding: 12px 0;
+  color: white; /*cor das letras*/
   text-decoration: none;
   border-radius: 8px;
-  transition: background 0.2s;
+  transition: 0.2s; /*pra mudança do fundo não ser tão brusca*/
   font-size: 14px;
 }
 
 .sidebar-link:hover {
+  /*quando passa o mouse*/
   background: rgba(255, 255, 255, 0.1);
 }
 
-.sidebar-link .icon {
-  font-size: 18px;
-  width: 24px;
-  display: flex;
-  justify-content: center;
+.sidebar-link span {
+  white-space: nowrap; /* adicione isso - impede quebra de linha no texto */
 }
 
 .sidebar-footer {
   display: flex;
   flex-direction: column;
   gap: 5px;
-  padding-top: 15px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 15px; /*separação da linha*/
   margin-top: 20px;
+  border-top: 2px solid transparent; /* borda transparente */
+  border-image: linear-gradient(90deg, #f8b7d9 0%, #d296ff 100%) 1;
 }
