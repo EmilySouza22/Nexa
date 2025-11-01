@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "../../components/Navbar";
+import Sidebar from "../../components/Sidebar";
 
 function HomeOrganizador() {
   // Depois esses dados vão vir do backend, aqui deixei mockado
@@ -9,6 +10,7 @@ function HomeOrganizador() {
   return (
     <div>
       <Navbar userName={userName} userInitials={userInitials} />
+      <Sidebar userType="organizador" /> 
     </div>
   );
 }
