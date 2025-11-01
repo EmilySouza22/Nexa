@@ -1,12 +1,16 @@
 import React from "react";
-import Navbar from "../components/Navbar";
+import Navbar from "../../components/Navbar";
 
-function Home() {
+function HomeOrganizador() {
+  // Depois esses dados vão vir do backend, aqui deixei mockado
+  const userName = "Organizadora Emily";
+  const userInitials = "EA";
+
   return (
     <div>
-      <Navbar />
+      <Navbar userName={userName} userInitials={userInitials} />
     </div>
   );
 }
 
-export default Home;
+export default HomeOrganizador;
