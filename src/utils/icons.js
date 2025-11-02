@@ -12,9 +12,7 @@ import setaIcon2 from "../assets/sidebar/icon-seta2.svg";
 import perfilIcon from "../assets/sidebar/icon-perfil.svg";
 import configuracoesIcon from "../assets/sidebar/icon-configuracoes.svg";
 
-
-export const icons = {
-    // SIDEBAR
+export const iconsSidebar = {
     home: homeIcon,
     ingresso: ingressoIcon,
     certificado: certificadoIcon,
@@ -28,3 +26,27 @@ export const icons = {
     perfil: perfilIcon,
     configuracoes: configuracoesIcon,
 };
+
+// REFERENTES A TELA HOME-ORGANIZADOR 
+import relogioIcon from "../assets/home-organizador/icon-relogio.svg"
+import ingressoIcon from "../assets/home-organizador/icon-ingresso.svg"
+import assuntoIcon from "../assets/home-organizador/icon-assunto.svg"
+import calendarioIcon from "../assets/home-organizador/icon-calendario.svg"
+import relogioIcon2 from "../assets/home-organizador/icon-relogio2.svg"
+import localIcon from "../assets/home-organizador/icon-local.svg"
+import timerIcon from "../assets/home-organizador/icon-timer.svg"
+import lojaIcon from "../assets/home-organizador/icon-loja.svg"
+import addIcon from "../assets/home-organizador/icon-add.svg"
+
+export const iconsHomeOrganizador = {
+    relogio: relogioIcon,
+    ingresso: ingressoIcon,
+    assunto: assuntoIcon,
+    calendario: calendarioIcon, 
+    relogio2: relogioIcon2,
+    local: localIcon,
+    timer: timerIcon,
+    loja: lojaIcon, 
+    add: addIcon,
+};
+
