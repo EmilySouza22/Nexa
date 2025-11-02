@@ -29,9 +29,9 @@ export const iconsSidebar = {
 
 // REFERENTES A TELA HOME-ORGANIZADOR 
 import relogioIcon from "../assets/home-organizador/icon-relogio.svg"
-import ingressoIcon from "../assets/home-organizador/icon-ingresso.svg"
+import ingressoHO from "../assets/home-organizador/icon-ingresso.svg"
 import assuntoIcon from "../assets/home-organizador/icon-assunto.svg"
-import calendarioIcon from "../assets/home-organizador/icon-calendario.svg"
+import calendarioHO from "../assets/home-organizador/icon-calendario.svg"
 import relogioIcon2 from "../assets/home-organizador/icon-relogio2.svg"
 import localIcon from "../assets/home-organizador/icon-local.svg"
 import timerIcon from "../assets/home-organizador/icon-timer.svg"
@@ -40,13 +40,12 @@ import addIcon from "../assets/home-organizador/icon-add.svg"
 
 export const iconsHomeOrganizador = {
     relogio: relogioIcon,
-    ingresso: ingressoIcon,
+    ingresso: ingressoHO,
     assunto: assuntoIcon,
-    calendario: calendarioIcon, 
+    calendario: calendarioHO, 
     relogio2: relogioIcon2,
     local: localIcon,
     timer: timerIcon,
     loja: lojaIcon, 
     add: addIcon,
 };
-
