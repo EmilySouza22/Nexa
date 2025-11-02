@@ -23,6 +23,7 @@
 }
 
 /* Para esconder a sidebar quando fechada, menos o botão da seta que abre*/
+/* pq quando a seta for clicada o js vai mudar o isOpen de false pra true ou true pra false, * então muda a classe de sidebar aberta para fechada e o display none vai ser acionado*/ 
 .sidebar.fechada .sidebar-nav,
 .sidebar.fechada .sidebar-footer,
 .sidebar.fechada h3 {

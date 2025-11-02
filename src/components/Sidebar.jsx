@@ -6,19 +6,21 @@ function Sidebar({ userType }) {
   /*Criação de uma Side bar que para diferenciar vamos usar props, de acordo com o tipo de usuário */
 
   const [isOpen, setIsOpen] = useState(false); /*Pra começar com ela fechada*/
+  /*- isOpen: guarda se a sidebar está aberta (true) ou fechada (false)
+     - setIsOpen: função para mudar o valor de isOpen */
 
-  const setaSidebar = () => {
+  const setaSidebar = () => { /*função que abre e fecha a sidebar (é chamada quando eu clico no botão da seta)*/
     setIsOpen(!isOpen);
   };
 
-  let sidebarClass = "sidebar";
+  let sidebarClass = "sidebar"; /*pra guardar o nome no css*/
   if (isOpen) {
     sidebarClass = "sidebar aberta";
   } else {
     sidebarClass = "sidebar fechada";
   }
 
-  let iconeSeta = icons.seta;
+  let iconeSeta = icons.seta; /*pra trocar o icon*/
   if (!isOpen) {
     iconeSeta = icons.seta2;
   }
