@@ -28,24 +28,25 @@ export const iconsSidebar = {
 };
 
 // REFERENTES A TELA HOME-ORGANIZADOR 
-import relogioIcon from "../assets/home-organizador/icon-relogio.svg"
+import relogioHO from "../assets/home-organizador/icon-relogio.svg"
 import ingressoHO from "../assets/home-organizador/icon-ingresso.svg"
-import assuntoIcon from "../assets/home-organizador/icon-assunto.svg"
+import assuntoHO from "../assets/home-organizador/icon-assunto.svg"
 import calendarioHO from "../assets/home-organizador/icon-calendario.svg"
-import relogioIcon2 from "../assets/home-organizador/icon-relogio2.svg"
-import localIcon from "../assets/home-organizador/icon-local.svg"
-import timerIcon from "../assets/home-organizador/icon-timer.svg"
-import lojaIcon from "../assets/home-organizador/icon-loja.svg"
-import addIcon from "../assets/home-organizador/icon-add.svg"
+import relogioHO from "../assets/home-organizador/icon-relogio2.svg"
+import localHO from "../assets/home-organizador/icon-local.svg"
+import timerHO from "../assets/home-organizador/icon-timer.svg"
+import lojaHO from "../assets/home-organizador/icon-loja.svg"
+import addHO from "../assets/home-organizador/icon-add.svg"
 
-export const iconsHomeOrganizador = {
-    relogio: relogioIcon,
+export const iconsHO= {
+    relogio: relogioHO,
     ingresso: ingressoHO,
-    assunto: assuntoIcon,
+    assunto: assuntoHO,
     calendario: calendarioHO, 
-    relogio2: relogioIcon2,
-    local: localIcon,
-    timer: timerIcon,
-    loja: lojaIcon, 
-    add: addIcon,
+    relogio2: relogioHO2,
+    local: localHO,
+    timer: timerHO,
+    loja: lojaHO, 
+    add: addHO,
 };
+

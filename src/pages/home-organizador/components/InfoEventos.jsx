@@ -1,5 +1,5 @@
 import "./InfoEventos.css";
-import { iconsHomeOrganizador } from "../../../utils/icons";
+import { iconsHO } from "../../../utils/icons";
 
 
 function InfoEventos() {
@@ -20,7 +20,7 @@ function InfoEventos() {
       <div className="info-card">
         <div className="info-header">
           <img
-            src={iconsHomeOrganizador.ingresso}
+            src={iconsHO.ingresso}
             alt="Ingresso"
             className="info-icon"
           />
@@ -32,7 +32,7 @@ function InfoEventos() {
       <div className="info-card">
         <div className="info-header">
           <img
-            src={iconsHomeOrganizador.ingresso}
+            src={iconsHO.ingresso}
             alt="Ingresso"
             className="info-icon"
           />
