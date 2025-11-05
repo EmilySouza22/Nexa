@@ -1,1 +1,1 @@
-# Nexa - Sistema de organização de eventos
+# Nexa - Sistema de Gestão de Eventos Corporativos
