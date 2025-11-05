@@ -28,7 +28,7 @@
   flex-shrink: 0; /* pro ícone n encolher */
 }
 
-.info-icon-ingresso {
+.info-icon-ingresso { /*pra arrumar os icons de ingresso pois eles estavm menores do que o do relógio*/
   width: 34px;
   height: 32px;
   flex-shrink: 0; /* pro ícone n encolher */
