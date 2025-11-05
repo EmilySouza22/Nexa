@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import './Login.css';
-import image from '../assets/image.png';
-import image1 from '../assets/login/image (1).png';
-import linhaEsquerda from '../assets/login/linha_esquerda.png';
-import linhaDireita from '../assets/login/linha_direita.png';
+
+import '.../pages/login/login.css';
+/*import image from '../assets/login/image.png';
+import image1 from '../assets/login/image1.png';
+import linhaEsquerda from '../assets/login/linhaEsquerda.png';
+import linhaDireita from '../assets/login/linhaDireita.png';*/
 
 function Login() {
     const [dadosLogin, setDadosLogin] = useState({
