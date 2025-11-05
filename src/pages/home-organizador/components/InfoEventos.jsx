@@ -8,7 +8,7 @@ function InfoEventos() {
       <div className="info-card">
         <div className="info-header">
           <img
-            src={iconsHomeOrganizador.relogio}
+            src={iconsHO.relogio}
             alt="Relógio"
             className="info-icon"
           />
@@ -22,7 +22,7 @@ function InfoEventos() {
           <img
             src={iconsHO.ingresso}
             alt="Ingresso"
-            className="info-icon"
+            className="info-icon-ingresso"
           />
           <span className="info-label">Ingressos Vendidos</span>
         </div>
@@ -34,7 +34,7 @@ function InfoEventos() {
           <img
             src={iconsHO.ingresso}
             alt="Ingresso"
-            className="info-icon"
+            className="info-icon-ingresso"
           />
           <span className="info-label">Ingressos Restantes</span>
         </div>

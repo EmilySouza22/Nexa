@@ -13,10 +13,3 @@
   margin-left: 280px; /* largura da sidebar */
   overflow-y: auto;
 }
-
-@media (max-width: 768px) {
-  .home-organizador-content {
-    margin-left: 0;
-    padding: 20px;
-  }
-}

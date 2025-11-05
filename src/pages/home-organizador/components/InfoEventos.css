@@ -1,91 +1,59 @@
 .info-eventos-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr); /*3 colunas de tamanho igual*/
   gap: 20px;
   margin-bottom: 32px;
-  max-width: 1400px;
+  max-width: 1200px;
 }
 
 .info-card {
   background: #FFFFFF;
   border-radius: 16px;
-  padding: 24px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-  transition: all 0.3s ease;
-  min-height: 140px;
-}
-
-.info-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(232, 180, 232, 0.25);
+  gap: 15px;
+  min-height: auto;
 }
 
 .info-header {
   display: flex;
-  align-items: center;
+  align-items: center; 
   gap: 10px;
 }
 
 .info-icon {
-  width: 24px;
-  height: 24px;
-  object-fit: contain;
-  filter: brightness(0) saturate(100%) invert(82%) sepia(14%) saturate(1087%) hue-rotate(262deg) brightness(94%) contrast(92%);
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0; /* pro ícone n encolher */
 }
 
+.info-icon-ingresso {
+  width: 34px;
+  height: 32px;
+  flex-shrink: 0; /* pro ícone n encolher */
+}
+
+
 .info-label {
-  font-size: 15px;
-  color: #E8B4E8;
-  font-weight: 500;
-  letter-spacing: 0.2px;
+  text-align: center;
+  font-size: 25px;
+  font-weight: 600;
+
+  /*pro texto ficar linear*/
+  background: linear-gradient(90deg, #F8B7D9 0%, #D296FF 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  flex: 1; /* para o texto ocupar o espaço restante*/
+  padding-right: 10px; /* compensa o espaço do ícone para centralizar */
 }
 
 .info-value {
-  font-size: 56px;
-  font-weight: 700;
-  color: #2d2d2d;
-  line-height: 1;
-  letter-spacing: -1px;
-}
-
-@media (max-width: 992px) {
-  .info-eventos-container {
-    gap: 20px;
-  }
-  
-  .info-card {
-    padding: 24px 28px;
-  }
-  
-  .info-value {
-    font-size: 48px;
-  }
-}
-
-@media (max-width: 768px) {
-  .info-eventos-container {
-    flex-direction: column;
-    gap: 16px;
-  }
-  
-  .info-card {
-    padding: 24px;
-  }
-  
-  .info-value {
-    font-size: 42px;
-  }
-}
-
-@media (max-width: 480px) {
-  .info-value {
-    font-size: 36px;
-  }
-  
-  .info-label {
-    font-size: 14px;
-  }
+  display: flex;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: 600;
+  color: #554B50;
 }
