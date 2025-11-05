@@ -1,11 +1,9 @@
-import './App.css'
+import "./App.css";
+import HomeOrganizador from "./pages/home-organizador/HomeOrganizador";
+
 
 function App() {
-  
-  return (
-    <>
-    </>
-  )
+  return <HomeOrganizador />;
 }
 
-export default App
+export default App;
