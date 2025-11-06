@@ -1,5 +1,6 @@
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
+import CardEvento from "./components/CardEvento";
 import InfoEventos from "./components/InfoEventos";
 import "./HomeOrganizador.css";
 
@@ -15,6 +16,7 @@ function HomeOrganizador() {
         <Sidebar userType="organizador" />
         <main className="home-organizador-content">
           <InfoEventos />
+          <CardEvento />
         </main>
       </div>
     </div>

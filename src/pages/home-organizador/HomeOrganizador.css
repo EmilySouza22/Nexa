@@ -13,3 +13,8 @@
   margin-left: 280px; /* largura da sidebar */
   overflow-y: auto;
 }
+
+/* Quando a sidebar estiver fechada */
+.home-organizador-content.sidebar-closed {
+  margin-left: 80px; /* largura da sidebar fechada (ajuste conforme necessário) */
+}
