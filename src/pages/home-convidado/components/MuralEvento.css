@@ -1,0 +1,31 @@
+.HomeConv-ContainerPrincipal{
+    background-color: #FFFFFF;
+    width: 207vh;
+    height: 91vh;
+    position: fixed;
+    left: 70px;
+    top: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.HomeConv-Carrossel{
+    width: 900px;
+    height: 500px;
+}
+
+.HomeConv-InfoEvento{
+    width: 500px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.HomeConv-InfoData{
+    display: flex;
+}
+
+.HomeConv-InfoLocal{
+    display: flex;
+}
