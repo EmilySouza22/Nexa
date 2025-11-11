@@ -1,3 +1,8 @@
-root{
-    background: blue;
+.box-01{
+width: 200px;
+  height: 200px;
+  background-color: #3498db;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
