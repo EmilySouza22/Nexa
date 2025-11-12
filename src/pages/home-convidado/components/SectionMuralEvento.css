@@ -1,8 +1,9 @@
-.HomeConv-ContainerPrincipal{
+.HomeConv-MuralEvento{
     background-color: #FFFFFF;
-    width: 207vh;
+    width: 95.6%;
     height: 91vh;
-    position: fixed;
+    position:absolute;
+    z-index:999;
     left: 70px;
     top: 70px;
     display: flex;

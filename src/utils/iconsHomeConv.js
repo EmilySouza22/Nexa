@@ -16,19 +16,24 @@ import musicIcon from "../assets/home-convidado/icon-music.svg";
 import reuniaoIcon from "../assets/home-convidado/icon-reuniao.svg";
 import organizadorIcon from "../assets/home-organizador";
 
-// export const iconsHomeConv = {
-//     home: homeIcon,
-//     ingresso: ingressoIcon,
-//     certificado: certificadoIcon,
-//     pesquisas: pesquisasIcon,
-//     calendario: calendarioIcon,
-//     dados: dadosIcon,
-//     comemoracao: comemoracaoIcon,
-//     microfone: microfoneIcon,
-//     seta: setaIcon,
-//     seta2: setaIcon2,
-//     perfil: perfilIcon,
-//     configuracoes: configuracoesIcon,
-// };
+//Não repetir nomes de icons com os nomes de icons de outras telas para não dar erro
 
-//não repetir nomes de icons de outras telas pq pode interferir
+export const iconsHomeConv = {
+    calendarioIcon,
+    certificadoIcon,
+    discoIcon,
+    esportesIcon,
+    facebookIcon,
+    gastronomiaIcon,
+    horaIcon,
+    infantilIcon,
+    instagramIcon,
+    linkedinIcon,
+    localIcon,
+    lupaIcon,
+    mascaraIcon,
+    microfoneIcon,
+    musicIcon,
+    reuniaoIcon,
+    organizadorIcon
+};

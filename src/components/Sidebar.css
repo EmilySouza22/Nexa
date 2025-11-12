@@ -6,6 +6,7 @@
   padding: 20px;
   color: white; /*Seções*/
   position: fixed;
+  z-index: 1000;
   left: 0; 
   top: 70px; 
   overflow-y: auto; 

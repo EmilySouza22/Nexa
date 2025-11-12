@@ -1,7 +1,8 @@
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import '../home-convidado/HomeConvidado.css'
-import MuralEvento from "./components/MuralEvento";
+import SectionBuscarEvento from "./components/SectionBuscarEvento.jsx";
+import SectionMuralEvento from "./components/SectionMuralEvento";
 import React from "react";
 
 
@@ -14,8 +15,10 @@ function HomeConvidado() {
         <div>
             <Navbar userName={userName} userInitials={userInitials}/>
             <Sidebar userType='convidado'/>
-            <MuralEvento/>
+            <SectionMuralEvento/>
+            <SectionBuscarEvento/>
         </div>
+        
     );
 }
 
