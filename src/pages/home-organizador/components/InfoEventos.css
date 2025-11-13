@@ -4,6 +4,8 @@
   gap: 20px;
   margin-bottom: 32px;
   max-width: 1200px;
+  width: 100%; /* NOVO: ocupa toda largura disponível */
+  padding: 0 20px; /* NOVO: padding igual ao CardEvento */
 }
 
 .info-card {
