@@ -1,0 +1,14 @@
+/* Bloco principal */
+.HomeConv-BuscarEvento{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    margin-top: 103vh;
+    margin-left: 70px;
+}
+
+.HomeConv-ContainerTop{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

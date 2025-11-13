@@ -1,0 +1,6 @@
+/* Bloco principal */
+.HomeConv-Footer{
+    display: flex;
+    flex-direction: column;
+    margin-left: 70px;
+}

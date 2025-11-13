@@ -1,9 +1,11 @@
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import '../home-convidado/HomeConvidado.css'
-import SectionBuscarEvento from "./components/SectionBuscarEvento.jsx";
+import SectionBuscarEvento from "./components/SectionBuscarEvento";
 import SectionMuralEvento from "./components/SectionMuralEvento";
+import SectionFooter from "./components/SectionFooter";
 import React from "react";
+
 
 
 function HomeConvidado() {
@@ -17,6 +19,7 @@ function HomeConvidado() {
             <Sidebar userType='convidado'/>
             <SectionMuralEvento/>
             <SectionBuscarEvento/>
+            <SectionFooter/>
         </div>
         
     );

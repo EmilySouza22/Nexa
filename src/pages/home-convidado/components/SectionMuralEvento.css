@@ -3,7 +3,7 @@
     width: 95.6%;
     height: 91vh;
     position:absolute;
-    z-index:999;
+    /* z-index:0; */
     left: 70px;
     top: 70px;
     display: flex;
@@ -13,8 +13,8 @@
 }
 
 .HomeConv-Carrossel{
-    width: 900px;
-    height: 500px;
+    width: 800px;
+    height: 450px;
 }
 
 .HomeConv-InfoEvento{
