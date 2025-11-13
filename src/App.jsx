@@ -4,8 +4,12 @@ import CriacaoEventos from "./pages/criacao-evento/CriacaoEvento"
 
 
 function App() {
-  return <HomeOrganizador />;
-  return <CriacaoEventos />;
+  return (
+    <>
+      <HomeOrganizador />
+      <CriacaoEventos />
+    </>
+  );
 }
 
 export default App;
