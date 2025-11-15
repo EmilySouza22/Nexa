@@ -1,0 +1,80 @@
+.card-evento-detalhes-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+   position: relative;
+  z-index: 1;
+}
+
+/* Card do evento */
+.info-card-evento {
+  display: flex;
+  background: #ffffff;
+  border-radius: 16px;
+  overflow: visible;
+  gap: 30px;
+  padding: 22px;
+  min-width: 900px; /* evita quebrar o layout */
+}
+
+/* Container da imagem */
+.info-evento-imagem {
+  flex-shrink: 0; /* impede a imagem de encolher */
+  width: 650px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.info-evento-imagem img {
+  width: 100%;
+  height: auto;
+}
+
+/* Conteúdo do evento */
+.info-evento-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  min-width: 0;
+  justify-content: center;
+}
+
+/* Título do evento */
+.info-evento-titulo {
+  text-align: start;
+  font-size: 48px;
+  font-weight: 600;
+
+  /*pro texto ficar linear*/
+  background: linear-gradient(90deg, #f8b7d9 0%, #d296ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 8px;
+}
+
+/* Linha de informação (ícone + texto) */
+.info-header-evento {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+/* Ícones */
+.info-icon-evento {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Texto das informações */
+.info-label-evento {
+  font-size: 17px;
+  font-weight: 600;
+  color: #554b50;
+  line-height: 1.5;
+}

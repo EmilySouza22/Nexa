@@ -9,15 +9,15 @@
 
 .home-organizador-content {
   flex: 1;
-  padding: 32px 0; 
-  margin-left: 280px; /* largura da sidebar */
+  padding: 32px 0;
+  margin-left: 100px; /* largura da sidebar */
   overflow-y: auto;
-  display: flex; 
-  flex-direction: column; 
-  align-items: center; 
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* CENTRALIZADO */
 }
 
 /* Quando a sidebar estiver fechada */
-.home-organizador-content.sidebar-closed {
-  margin-left: 80px; /* largura da sidebar fechada (ajuste conforme necessário) */
-}
+/* .home-organizador-content.sidebar-closed {
+  margin-left: 90px; /* DIMINUI: largura da sidebar fechada + pequeno espaço
+} */
