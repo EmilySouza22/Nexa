@@ -2,6 +2,7 @@ import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import CardEvento from "./components/CardEvento";
 import InfoEventos from "./components/InfoEventos";
+import BotoesUm from "./components/BotoesUm";
 import "./HomeOrganizador.css";
 
 function HomeOrganizador() {
@@ -17,6 +18,7 @@ function HomeOrganizador() {
         <main className="home-organizador-content">
           <InfoEventos />
           <CardEvento />
+          <BotoesUm />
         </main>
       </div>
     </div>
