@@ -4,6 +4,7 @@ import Sidebar from "../../components/Sidebar";
 import CardEvento from "./components/CardEvento";
 import InfoEventos from "./components/InfoEventos";
 import BotoesUm from "./components/BotoesUm";
+import AgendaEventos from "./components/AgendaEventos";
 import Analytics from "./components/Analytics";
 
 function HomeOrganizador() {
@@ -20,6 +21,7 @@ function HomeOrganizador() {
           <InfoEventos />
           <CardEvento />
           <BotoesUm />
+          <AgendaEventos />
           <Analytics />
         </main>
       </div>
