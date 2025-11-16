@@ -37,6 +37,7 @@ import localHO from "../assets/home-organizador/icon-local.svg"
 import timerHO from "../assets/home-organizador/icon-timer.svg"
 import lojaHO from "../assets/home-organizador/icon-loja.svg"
 import addHO from "../assets/home-organizador/icon-add.svg"
+import analyticsHO from "../assets/home-organizador/icon-analytics.svg"
 
 export const iconsHO= {
     relogio: relogioHO,
@@ -48,5 +49,6 @@ export const iconsHO= {
     timer: timerHO,
     loja: lojaHO, 
     add: addHO,
+    analytics: analyticsHO
 };
 

@@ -1,9 +1,10 @@
+import "./HomeOrganizador.css";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import CardEvento from "./components/CardEvento";
 import InfoEventos from "./components/InfoEventos";
 import BotoesUm from "./components/BotoesUm";
-import "./HomeOrganizador.css";
+import Analytics from "./components/Analytics";
 
 function HomeOrganizador() {
   // Depois esses dados vão vir do backend, aqui deixei mockado
@@ -19,6 +20,7 @@ function HomeOrganizador() {
           <InfoEventos />
           <CardEvento />
           <BotoesUm />
+          <Analytics />
         </main>
       </div>
     </div>
