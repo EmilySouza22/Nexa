@@ -85,8 +85,8 @@ input[type="text"]::placeholder {
 }
 
 /* Cada campo do formulário */
-.form-linha> div {
- display: flex;
+.form-linha > div {
+  display: flex;
   flex-direction: column;
 }
 
@@ -95,7 +95,7 @@ input[type="text"]::placeholder {
   border: 2px dashed #e8d4f8;
   border-radius: 10px;
   padding: 50px 20px;
-  min-height: 220px; /* aumenta para igual ao Figma */
+  min-height: 220px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -126,7 +126,6 @@ input[type="text"]::placeholder {
   align-items: center;
   gap: 10px;
 }
-
 
 /* Container de preview da imagem */
 .container-preview {
@@ -198,104 +197,446 @@ select {
   }
 }
 
-/* Container da seção */
+/* Começo do box 02 */
 .box-02 {
-  background: #ffffff;
+  background: white;
   border-radius: 20px;
-  padding: 40px;
-  max-width: 1200px;
-  margin: 40px auto 0;
+  padding: 30px 50px;
+  margin: 0 auto 20px auto;
+  max-width: 1100px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.box-02 .titulo-style {
+  color: #1a1a1a;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  text-align: left;
 }
 
 .box-02 p {
-  color: #555;
-  margin-bottom: 30px;
+  color: #1a1a1a;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: left;
 }
 
+/* Linha com os 4 campos */
 .box-02 .form-linha {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 32px; /* espaçamento idêntico ao Figma */
+  gap: 16px;
+  margin-bottom: 0;
 }
 
-
+/* Cada campo */
 .box-02 .campo {
   display: flex;
   flex-direction: column;
 }
 
-
-.box-02 label {
-  font-size: 14px;
-  font-weight: 500;
-  color: #d483c7;
+.box-02 .campo label {
   margin-bottom: 6px;
+  font-size: 13px;
+  color: #d4a5d4;
+  font-weight: 500;
 }
 
-
+/* Container do input com ícone */
 .input-simples {
-  width: 100%;
-  height: 48px;
-
   display: flex;
   align-items: center;
-
-  padding: 0 14px;
-
-  background: linear-gradient(#ffffff, #ffffff) padding-box,
-              linear-gradient(90deg, #ff88c0, #b48bf7) border-box;
-
-  border: 2px solid transparent;
-  border-radius: 12px;
+  gap: 8px;
+  border: 2px solid #e8d4f8;
+  border-radius: 10px;
+  padding: 12px 14px;
+  background: #ffffff;
+  transition: border-color 0.3s ease;
   box-sizing: border-box;
 }
 
+.input-simples:hover,
+.input-simples:focus-within {
+  border-color: #c8b5e8;
+}
 
-.input-simples .icon-area {
+/* Área do ícone */
+.icon-area {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-
-  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
 }
 
-.input-simples .icon-area img {
-  width: 20px;
-  opacity: 0.65;
-}
-
-.input-simples .icon-area::after {
-  content: "";
-  width: 1px;
-  height: 26px;
-  background: #eec9ff;
-  margin-left: 12px;
-}
-
-
-.input-simples input {
+.icon-area img {
   width: 100%;
+  height: 100%;
+  opacity: 0.7;
+}
+
+/* Inputs */
+.input-simples input {
+  flex: 1;
   border: none;
   outline: none;
-  background: none;
-
-  font-size: 15px;
-  color: #333;
+  font-size: 14px;
+  color: #1a1a1a;
+  font-family: inherit;
+  background: transparent;
 }
 
-input[type="date"],
-input[type="time"] {
-  appearance: none;
+.input-simples input::placeholder {
+  color: #b8b8b8;
 }
 
-
-.input-simples:focus-within {
-  box-shadow: 0 0 0 3px rgba(240, 150, 255, 0.25);
+/* Remove os controles padrão do date/time */
+.input-simples input[type="date"]::-webkit-calendar-picker-indicator,
+.input-simples input[type="time"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
 }
 
-@media (max-width: 900px) {
+/* Responsividade box-02 */
+@media (max-width: 1024px) {
   .box-02 .form-linha {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+
+@media (max-width: 768px) {
+  .box-02 {
+    padding: 20px;
+  }
+  
+  .box-02 .form-linha {
+    grid-template-columns: 1fr;
+  }
+  
+  .box-02 .titulo-style {
+    font-size: 18px;
+  }
+}
+
+/* Box 03 - Descrição do evento */
+.box-03 {
+  background: white;
+  border-radius: 20px;
+  padding: 30px 50px;
+  margin: 0 auto 20px auto;
+  max-width: 1100px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.box-03 .titulo-style {
+  color: #1a1a1a;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  text-align: left;
+}
+
+.box-03 p {
+  color: #1a1a1a;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.campo-descricao {
+  margin-bottom: 12px;
+}
+
+.textarea-descricao {
+  width: 100%;
+  padding: 16px 18px;
+  font-size: 15px;
+  font-family: inherit;
+  border: 2px solid #e8d4f8;
+  border-radius: 10px;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+  min-height: 220px;
+  line-height: 1.6;
+  color: #1a1a1a;
+  background-color: #ffffff;
+}
+
+.textarea-descricao:focus {
+  border-color: #c8b5e8;
+}
+
+.textarea-descricao::placeholder {
+  color: #b8b8b8;
+}
+
+.contador-caracteres {
+  text-align: right;
+  padding-top: 8px;
+}
+
+.contador-caracteres span {
+  font-size: 12px;
+  color: #999999;
+}
+
+/* Responsividade box-03 */
+@media (max-width: 768px) {
+  .box-03 {
+    padding: 20px;
+  }
+  
+  .box-03 .titulo-style {
+    font-size: 18px;
+  }
+}
+
+/* Box 04 - Local do evento */
+.box-04 {
+  background: white;
+  border-radius: 20px;
+  padding: 30px 50px;
+  margin: 0 auto 20px auto;
+  max-width: 1100px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.box-04 .titulo-style {
+  color: #1a1a1a;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+/* Layout de duas colunas */
+.form-linha-local {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.coluna-local {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Cada campo */
+.campo-local {
+  display: flex;
+  flex-direction: column;
+}
+
+.campo-local label {
+  margin-bottom: 6px;
+  font-size: 13px;
+  color: #d4a5d4;
+  font-weight: 500;
+}
+
+.campo-local input,
+.campo-local select {
+  width: 100%;
+  padding: 16px 18px;
+  border: 2px solid #e8d4f8;
+  border-radius: 10px;
+  font-size: 15px;
+  color: #1a1a1a;
+  background-color: #ffffff;
+  transition: border-color 0.3s ease;
+  outline: none;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.campo-local input:focus,
+.campo-local select:focus {
+  border-color: #c8b5e8;
+}
+
+.campo-local input::placeholder {
+  color: #b8b8b8;
+}
+
+/* Select customizado */
+.campo-local select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23d4a5d4' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
+  cursor: pointer;
+}
+
+/* Responsividade box-04 */
+@media (max-width: 768px) {
+  .box-04 {
+    padding: 20px;
+  }
+  
+  .box-04 .titulo-style {
+    font-size: 18px;
+  }
+
+  .form-linha-local {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+.box-05 {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 40px 60px;     /* AUMENTEI O ESPAÇAMENTO HORIZONTAL */
+  max-width:  1100px;
+  margin: 40px auto 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  font-family: 'Poppins', sans-serif;
+}
+
+/* TÍTULO */
+.box-05 h3 {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+/* SUBTÍTULO */
+.box-05 p {
+  margin-top: 0;
+  margin-bottom: 30px;
+}
+
+/* BOTÕES CENTRALIZADOS */
+.box-05 .buttons-wrapper {
+  display: flex;
+  justify-content: center;       /* <<< CENTRALIZA NA HORIZONTAL */
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+/* BOTÕES */
+.box-05 .btn-ingresso {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(to right, #e496ff, #b48bff);
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 30px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.box-05 .btn-ingresso:hover {
+  opacity: 0.9;
+}
+
+/* “+” do botão */
+.box-05 .icon {
+  background: rgba(255,255,255,0.25);
+  padding: 4px 9px;
+  border-radius: 50%;
+  font-weight: bold;
+}
+
+/* ALERTA */
+.box-05 .alerta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(to right, #ffdede, #eec9ff);
+  padding: 16px 22px;
+  border-radius: 12px;
+  font-size: 14px;
+  color: #5c4c4c;
+}
+
+.box-05 .alerta-icon {
+  background: rgba(255,255,255,0.55);
+  color: #e7638c;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Box 06 - Sobre o organizador */
+.box-06 {
+background: #ffffff;
+border-radius: 20px;
+padding: 40px;
+max-width: 1100px;
+margin: 40px auto 0;
+box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+display: flex;
+flex-direction: column;
+gap: 28px;
+}
+
+
+.box-06 .descricao-box {
+font-size: 15px;
+color: #4c4c4c;
+max-width: 600px;
+line-height: 1.5;
+}
+
+
+.box-06 .campo {
+display: flex;
+flex-direction: column;
+gap: 8px;
+width: 100%;
+}
+
+
+.box-06 label {
+font-size: 15px;
+font-weight: 600;
+color: #d884ff; /* tom lilás igual ao Figma */
+}
+
+
+.box-06 input {
+width: 100%;
+padding: 14px;
+background: #ffffff;
+border-radius: 12px;
+border: 2px solid #e7b5ff;
+outline: none;
+font-size: 16px;
+}
+
+
+.box-06 textarea {
+width: 100%;
+min-height: 130px;
+padding: 14px;
+background: #ffffff;
+border-radius: 12px;
+border: 2px solid #e7b5ff;
+outline: none;
+font-size: 16px;
+resize: none;
+}
+
+
+.box-06 input:focus,
+.box-06 textarea:focus {
+border-color: #c46cff;
+
 }
