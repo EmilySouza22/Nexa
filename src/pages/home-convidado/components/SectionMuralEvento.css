@@ -30,3 +30,13 @@
 .HomeConv-InfoLocal{
     display: flex;
 }
+
+.HomeConvTextMural{
+    color: #676666;
+}
+
+/* Tamanho Icons */
+.HomeConvIconMural{
+    width: 16px;
+    height: 25px;
+}
