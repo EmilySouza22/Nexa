@@ -24,6 +24,7 @@ function CriacaoEvento() {
   const [numero, setNumero] = useState('');
   const [organizadorNome, setOrganizadorNome] = useState('');
   const [organizadorDescricao, setOrganizadorDescricao] = useState('');
+  const [aceitaTermos, setAceitaTermos] = useState(false);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -143,25 +144,24 @@ function CriacaoEvento() {
       </div>
 
       {/* BOX 02 */}
+      {/* BOX 02 - VERSÃO CORRIGIDA */}
       <div className='box-02'>
         <h2 className='titulo-style'>Data e horário</h2>
         <p>Informe quando seu evento irá acontecer</p>
 
-        <div className='form-linha'>
+        <div className='form-linha-datas'>
           {/* Data início */}
           <div className="campo">
             <label>Data de início*</label>
             <div className="input-simples">
-              <div className="icon-area">
+              <div className="icon-area" onClick={() => document.getElementById('dateInicio').showPicker()}>
                 <img src="/assets/criacao-evento/icon-data.svg" alt="Calendário" />
               </div>
               <input
-                type="text"
-                placeholder="dd/mm/aaaa"
+                id="dateInicio"
+                type="date"
                 value={dateInicio}
                 onChange={(e) => setDateInicio(e.target.value)}
-                onFocus={(e) => e.target.type = 'date'}
-                onBlur={(e) => !e.target.value ? e.target.type = 'text' : null}
               />
             </div>
           </div>
@@ -170,16 +170,14 @@ function CriacaoEvento() {
           <div className="campo">
             <label>Hora de início*</label>
             <div className="input-simples">
-              <div className="icon-area">
+              <div className="icon-area" onClick={() => document.getElementById('timeInicio').showPicker()}>
                 <img src="/assets/criacao-evento/icon-hora.svg" alt="Relógio" />
               </div>
               <input
-                type="text"
-                placeholder="--:--"
+                id="timeInicio"
+                type="time"
                 value={timeInicio}
                 onChange={(e) => setTimeInicio(e.target.value)}
-                onFocus={(e) => e.target.type = 'time'}
-                onBlur={(e) => !e.target.value ? e.target.type = 'text' : null}
               />
             </div>
           </div>
@@ -188,16 +186,14 @@ function CriacaoEvento() {
           <div className="campo">
             <label>Data de término*</label>
             <div className="input-simples">
-              <div className="icon-area">
+              <div className="icon-area" onClick={() => document.getElementById('dateTermino').showPicker()}>
                 <img src="/assets/criacao-evento/icon-data.svg" alt="Calendário" />
               </div>
               <input
-                type="text"
-                placeholder="dd/mm/aaaa"
+                id="dateTermino"
+                type="date"
                 value={dateTermino}
                 onChange={(e) => setDateTermino(e.target.value)}
-                onFocus={(e) => e.target.type = 'date'}
-                onBlur={(e) => !e.target.value ? e.target.type = 'text' : null}
               />
             </div>
           </div>
@@ -206,16 +202,14 @@ function CriacaoEvento() {
           <div className="campo">
             <label>Hora de término*</label>
             <div className="input-simples">
-              <div className="icon-area">
+              <div className="icon-area" onClick={() => document.getElementById('timeTermino').showPicker()}>
                 <img src="/assets/criacao-evento/icon-hora.svg" alt="Relógio" />
               </div>
               <input
-                type="text"
-                placeholder="--:--"
+                id="timeTermino"
+                type="time"
                 value={timeTermino}
                 onChange={(e) => setTimeTermino(e.target.value)}
-                onFocus={(e) => e.target.type = 'time'}
-                onBlur={(e) => !e.target.value ? e.target.type = 'text' : null}
               />
             </div>
           </div>
@@ -387,7 +381,47 @@ function CriacaoEvento() {
         </div>
       </div>
 
-      <div className='box-07'></div>
+      <div className='box-07'>
+        <h2 className='titulo-style'>7. Responsabilidades</h2>
+
+        <div className='responsabilidades-container'>
+          <label className='checkbox-wrapper'>
+            <input
+              type="checkbox"
+              checked={aceitaTermos}
+              onChange={(e) => setAceitaTermos(e.target.checked)}
+              className='checkbox-input'
+            />
+            <div className={`checkbox-custom ${aceitaTermos ? 'checked' : ''}`}>
+              {aceitaTermos && (
+                <svg
+                  className='checkbox-icon'
+                  fill="none"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="3"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path d="M5 13l4 4L19 7"></path>
+                </svg>
+              )}
+            </div>
+          </label>
+
+          <p className='responsabilidades-texto'>
+            Ao publicar este evento, estou de acordo com os Termos de uso, com as Diretrizes de Comunidade e com as Regras de meia-entrada, bem como declaro estar ciente da Política de Privacidade e das Obrigatoriedades Legais.
+          </p>
+        </div>
+      </div>
+
+
+      <div className="box-08">
+        <button className="btn-publicar-evento">
+          <span className="btn-text">Publicar evento</span>
+        </button>
+      </div>
+
 
     </div>
   )

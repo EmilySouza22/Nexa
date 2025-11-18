@@ -1,5 +1,5 @@
 .box-01 {
-  background: linear-gradient(135deg, #e8a0d8 0%, #c8b5e8 100%);
+  background: linear-gradient(135deg, #F8B7D9 0%, #D296FF 100%);
   min-height: 100vh;
   padding: 40px 20px;
   font-family: 'Arial', sans-serif;
@@ -85,7 +85,7 @@ input[type="text"]::placeholder {
 }
 
 /* Cada campo do formulário */
-.form-linha > div {
+.form-linha>div {
   display: flex;
   flex-direction: column;
 }
@@ -197,9 +197,10 @@ select {
   }
 }
 
-/* Começo do box 02 */
+
+/* Box 02 - Data e horário */
 .box-02 {
-  background: white;
+  background: #ffffff;
   border-radius: 20px;
   padding: 30px 50px;
   margin: 0 auto 20px auto;
@@ -211,7 +212,7 @@ select {
   color: #1a1a1a;
   font-size: 20px;
   font-weight: 700;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   text-align: left;
 }
 
@@ -219,45 +220,45 @@ select {
   color: #1a1a1a;
   font-size: 14px;
   font-weight: 600;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   text-align: left;
 }
 
-/* Linha com os 4 campos */
-.box-02 .form-linha {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-bottom: 0;
+/* Container principal - TODOS OS 4 CAMPOS EM UMA ÚNICA LINHA */
+.form-linha-datas {
+  display: flex;
+  gap: 20px;
 }
 
 /* Cada campo */
-.box-02 .campo {
+.campo {
   display: flex;
   flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  /* Permite que os campos encolham */
 }
 
-.box-02 .campo label {
-  margin-bottom: 6px;
-  font-size: 13px;
+.campo label {
+  margin-bottom: 8px;
+  font-size: 14px;
   color: #d4a5d4;
   font-weight: 500;
 }
 
 /* Container do input com ícone */
 .input-simples {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 8px;
   border: 2px solid #e8d4f8;
-  border-radius: 10px;
-  padding: 12px 14px;
+  border-radius: 12px;
   background: #ffffff;
+  overflow: hidden;
   transition: border-color 0.3s ease;
-  box-sizing: border-box;
+  height: 50px;
 }
 
-.input-simples:hover,
 .input-simples:focus-within {
   border-color: #c8b5e8;
 }
@@ -267,45 +268,69 @@ select {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 18px;
-  height: 18px;
+  width: 50px;
+  height: 100%;
+  background: transparent;
+  cursor: pointer;
+  border-right: 2px solid #e8d4f8;
+  transition: all 0.3s ease;
   flex-shrink: 0;
 }
 
-.icon-area img {
-  width: 100%;
-  height: 100%;
-  opacity: 0.7;
+.icon-area:hover {
+  background-color: #fdfcff;
+  border-right-color: #c8b5e8;
 }
 
-/* Inputs */
+.icon-area img {
+  width: 20px;
+  height: 20px;
+  opacity: 0.5;
+}
+
+/* Input */
 .input-simples input {
   flex: 1;
   border: none;
   outline: none;
-  font-size: 14px;
+  padding: 0 18px;
+  height: 100%;
+  font-size: 15px;
   color: #1a1a1a;
-  font-family: inherit;
   background: transparent;
+  font-family: inherit;
 }
 
 .input-simples input::placeholder {
   color: #b8b8b8;
 }
 
-/* Remove os controles padrão do date/time */
+/* Estilo para inputs de data e hora quando ativos */
+.input-simples input[type="date"],
+.input-simples input[type="time"] {
+  cursor: pointer;
+}
+
+/* Remove spinners do Chrome/Safari para inputs de data/hora */
 .input-simples input[type="date"]::-webkit-calendar-picker-indicator,
 .input-simples input[type="time"]::-webkit-calendar-picker-indicator {
   opacity: 0;
-  width: 0;
-  height: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
   position: absolute;
+  left: 0;
 }
 
-/* Responsividade box-02 */
+/* Responsivo */
 @media (max-width: 1024px) {
-  .box-02 .form-linha {
-    grid-template-columns: repeat(2, 1fr);
+  .form-linha-datas {
+    flex-wrap: wrap;
+  }
+
+  .campo {
+    flex: 1 1 calc(50% - 10px);
+    min-width: 200px;
   }
 }
 
@@ -313,13 +338,17 @@ select {
   .box-02 {
     padding: 20px;
   }
-  
-  .box-02 .form-linha {
-    grid-template-columns: 1fr;
-  }
-  
+
   .box-02 .titulo-style {
     font-size: 18px;
+  }
+
+  .form-linha-datas {
+    flex-direction: column;
+  }
+
+  .campo {
+    flex: 1 1 100%;
   }
 }
 
@@ -393,7 +422,7 @@ select {
   .box-03 {
     padding: 20px;
   }
-  
+
   .box-03 .titulo-style {
     font-size: 18px;
   }
@@ -482,7 +511,7 @@ select {
   .box-04 {
     padding: 20px;
   }
-  
+
   .box-04 .titulo-style {
     font-size: 18px;
   }
@@ -493,11 +522,12 @@ select {
   }
 }
 
+/* Box 05 - Ingressos */
 .box-05 {
   background: #ffffff;
   border-radius: 20px;
-  padding: 40px 60px;     /* AUMENTEI O ESPAÇAMENTO HORIZONTAL */
-  max-width:  1100px;
+  padding: 40px 60px;
+  max-width: 1100px;
   margin: 40px auto 0;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   font-family: 'Poppins', sans-serif;
@@ -518,7 +548,7 @@ select {
 /* BOTÕES CENTRALIZADOS */
 .box-05 .buttons-wrapper {
   display: flex;
-  justify-content: center;       /* <<< CENTRALIZA NA HORIZONTAL */
+  justify-content: center;
   gap: 24px;
   margin-bottom: 32px;
 }
@@ -542,9 +572,9 @@ select {
   opacity: 0.9;
 }
 
-/* “+” do botão */
+/* "+" do botão */
 .box-05 .icon {
-  background: rgba(255,255,255,0.25);
+  background: rgba(255, 255, 255, 0.25);
   padding: 4px 9px;
   border-radius: 50%;
   font-weight: bold;
@@ -563,7 +593,7 @@ select {
 }
 
 .box-05 .alerta-icon {
-  background: rgba(255,255,255,0.55);
+  background: rgba(255, 255, 255, 0.55);
   color: #e7638c;
   font-weight: bold;
   border-radius: 50%;
@@ -576,67 +606,223 @@ select {
 
 /* Box 06 - Sobre o organizador */
 .box-06 {
-background: #ffffff;
-border-radius: 20px;
-padding: 40px;
-max-width: 1100px;
-margin: 40px auto 0;
-box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-display: flex;
-flex-direction: column;
-gap: 28px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 1100px;
+  margin: 40px auto 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
 }
-
 
 .box-06 .descricao-box {
-font-size: 15px;
-color: #4c4c4c;
-max-width: 600px;
-line-height: 1.5;
+  font-size: 15px;
+  color: #4c4c4c;
+  max-width: 600px;
+  line-height: 1.5;
 }
-
 
 .box-06 .campo {
-display: flex;
-flex-direction: column;
-gap: 8px;
-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
 }
-
 
 .box-06 label {
-font-size: 15px;
-font-weight: 600;
-color: #d884ff; /* tom lilás igual ao Figma */
+  font-size: 15px;
+  font-weight: 600;
+  color: #d884ff;
 }
-
 
 .box-06 input {
-width: 100%;
-padding: 14px;
-background: #ffffff;
-border-radius: 12px;
-border: 2px solid #e7b5ff;
-outline: none;
-font-size: 16px;
+  width: 100%;
+  padding: 14px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 2px solid #e7b5ff;
+  outline: none;
+  font-size: 16px;
 }
-
 
 .box-06 textarea {
-width: 100%;
-min-height: 130px;
-padding: 14px;
-background: #ffffff;
-border-radius: 12px;
-border: 2px solid #e7b5ff;
-outline: none;
-font-size: 16px;
-resize: none;
+  width: 100%;
+  min-height: 130px;
+  padding: 14px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 2px solid #e7b5ff;
+  outline: none;
+  font-size: 16px;
+  resize: none;
 }
-
 
 .box-06 input:focus,
 .box-06 textarea:focus {
-border-color: #c46cff;
+  border-color: #c46cff;
+}
+
+/* Box 07 - Responsabilidades */
+.box-07 {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 1100px;
+  margin: 40px auto 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.box-07 .titulo-style {
+  color: #1a1a1a;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.responsabilidades-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.checkbox-wrapper {
+  position: relative;
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.checkbox-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.checkbox-custom {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #e8d4f8;
+  border-radius: 6px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.checkbox-custom.checked {
+  background: linear-gradient(135deg, #F8B7D9 0%, #D296FF 100%);
+  border-color: #D296FF;
+}
+
+.checkbox-icon {
+  width: 16px;
+  height: 16px;
+  color: white;
+}
+
+.checkbox-wrapper:hover .checkbox-custom {
+  border-color: #c8b5e8;
+}
+
+.responsabilidades-texto {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #4c4c4c;
+  margin: 0;
+  flex: 1;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .box-07 {
+    padding: 20px;
+  }
+
+  .box-07 .titulo-style {
+    font-size: 18px;
+  }
+
+  .responsabilidades-container {
+    gap: 12px;
+  }
+
+  .responsabilidades-texto {
+    font-size: 14px;
+  }
+  
 
 }
+
+
+
+/* Box 08 */
+/* Box 08 - container */
+.box-08 {
+  background: transparent;
+  padding: 40px;
+  max-width: 1100px;
+  margin: 40px auto;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/* Botão Publicar Evento */
+.btn-publicar-evento {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 14px 38px;
+  border-radius: 50px;
+
+  background: #ffffff;               /* fundo branco */
+  border: 2px solid #f0d6ff;         /* borda suave */
+  box-shadow: 0px 4px 16px rgba(210, 150, 255, 0.18);
+
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 600;
+  color: #000;                       /* fallback, não ficará visível porque usamos span com clip */
+
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+/* Ícone (colocado via <img> ou <svg> no HTML/JSX) */
+.btn-icon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  display: block;
+  /* Se quiser o ícone com gradiente, aplique SVG com fill="url(#grad)" ou use CSS filter / inline SVG.
+     Não use mask/url() no CSS para importar o ícone. */
+}
+
+/* Texto com gradiente — aplicado APENAS ao span .btn-text */
+.btn-text {
+  background: linear-gradient(90deg, #F8A0CC 0%, #D296FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; /* para WebKit */
+  background-clip: text;
+  color: transparent;                   /* para navegadores que suportam background-clip */
+}
+
+/* Hover */
+.btn-publicar-evento:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 8px 24px rgba(210, 150, 255, 0.24);
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .box-08 { padding: 20px; justify-content: center; }
+  .btn-publicar-evento { font-size: 15px; padding: 12px 28px; }
+}
+
+
