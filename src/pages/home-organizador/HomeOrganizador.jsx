@@ -1,6 +1,11 @@
-import React from "react";
+import "./HomeOrganizador.css";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
+import CardEvento from "./components/CardEvento";
+import InfoEventos from "./components/InfoEventos";
+import BotoesUm from "./components/BotoesUm";
+import AgendaEventos from "./components/AgendaEventos";
+import Analytics from "./components/Analytics";
 
 function HomeOrganizador() {
   // Depois esses dados vão vir do backend, aqui deixei mockado
@@ -8,11 +13,21 @@ function HomeOrganizador() {
   const userInitials = "EA";
 
   return (
-    <div>
+    <div className="home-organizador">
       <Navbar userName={userName} userInitials={userInitials} />
-      <Sidebar userType="organizador" /> 
+      <div className="home-organizador-layout">
+        <Sidebar userType="organizador" />
+        <main className="home-organizador-content">
+          <InfoEventos />
+          <CardEvento />
+          <BotoesUm />
+          <AgendaEventos />
+          <Analytics />
+        </main>
+      </div>
     </div>
   );
 }
+
 
 export default HomeOrganizador;
