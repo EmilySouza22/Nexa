@@ -9,7 +9,11 @@
   font-family: 'Poppins', sans-serif; /*Fonte geral*/
 }
 
-#root, body, html{
+body, html{
   min-height: 100vh;
   background: linear-gradient(90deg, #F8B7D9 0%, #D296FF 100%);
+}
+
+#root{
+  min-height: 300vh
 }

@@ -1,0 +1,42 @@
+.HomeConv-MuralEvento{
+    background-color: #FFFFFF;
+    width: 95.6%;
+    height: 91vh;
+    position:absolute;
+    /* z-index:0; */
+    left: 70px;
+    top: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.HomeConv-Carrossel{
+    width: 800px;
+    height: 450px;
+}
+
+.HomeConv-InfoEvento{
+    width: 500px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.HomeConv-InfoData{
+    display: flex;
+}
+
+.HomeConv-InfoLocal{
+    display: flex;
+}
+
+.HomeConvTextMural{
+    color: #676666;
+}
+
+/* Tamanho Icons */
+.HomeConvIconMural{
+    width: 16px;
+    height: 25px;
+}

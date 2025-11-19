@@ -6,10 +6,11 @@
   padding: 20px;
   color: white; /*Seções*/
   position: fixed;
-  left: 0;
-  top: 70px;
-  overflow-y: auto;
-  overflow-x: hidden;
+  z-index: 1000;
+  left: 0; 
+  top: 70px; 
+  overflow-y: auto; 
+  overflow-x: hidden; 
   transition: width 0.3s ease, padding 0.3s ease; /*Transição ao abrir e fechar a sidebar*/
   z-index: 1000;
 }

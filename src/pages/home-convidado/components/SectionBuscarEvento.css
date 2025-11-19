@@ -1,0 +1,42 @@
+/* Bloco principal */
+.HomeConv-BuscarEvento{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    margin-top: 103vh;
+    margin-left: 70px;
+}
+
+.HomeConv-ContainerTop{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.HomeConvTitle1{
+    color: #FFF;
+    font-size: 30px;
+}
+
+.HomeConv-PesquisaEvento{
+    display: flex;
+    border-radius: 25px;
+    background-color: #FFF;
+}
+
+.HomeConv-TextSearch {
+    background: linear-gradient(to right, #F8B7D9, #D296FF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 25px;
+}
+
+.HomeConv-IconLupa{
+    width: 45px;
+    height: 45px;
+}
+
+.HomeConv-ContainerProximoEvento{
+    background-color: #FFF;
+    border-radius: 25px;
+}
