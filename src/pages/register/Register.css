@@ -1,0 +1,243 @@
+/* === IMPORTAÇÃO DE FONTE === */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* === CONFIG GERAIS === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif; /* aplicação da fonte global */
+}
+
+body {
+    background-color: #2C2127; /* cor de fundo principal */
+    margin: 0;
+    padding: 0;
+    min-height: 100vh; /* ocupa toda altura da tela */
+    overflow-y: auto;
+}
+
+/* === CONTAINER PRINCIPAL === */
+.cadastro-container {
+    background-image: url('');
+    /* pode receber textura ou fundo */
+    display: flex;
+    flex-direction: row;
+    /* direção horizontal: form e info lado a lado */
+    width: 100%;
+    min-height: 100vh;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+/* === ÁREA DO FORMULÁRIO === */
+.cadastro-form {
+    width: 50%;
+    /* para ocupar metade da tela */
+    background-color: #2C2127;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px;
+
+}
+
+/* === PERSONALIZAR TÍTULO === */
+.cadastro-form h2 {
+    color: #d2a8ff;
+    text-align: center;
+    margin-bottom: 25px;
+
+}
+
+.cadastro-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.cadastro-form label {
+    font-size: 13px;
+    color: #ffffff;
+}
+
+/* === CAMPOS DE INPUT === */
+.cadastro-form input {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 15px 10px 40px;
+    color: #000000;
+    outline: none;
+    font-size: 14px;
+    background-repeat: no-repeat;
+    background-position: 12px;
+    background-size: 18px;
+}
+
+/* === ÍCONES DOS INPUTS */
+#nomeCompleto {
+    background-image: url('/imagens/Vector.png');
+}
+
+#email {
+    background-image: url('/imagens/Vector (1).png');
+}
+
+#cpf {
+    background-image: url('/imagens/Vector (2).png');
+}
+
+#telefone {
+    background-image: url('/imagens/Vector (3).png');
+}
+
+#senha {
+    background-image: url('/imagens/Vector (4).png');
+}
+
+#confirmarSenha {
+    background-image: url('/imagens/Vector (5).png');
+}
+
+
+.cadastro-form input::placeholder {
+    color: #b9a1d9;
+    /* para personalizar a cor dos ícones dentro dos inputs */
+}
+
+/* === BOTÃO PADRÃO DO FORM === */
+.cadastro-form button {
+    background-color: transparent;
+    border: 2px solid #d2a8ff;
+    border-radius: 25px;
+    color: #d2a8ff;
+    font-weight: 600;
+    padding: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.cadastro-form button:hover {
+    background-color: #d2a8ff;
+    color: #1f1b24;
+
+}
+
+/* === ÁREA VISUAL (INFOS/LADO DIREITO) === */
+.cadastro-info {
+    width: 50%;
+    background: url('/imagens/Fundo texturizado.png'), linear-gradient(90deg, #F2B2DF 0%, #D397FD 100%);
+    /*fundo com textura * gradiente */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+    padding: 30px;
+}
+
+.cadastro-info img {
+    width: 80px;
+    margin-bottom: 15px;
+    filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.6));
+}
+
+.cadastro-info h3 {
+    font-size: 20px;
+    font-weight: 500;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+}
+
+/* === RESPONSIVIDADE (TELAS PEQUENAS) ===  */
+@media (max-width: 800px) {
+    .cadastro-container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .cadastro-form,
+    .cadastro-info {
+        width: 100%;
+        padding: 30px 20px;
+    }
+
+    .cadastro-info {
+        padding: 40px 20px;
+    }
+}
+
+.divisor {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 40px;
+}
+
+.linha {
+    width: 120px;
+    height: 2px;
+    object-fit: contain;
+}
+
+.iconePequeno {
+    width: 60px;
+    height: auto;
+}
+
+.iconeGrande {
+    width: 60px;
+    height: auto;
+    opacity: 100%;
+}
+
+/* === BOTÃO DE CADASTRAR (VERSÃO PERSONALIZADA) === */
+.btn-cadastrar {
+    background-color: #2C2127;
+    color: #ffffff !important;
+    border: 4px solid;
+    border-image: linear-gradient(90deg, #F8A0CC 0%, #D296FF 100%);
+    border-image-slice: 1;
+    border-radius: 8px;
+    font-weight: bold;
+    padding: 12px 30px;
+    margin-top: 15px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
+    width: 150px;
+    height: 50px;
+    align-self: center;
+}
+
+/* === BOTÃO SECUNDÁRIO GENÉRICO === */
+.botaoCad {
+    background-color: #fff;
+}
+
+.btn-cadastrar:hover {
+    opacity: 0.9;
+}
+
+/* === TEXTO DE LOGIN === */
+.login-text {
+    font-size: 14px;
+    color: #ffffff;
+    margin-top: 15px;
+    text-align: center;
+    width: 100%;
+}
+
+.login-link {
+    color: #F8A0CC;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-link:hover {
+    text-decoration: underline;
+}

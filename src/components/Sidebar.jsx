@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./Sidebar.css";
-import { icons } from "../utils/icons";
+import { iconsSidebar } from "../utils/icons";
 
 function Sidebar({ userType }) {
   /*Criação de uma Side bar que para diferenciar vamos usar props, de acordo com o tipo de usuário */
@@ -20,9 +20,9 @@ function Sidebar({ userType }) {
     sidebarClass = "sidebar fechada";
   }
 
-  let iconeSeta = icons.seta; /*pra trocar o icon*/
+  let iconeSeta = iconsSidebar.seta; /*pra trocar o icon*/
   if (!isOpen) {
-    iconeSeta = icons.seta2;
+    iconeSeta = iconsSidebar.seta2;
   }
 
   return (
@@ -35,29 +35,29 @@ function Sidebar({ userType }) {
       </div>
       <nav className="sidebar-nav">
         <a href="#" className="sidebar-link">
-          <img src={icons.home} alt="Home" className="icon" />
+          <img src={iconsSidebar.home} alt="Home" className="icon" />
           <span>Home</span>
         </a>
         {userType === "convidado" && (
           <>
             <a href="#" className="sidebar-link">
-              <img src={icons.ingresso} alt="Ingressos" className="icon" />
+              <img src={iconsSidebar.ingresso} alt="Ingressos" className="icon" />
               <span>Meus ingressos</span>
             </a>
             <a href="#" className="sidebar-link">
-              <img src={icons.microfone} alt="Palco" className="icon" />
+              <img src={iconsSidebar.microfone} alt="Palco" className="icon" />
               <span>Palco principal</span>
             </a>
             <a href="#" className="sidebar-link">
               <img
-                src={icons.certificado}
+                src={iconsSidebar.certificado}
                 alt="Certificados"
                 className="icon"
               />
               <span>Certificados</span>
             </a>
             <a href="#" className="sidebar-link">
-              <img src={icons.pesquisas} alt="Pesquisas" className="icon" />
+              <img src={iconsSidebar.pesquisas} alt="Pesquisas" className="icon" />
               <span>Pesquisas</span>
             </a>
           </>
@@ -65,15 +65,15 @@ function Sidebar({ userType }) {
         {userType === "organizador" && (
           <>
             <a href="#" className="sidebar-link">
-              <img src={icons.comemoracao} alt="Eventos" className="icon" />
+              <img src={iconsSidebar.comemoracao} alt="Eventos" className="icon" />
               <span>Meus eventos</span>
             </a>
             <a href="#" className="sidebar-link">
-              <img src={icons.calendario} alt="Novo evento" className="icon" />
+              <img src={iconsSidebar.calendario} alt="Novo evento" className="icon" />
               <span>Novo evento</span>
             </a>
             <a href="#" className="sidebar-link">
-              <img src={icons.dados} alt="Dados" className="icon" />
+              <img src={iconsSidebar.dados} alt="Dados" className="icon" />
               <span>Dados</span>
             </a>
           </>
@@ -81,11 +81,11 @@ function Sidebar({ userType }) {
       </nav>
       <div className="sidebar-footer">
         <a href="#" className="sidebar-link">
-          <img src={icons.perfil} alt="Perfil" className="icon" />
+          <img src={iconsSidebar.perfil} alt="Perfil" className="icon" />
           <span>Meu perfil</span>
         </a>
         <a href="#" className="sidebar-link">
-          <img src={icons.configuracoes} alt="Configurações" className="icon" />
+          <img src={iconsSidebar.configuracoes} alt="Configurações" className="icon" />
           <span>Configurações</span>
         </a>
       </div>

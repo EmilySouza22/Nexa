@@ -1,0 +1,36 @@
+.botoes-evento-container {
+  display: flex;
+  justify-content: space-between;
+  /* gap: 20px; */
+  max-width: 1400px;
+  width: 100%;
+  padding: 0 20px;
+  margin: 32px auto;
+}
+
+.botao-evento {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 40px 10px 20px;
+  border-radius: 50px;
+  font-size: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  background: #ffffff;
+}
+
+.botao-evento-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.botao-evento-texto {
+  /*pra ficar linear*/
+
+  background: linear-gradient(180deg, #f8b7d9 0%, #d296ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

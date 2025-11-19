@@ -1,0 +1,122 @@
+.analytics-section {
+  width: 100%;
+  max-width: 1400px;
+  margin: 48px auto 0 auto;
+  padding: 0 20px;
+}
+
+.analytics-header {
+  background: #ffffff;
+  border-radius: 16px 16px 0 0;
+  padding: 24px 32px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.analytics-titulo {
+  font-size: 40px;
+  font-weight: 600;
+  color: #2c2127;
+}
+
+.analytics-icon {
+  width: 35px;
+  height: 35px;
+}
+
+/* estrutura dos cards */ 
+
+.analytics-cards-container {
+  background: #ffffff;
+  border-radius: 0 0 16px 16px;
+  padding: 40px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  margin-bottom: 32px;
+}
+
+/* Os cards em si */ 
+
+.analytics-card {
+  background: linear-gradient(90deg, #f8b7d9 0%, #d296ff 100%);
+  border-radius: 16px;
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Legenda dos cards */ 
+
+.analytics-card-label {
+  font-size: 25px;
+  color: #ffffff;
+  text-align: center; 
+  white-space: nowrap; /*Pra linha não quebrar*/ 
+}
+
+/* Informações nos cards */ 
+
+.analytics-card-value {
+  font-size: 60px;
+  font-weight: 550;
+  color: #ffffff;
+  text-align: center;
+  flex: 1; /*Pra pegar o espaço restante*/ 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.analytics-card-evento {
+  justify-content: space-between;
+  padding: 20px;
+}
+
+/* Imagem do evento mais lucrativo */ 
+
+.evento-imagem {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.evento-imagem img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+/* BOTÃO DE VER GRÁFICOS --> Mesma configuração dos botões de cima*/
+
+.botao-grafico {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 40px 10px 20px;
+  border-radius: 50px;
+  font-size: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  background: #ffffff;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.botao-grafico-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.botao-grafico-texto {
+  /*Para o texto ficar linear*/
+  white-space: nowrap;
+  background: linear-gradient(180deg, #f8b7d9 0%, #d296ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

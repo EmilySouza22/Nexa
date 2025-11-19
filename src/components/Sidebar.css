@@ -12,6 +12,7 @@
   overflow-y: auto; 
   overflow-x: hidden; 
   transition: width 0.3s ease, padding 0.3s ease; /*Transição ao abrir e fechar a sidebar*/
+  z-index: 1000;
 }
 
 .sidebar.aberta {
@@ -24,7 +25,7 @@
 }
 
 /* Para esconder a sidebar quando fechada, menos o botão da seta que abre*/
-/* pq quando a seta for clicada o js vai mudar o isOpen de false pra true ou true pra false, * então muda a classe de sidebar aberta para fechada e o display none vai ser acionado*/ 
+/* pq quando a seta for clicada o js vai mudar o isOpen de false pra true ou true pra false, * então muda a classe de sidebar aberta para fechada e o display none vai ser acionado*/
 .sidebar.fechada .sidebar-nav,
 .sidebar.fechada .sidebar-footer,
 .sidebar.fechada h3 {
@@ -79,7 +80,8 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px 0;
+  padding: 12px 16px;
+  margin: 0 -16px; /* puxa o elemento para fora, alinhando o conteúdo */
   color: white; /*cor das letras*/
   text-decoration: none;
   border-radius: 8px;
