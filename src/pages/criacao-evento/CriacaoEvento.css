@@ -1,0 +1,828 @@
+.box-01 {
+  background: linear-gradient(135deg, #F8B7D9 0%, #D296FF 100%);
+  min-height: 100vh;
+  padding: 40px 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Títulos */
+.titulo-style {
+  color: #1a1a1a;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.titulo2-style {
+  color: #1a1a1a;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+/* Container do formulário */
+form {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 50px;
+  max-width: 1100px;
+  margin: 0 auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Labels */
+label {
+  margin-bottom: 6px;
+  font-size: 15px;
+  color: #d4a5d4;
+  font-weight: 500;
+}
+
+.nome-evento,
+.classificacao {
+  color: #d4a5d4;
+}
+
+/* Inputs e Selects */
+input[type="text"],
+select {
+  width: 100%;
+  padding: 16px 18px;
+  border: 2px solid #e8d4f8;
+  border-radius: 10px;
+  font-size: 15px;
+  color: #1a1a1a;
+  background-color: #ffffff;
+  transition: border-color 0.3s ease;
+  outline: none;
+  box-sizing: border-box;
+  margin-bottom: 0;
+}
+
+input[type="text"]:focus,
+select:focus {
+  border-color: #c8b5e8;
+}
+
+input[type="text"]::placeholder {
+  color: #b8b8b8;
+}
+
+/* Container principal do conteúdo */
+.content-principal {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Layout em duas colunas - CORRIGIDO */
+.form-linha {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+
+/* Cada campo do formulário */
+.form-linha>div {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Container de upload de imagem */
+.upload-imagem {
+  border: 2px dashed #e8d4f8;
+  border-radius: 10px;
+  padding: 50px 20px;
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fdfcff;
+  transition: 0.3s;
+}
+
+.upload-imagem:hover {
+  border-color: #c8b5e8;
+  background-color: #f8f4ff;
+}
+
+/* Input file escondido */
+.file-input-hidden {
+  display: none;
+}
+
+/* Placeholder do upload */
+.upload-placeholder {
+  color: #d4a5d4;
+  font-size: 14px;
+}
+
+.upload-placeholder p {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Container de preview da imagem */
+.container-preview {
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+}
+
+.preview-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* Botão de remover imagem */
+.botao-remover {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #ff4757;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.botao-remover::before {
+  content: '×';
+}
+
+.botao-remover:hover {
+  background-color: #ff3838;
+}
+
+/* Select customizado */
+select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23d4a5d4' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  form {
+    padding: 20px;
+  }
+
+  .titulo-style {
+    font-size: 22px;
+  }
+
+  .upload-imagem {
+    padding: 30px 20px;
+    min-height: 150px;
+  }
+}
+
+
+/* Box 02 - Data e horário */
+.box-02 {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 30px 50px;
+  margin: 0 auto 20px auto;
+  max-width: 1100px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.box-02 .titulo-style {
+  color: #1a1a1a;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.box-02 p {
+  color: #1a1a1a;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+/* Container principal - TODOS OS 4 CAMPOS EM UMA ÚNICA LINHA */
+.form-linha-datas {
+  display: flex;
+  gap: 20px;
+}
+
+/* Cada campo */
+.campo {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  /* Permite que os campos encolham */
+}
+
+.campo label {
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #d4a5d4;
+  font-weight: 500;
+}
+
+/* Container do input com ícone */
+.input-simples {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border: 2px solid #e8d4f8;
+  border-radius: 12px;
+  background: #ffffff;
+  overflow: hidden;
+  transition: border-color 0.3s ease;
+  height: 50px;
+}
+
+.input-simples:focus-within {
+  border-color: #c8b5e8;
+}
+
+/* Área do ícone */
+.icon-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 100%;
+  background: transparent;
+  cursor: pointer;
+  border-right: 2px solid #e8d4f8;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.icon-area:hover {
+  background-color: #fdfcff;
+  border-right-color: #c8b5e8;
+}
+
+.icon-area img {
+  width: 20px;
+  height: 20px;
+  opacity: 0.5;
+}
+
+/* Input */
+.input-simples input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 0 18px;
+  height: 100%;
+  font-size: 15px;
+  color: #1a1a1a;
+  background: transparent;
+  font-family: inherit;
+}
+
+.input-simples input::placeholder {
+  color: #b8b8b8;
+}
+
+/* Estilo para inputs de data e hora quando ativos */
+.input-simples input[type="date"],
+.input-simples input[type="time"] {
+  cursor: pointer;
+}
+
+/* Remove spinners do Chrome/Safari para inputs de data/hora */
+.input-simples input[type="date"]::-webkit-calendar-picker-indicator,
+.input-simples input[type="time"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+}
+
+/* Responsivo */
+@media (max-width: 1024px) {
+  .form-linha-datas {
+    flex-wrap: wrap;
+  }
+
+  .campo {
+    flex: 1 1 calc(50% - 10px);
+    min-width: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .box-02 {
+    padding: 20px;
+  }
+
+  .box-02 .titulo-style {
+    font-size: 18px;
+  }
+
+  .form-linha-datas {
+    flex-direction: column;
+  }
+
+  .campo {
+    flex: 1 1 100%;
+  }
+}
+
+/* Box 03 - Descrição do evento */
+.box-03 {
+  background: white;
+  border-radius: 20px;
+  padding: 30px 50px;
+  margin: 0 auto 20px auto;
+  max-width: 1100px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.box-03 .titulo-style {
+  color: #1a1a1a;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  text-align: left;
+}
+
+.box-03 p {
+  color: #1a1a1a;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.campo-descricao {
+  margin-bottom: 12px;
+}
+
+.textarea-descricao {
+  width: 100%;
+  padding: 16px 18px;
+  font-size: 15px;
+  font-family: inherit;
+  border: 2px solid #e8d4f8;
+  border-radius: 10px;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+  min-height: 220px;
+  line-height: 1.6;
+  color: #1a1a1a;
+  background-color: #ffffff;
+}
+
+.textarea-descricao:focus {
+  border-color: #c8b5e8;
+}
+
+.textarea-descricao::placeholder {
+  color: #b8b8b8;
+}
+
+.contador-caracteres {
+  text-align: right;
+  padding-top: 8px;
+}
+
+.contador-caracteres span {
+  font-size: 12px;
+  color: #999999;
+}
+
+/* Responsividade box-03 */
+@media (max-width: 768px) {
+  .box-03 {
+    padding: 20px;
+  }
+
+  .box-03 .titulo-style {
+    font-size: 18px;
+  }
+}
+
+/* Box 04 - Local do evento */
+.box-04 {
+  background: white;
+  border-radius: 20px;
+  padding: 30px 50px;
+  margin: 0 auto 20px auto;
+  max-width: 1100px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.box-04 .titulo-style {
+  color: #1a1a1a;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+/* Layout de duas colunas */
+.form-linha-local {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.coluna-local {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Cada campo */
+.campo-local {
+  display: flex;
+  flex-direction: column;
+}
+
+.campo-local label {
+  margin-bottom: 6px;
+  font-size: 13px;
+  color: #d4a5d4;
+  font-weight: 500;
+}
+
+.campo-local input,
+.campo-local select {
+  width: 100%;
+  padding: 16px 18px;
+  border: 2px solid #e8d4f8;
+  border-radius: 10px;
+  font-size: 15px;
+  color: #1a1a1a;
+  background-color: #ffffff;
+  transition: border-color 0.3s ease;
+  outline: none;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.campo-local input:focus,
+.campo-local select:focus {
+  border-color: #c8b5e8;
+}
+
+.campo-local input::placeholder {
+  color: #b8b8b8;
+}
+
+/* Select customizado */
+.campo-local select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23d4a5d4' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  padding-right: 40px;
+  cursor: pointer;
+}
+
+/* Responsividade box-04 */
+@media (max-width: 768px) {
+  .box-04 {
+    padding: 20px;
+  }
+
+  .box-04 .titulo-style {
+    font-size: 18px;
+  }
+
+  .form-linha-local {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+/* Box 05 - Ingressos */
+.box-05 {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 40px 60px;
+  max-width: 1100px;
+  margin: 40px auto 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  font-family: 'Poppins', sans-serif;
+}
+
+/* TÍTULO */
+.box-05 h3 {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+/* SUBTÍTULO */
+.box-05 p {
+  margin-top: 0;
+  margin-bottom: 30px;
+}
+
+/* BOTÕES CENTRALIZADOS */
+.box-05 .buttons-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+/* BOTÕES */
+.box-05 .btn-ingresso {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(to right, #e496ff, #b48bff);
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 30px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.box-05 .btn-ingresso:hover {
+  opacity: 0.9;
+}
+
+/* "+" do botão */
+.box-05 .icon {
+  background: rgba(255, 255, 255, 0.25);
+  padding: 4px 9px;
+  border-radius: 50%;
+  font-weight: bold;
+}
+
+/* ALERTA */
+.box-05 .alerta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(to right, #ffdede, #eec9ff);
+  padding: 16px 22px;
+  border-radius: 12px;
+  font-size: 14px;
+  color: #5c4c4c;
+}
+
+.box-05 .alerta-icon {
+  background: rgba(255, 255, 255, 0.55);
+  color: #e7638c;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Box 06 - Sobre o organizador */
+.box-06 {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 1100px;
+  margin: 40px auto 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.box-06 .descricao-box {
+  font-size: 15px;
+  color: #4c4c4c;
+  max-width: 600px;
+  line-height: 1.5;
+}
+
+.box-06 .campo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.box-06 label {
+  font-size: 15px;
+  font-weight: 600;
+  color: #d884ff;
+}
+
+.box-06 input {
+  width: 100%;
+  padding: 14px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 2px solid #e7b5ff;
+  outline: none;
+  font-size: 16px;
+}
+
+.box-06 textarea {
+  width: 100%;
+  min-height: 130px;
+  padding: 14px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 2px solid #e7b5ff;
+  outline: none;
+  font-size: 16px;
+  resize: none;
+}
+
+.box-06 input:focus,
+.box-06 textarea:focus {
+  border-color: #c46cff;
+}
+
+/* Box 07 - Responsabilidades */
+.box-07 {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 1100px;
+  margin: 40px auto 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.box-07 .titulo-style {
+  color: #1a1a1a;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.responsabilidades-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.checkbox-wrapper {
+  position: relative;
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.checkbox-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.checkbox-custom {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #e8d4f8;
+  border-radius: 6px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.checkbox-custom.checked {
+  background: linear-gradient(135deg, #F8B7D9 0%, #D296FF 100%);
+  border-color: #D296FF;
+}
+
+.checkbox-icon {
+  width: 16px;
+  height: 16px;
+  color: white;
+}
+
+.checkbox-wrapper:hover .checkbox-custom {
+  border-color: #c8b5e8;
+}
+
+.responsabilidades-texto {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #4c4c4c;
+  margin: 0;
+  flex: 1;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .box-07 {
+    padding: 20px;
+  }
+
+  .box-07 .titulo-style {
+    font-size: 18px;
+  }
+
+  .responsabilidades-container {
+    gap: 12px;
+  }
+
+  .responsabilidades-texto {
+    font-size: 14px;
+  }
+  
+
+}
+
+
+
+/* Box 08 */
+/* Box 08 - container */
+.box-08 {
+  background: transparent;
+  padding: 40px;
+  max-width: 1100px;
+  margin: 40px auto;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+/* Botão Publicar Evento */
+.btn-publicar-evento {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 14px 38px;
+  border-radius: 50px;
+
+  background: #ffffff;               /* fundo branco */
+  border: 2px solid #f0d6ff;         /* borda suave */
+  box-shadow: 0px 4px 16px rgba(210, 150, 255, 0.18);
+
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 18px;
+  font-weight: 600;
+  color: #000;                       /* fallback, não ficará visível porque usamos span com clip */
+
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+/* Ícone (colocado via <img> ou <svg> no HTML/JSX) */
+.btn-icon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  display: block;
+  /* Se quiser o ícone com gradiente, aplique SVG com fill="url(#grad)" ou use CSS filter / inline SVG.
+     Não use mask/url() no CSS para importar o ícone. */
+}
+
+/* Texto com gradiente — aplicado APENAS ao span .btn-text */
+.btn-text {
+  background: linear-gradient(90deg, #F8A0CC 0%, #D296FF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; /* para WebKit */
+  background-clip: text;
+  color: transparent;                   /* para navegadores que suportam background-clip */
+}
+
+/* Hover */
+.btn-publicar-evento:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 8px 24px rgba(210, 150, 255, 0.24);
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .box-08 { padding: 20px; justify-content: center; }
+  .btn-publicar-evento { font-size: 15px; padding: 12px 28px; }
+}
+
+
