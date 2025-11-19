@@ -7,10 +7,10 @@ function SectionBuscarEvento() {
     <div className='HomeConv-BuscarEvento'>
         <div className='HomeConv-ContainerTop'>
             <div className='HomeConv-ContainerPesquisa'>
-                <p className='HomeConvText'>Procure sua próxima experiência</p>
+                <p className='HomeConvTitle1'>Procure sua próxima experiência</p>
                 <div className='HomeConv-PesquisaEvento'>
-                    <img src={iconsHomeConv.lupaIcon} alt="Lupa" />
-                    Buscar evento
+                    <img src={iconsHomeConv.lupaIcon} alt="Lupa" className='HomeConv-IconLupa'/>
+                    <p className='HomeConv-TextSearch'>Buscar evento</p>
                 </div>
             </div>
             <div className='HomeConv-ContainerProximoEvento'>
