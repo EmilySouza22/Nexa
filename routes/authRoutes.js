@@ -43,11 +43,10 @@ router.post('/register', async (req, res) => {
         // Criptografar senha
         const senhaHash = await bcrypt.hash(senha, 10);
 
-        // Inserir no banco (idtipo_conta = 1 para usuário comum)
         const [resultado] = await db.query(
             `INSERT INTO conta (nome, email, cpf_cnpj, telefone, senha, idtipo_conta) 
              VALUES (?, ?, ?, ?, ?, ?)`,
-            [nomeCompleto, email, cpfNumerico, telefone, senhaHash, 1]
+            [nomeCompleto, email, cpfNumerico, telefone, senhaHash, 1] // 1 = usuário convidado
         );
 
         res.status(201).json({
