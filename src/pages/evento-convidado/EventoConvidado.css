@@ -1,0 +1,236 @@
+/* === IMPORTAÇÃO DE FONTE === */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+
+/* ===== CONTAINER GERAL ===== */
+
+.evento-container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ===== CARD SUPERIOR (banner + infos) ===== */
+
+.evento-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+.evento-banner {
+  width: 360px;
+  height: 200px;
+  border-radius: 16px;
+  object-fit: cover;
+}
+
+.evento-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.evento-header p {
+  font-size: 24px;
+  font-weight: 700;
+  color: #d4a5d4;
+}
+
+/* Infos com ícones (data e hora) */
+.evento-info-topo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.evento-info-topo img {
+  width: 22px;
+}
+
+.evento-organizador {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 260px;
+  margin-top: 12px;
+}
+
+.organizador-img {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.btn-ingresso {
+  background: linear-gradient(135deg, #F8A0CC 0%, #B39DDB 100%);
+  color: #fff;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.btn-ingresso:hover {
+  opacity: 0.9;
+}
+
+/* ===== 👇 BOX ÚNICA COM GRID INTERNO ===== */
+
+.evento-detalhes-box {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.2fr;
+  gap: 32px;
+}
+
+/* ===== SEÇÕES INTERNAS (sem box individual) ===== */
+
+.secao-detalhes {
+  /* Remove padding/background individual */
+}
+
+.box-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.box-title img {
+  width: 28px;
+}
+
+.box-title h3 {
+  font-size: 20px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #F8A0CC 0%, #B39DDB 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* DESCRIÇÃO */
+.descricao p {
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.descricao ul {
+  margin-top: 8px;
+  padding-left: 12px;
+}
+
+.descricao ul li {
+  margin-bottom: 6px;
+  font-size: 15px;
+}
+
+/* CLASSIFICAÇÃO */
+.classificacao p {
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+/* LOCAL */
+.local p {
+  margin-bottom: 4px;
+  line-height: 1.4;
+  font-size: 15px;
+}
+
+/* ===== BOX (mantém para organizador) ===== */
+
+.box {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+/* ===== ORGANIZADOR ===== */
+
+.organizador {
+  margin-top: 0;
+}
+
+.organizador-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  margin-top: 10px;
+}
+
+.logo-org {
+  width: 90px;
+  border-radius: 10px;
+  object-fit: contain;
+  background: #f8f8f8;
+  padding: 6px;
+}
+
+.organizador-info h4 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #444;
+}
+
+.organizador-info p {
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+/* Botões organizador */
+.btn-contato, 
+.btn-outros-eventos {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  margin-bottom: 10px;
+  transition: 0.2s;
+}
+
+.btn-contato {
+  background: linear-gradient(135deg, #F8A0CC 0%, #B39DDB 100%);
+  color: white;
+}
+
+.btn-outros-eventos {
+  background: #dddddd;
+  color: #555;
+}
+
+.btn-contato:hover {
+  opacity: 0.9;
+}
+
+.btn-outros-eventos:hover {
+  background: #c8c8c8;
+}
+
+.btn-contato img,
+.btn-outros-eventos img {
+  width: 20px;
+}
