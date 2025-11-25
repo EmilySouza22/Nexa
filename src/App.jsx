@@ -1,12 +1,9 @@
 import "./App.css";
-import HomeOrganizador from "./pages/home-organizador/HomeOrganizador";
-import HomeConvidado from "./pages/home-convidado/HomeConvidado";
-
+import { RouterProvider } from "react-router-dom";
+import router from "./routes/index";
 
 function App() {
-  return(
-    <HomeConvidado/>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import './Register.css';
+import axios from "axios";
+
 
 function Cadastro() {
     const [dadosCadastro, setDadosCadastro] = useState({
@@ -21,7 +23,7 @@ function Cadastro() {
         }));
     };
 
-    const enviarCad = (e) => {
+    const enviarCad = async (e) => {
         e.preventDefault();
 
         if (dadosCadastro.senha !== dadosCadastro.confirmarSenha) {
@@ -29,13 +31,31 @@ function Cadastro() {
             return;
         }
 
-        setErroSenha("");
-
-        localStorage.setItem("usuario", JSON.stringify(dadosCadastro));
-
-        console.log("Cadastro realizado:", dadosCadastro);
+            setErroSenha("");
 
 
+        try {
+        const response = await axios.post('http://localhost:3000/api/auth/register', {
+            nomeCompleto: dadosCadastro.nomeCompleto,
+            email: dadosCadastro.email,
+            cpf: dadosCadastro.cpf,
+            telefone: dadosCadastro.telefone,
+            senha: dadosCadastro.senha,
+        });
+
+        if (response.status === 201) {
+            alert('Cadastro realizado com sucesso!');
+            
+            setTimeout(() => {
+                window.location.href = '/login';
+            }, 1500);
+        }
+
+    } catch (error) {
+        console.error('Erro:', error);
+        const mensagem = error.response?.data?.error || 'Erro ao conectar com o servidor';
+        setErroSenha(mensagem);
+    }
     };
 
     return (
