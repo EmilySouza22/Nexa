@@ -3,7 +3,7 @@ import mysql from 'mysql2/promise';
 const db = mysql.createPool({
     host: 'localhost',
     user: 'root',
-    password: 'root',
+    password: 'senai',
     database: 'nexa',
 
     // Para otimizar perfomance e vitar erros
