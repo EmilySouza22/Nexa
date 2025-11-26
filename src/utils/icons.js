@@ -52,3 +52,17 @@ export const iconsHO= {
     analytics: analyticsHO
 };
 
+// REFERENTES A TELA DE CADASTRO 
+import emailCA from "../assets/register/icon-email.svg"
+import olhoAbertoCA from "../assets/register/icon-olho-aberto.svg"
+import olhoFechadoCA from "../assets/register/icon-olho-fechado.svg"
+import telefoneCA from "../assets/register/icon-telefone.svg"
+import userCA from "../assets/register/icon-user.svg"
+
+export const iconsCA = {
+    email: emailCA,
+    olhoAberto: olhoAbertoCA,
+    olhoFechado: olhoFechadoCA,
+    telefone: telefoneCA,
+    user: userCA
+};

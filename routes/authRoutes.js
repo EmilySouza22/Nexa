@@ -5,6 +5,7 @@ import db from '../src/config/database.js';
 const router = express.Router();
 
 // ROTA DE REGISTRO
+
 router.post('/register', async (req, res) => {
     try {
         const { nomeCompleto, email, cpf, telefone, senha } = req.body;
@@ -64,6 +65,7 @@ router.post('/register', async (req, res) => {
 });
 
 // ROTA DE LOGIN
+
 router.post('/login', async (req, res) => {
     try {
         const { email, senha } = req.body;
