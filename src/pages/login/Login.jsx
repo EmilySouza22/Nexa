@@ -1,18 +1,20 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import "./Login.css";
 import image from '../../assets/login/image.png';
 import image1 from '../../assets/login/image1.png';
 import linhaEsquerda from '../../assets/login/linhaEsquerda.png';
 import linhaDireita from '../../assets/login/linhaDireita.png';
 
-
 function Login() {
+    const navigate = useNavigate();
     const [dadosLogin, setDadosLogin] = useState({
         email: "",
         senha: "",
     });
 
     const [erro, setErro] = useState("");
+    const [carregando, setCarregando] = useState(false);
 
     const mudarLogin = (e) => {
         const { name, value } = e.target;
@@ -20,38 +22,59 @@ function Login() {
             ...prev,
             [name]: value,
         }));
+        // Limpar erro ao digitar
+        if (erro) setErro("");
     };
 
-    const enviarLogin = (e) => {
+    const enviarLogin = async (e) => {
         e.preventDefault();
+        setCarregando(true);
+        setErro("");
 
-        const usuarioSalvo = JSON.parse(localStorage.getItem("usuario"));
+        try {
+            const response = await fetch('http://localhost:3000/api/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: dadosLogin.email,
+                    senha: dadosLogin.senha
+                })
+            });
 
-        if (usuarioSalvo) {
-            if (usuarioSalvo.email === dadosLogin.email && usuarioSalvo.senha === dadosLogin.senha) {
-                console.log("Login realizado com sucesso!");
-                setErro("");
-                // Redirecionar para página principal
+            const data = await response.json();
+
+            if (response.ok) {
+                // Login bem-sucedido
+                console.log("Login realizado com sucesso!", data);
+                
+                // Salvar dados do usuário no sessionStorage
+                sessionStorage.setItem('usuario', JSON.stringify(data.usuario));
+                
+                // Redirecionar baseado no tipo de conta
+                if (data.usuario.tipoConta === 2) {
+                    navigate('/dashboard-organizador');
+                } else {
+                    navigate('/home');
+                }
             } else {
-                setErro("E-mail ou senha incorretos");
+                // Erro de autenticação
+                setErro(data.error || 'Erro ao fazer login');
             }
-        } else {
-            setErro("Usuário não encontrado");
+        } catch (error) {
+            console.error('Erro na requisição:', error);
+            setErro('Erro de conexão com o servidor. Tente novamente.');
+        } finally {
+            setCarregando(false);
         }
-    };
-
-    const handleGoogleLogin = () => {
-        console.log("Login com Google");
-        // Implementar lógica de login com Google
     };
 
     return (
         <div className='login-container'>
             <div className='login-info'>
                 <div className='divisor'>
-                    
                     <img src={image} alt="icone central" className='iconeGrande' />
-                    
                 </div>
                 <br />
                 <br />
@@ -76,6 +99,7 @@ function Login() {
                         name='email'
                         value={dadosLogin.email}
                         onChange={mudarLogin}
+                        disabled={carregando}
                         required
                     />
 
@@ -86,25 +110,35 @@ function Login() {
                         name='senha'
                         value={dadosLogin.senha}
                         onChange={mudarLogin}
+                        disabled={carregando}
                         required
                     />
 
                     <a href="/esqueci-senha" className="esqueci-senha">Esqueceu sua senha?</a>
 
                     {erro && (
-                        <p style={{ color: '#F8A0CC', fontSize: '12px', textAlign: 'center', marginTop: '10px' }}>
+                        <p style={{ 
+                            color: '#F8A0CC', 
+                            fontSize: '12px', 
+                            textAlign: 'center', 
+                            marginTop: '10px',
+                            backgroundColor: 'rgba(248, 160, 204, 0.1)',
+                            padding: '8px',
+                            borderRadius: '4px'
+                        }}>
                             {erro}
                         </p>
                     )}
 
                     <br />
 
-                    <button type='button' onClick={handleGoogleLogin} className='btn-google'>
-                        <img src="https://www.google.com/favicon.ico" alt="Google" className='google-icon' />
-                        Continue with Google
+                    <button 
+                        type='submit' 
+                        className='btn-entrar'
+                        disabled={carregando}
+                    >
+                        {carregando ? 'Entrando...' : 'Entrar'}
                     </button>
-
-                    <button type='submit' className='btn-entrar'>Entrar</button>
 
                     <p className='cadastro-text'>
                         Não possui uma conta? <a href="/cadastro" className="cadastro-link">Cadastre-se!</a>
