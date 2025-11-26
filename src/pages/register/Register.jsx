@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./Register.css";
 import axios from "axios";
+import { iconsCA } from "../../utils/icons"; // Importa os ícones
 
 function Cadastro() {
   const [dadosCadastro, setDadosCadastro] = useState({
@@ -12,6 +13,8 @@ function Cadastro() {
   });
 
   const [erroSenha, setErroSenha] = useState("");
+  const [mostrarSenha, setMostrarSenha] = useState(false);
+  const [mostrarConfirmarSenha, setMostrarConfirmarSenha] = useState(false);
 
   // Função para limpar telefone - remove tudo que não for número
   const limparTelefone = (telefone) => {
@@ -130,21 +133,13 @@ function Cadastro() {
     <div className="cadastro-container">
       <div className="cadastro-form">
         <div className="divisor">
+          <div className="linha"></div>
           <img
-            src="/imagens/Rectangle 63.png"
-            alt="linha esquerda"
-            className="linha"
-          />
-          <img
-            src="/imagens/SvgjsG2252.png"
+            src={iconsCA.icon1}
             alt="icone central"
             className="iconePequeno"
           />
-          <img
-            src="/imagens/Rectangle 63.png"
-            alt="linha direita"
-            className="linha"
-          />
+          <div className="linha"></div>
         </div>
 
         <br />
@@ -152,53 +147,90 @@ function Cadastro() {
 
         <form onSubmit={enviarCad}>
           <label htmlFor="nomeCompleto">Nome completo</label>
-          <input
-            type="text"
-            id="nomeCompleto"
-            name="nomeCompleto"
-            placeholder="João Silva"
-            value={dadosCadastro.nomeCompleto}
-            onChange={mudarCad}
-          />
+          <div className="input-wrapper">
+            <img
+              src={iconsCA.user}
+              alt="ícone usuário"
+              className="input-icon"
+            />
+            <input
+              type="text"
+              id="nomeCompleto"
+              name="nomeCompleto"
+              placeholder="Insira seu nome completo"
+              value={dadosCadastro.nomeCompleto}
+              onChange={mudarCad}
+            />
+          </div>
 
           <label htmlFor="email">E-mail</label>
-          <input
-            type="text"
-            id="email"
-            name="email"
-            placeholder="joao@email.com"
-            value={dadosCadastro.email}
-            onChange={mudarCad}
-          />
+          <div className="input-wrapper">
+            <img src={iconsCA.email} alt="ícone email" className="input-icon" />
+            <input
+              type="text"
+              id="email"
+              name="email"
+              placeholder="Insira seu e-mail"
+              value={dadosCadastro.email}
+              onChange={mudarCad}
+            />
+          </div>
 
           <label htmlFor="telefone">Telefone</label>
-          <input
-            type="text"
-            id="telefone"
-            name="telefone"
-            placeholder="(48) 99999-9999"
-            maxLength="15"
-            value={dadosCadastro.telefone}
-            onChange={mudarCad}
-          />
+          <div className="input-wrapper">
+            <img
+              src={iconsCA.telefone}
+              alt="ícone telefone"
+              className="input-icon"
+            />
+            <input
+              type="text"
+              id="telefone"
+              name="telefone"
+              placeholder="Insira seu telefone"
+              maxLength="15"
+              value={dadosCadastro.telefone}
+              onChange={mudarCad}
+            />
+          </div>
 
           <label htmlFor="senha">Senha</label>
-          <input
-            type="password"
-            id="senha"
-            name="senha"
-            value={dadosCadastro.senha}
-            onChange={mudarCad}
-          />
+          <div className="input-wrapper">
+            <img
+              src={mostrarSenha ? iconsCA.olhoAberto : iconsCA.olhoFechado}
+              alt="mostrar/ocultar senha"
+              className="input-icon-clickable"
+              onClick={() => setMostrarSenha(!mostrarSenha)}
+            />
+            <input
+              type={mostrarSenha ? "text" : "password"}
+              id="senha"
+              name="senha"
+              placeholder="Insira sua senha"
+              value={dadosCadastro.senha}
+              onChange={mudarCad}
+            />
+          </div>
 
           <label htmlFor="confirmarSenha">Confirmar senha</label>
-          <input
-            type="password"
-            id="confirmarSenha"
-            name="confirmarSenha"
-            value={dadosCadastro.confirmarSenha}
-            onChange={mudarCad}
-          />
+          <div className="input-wrapper">
+            <img
+              src={
+                mostrarConfirmarSenha ? iconsCA.olhoAberto : iconsCA.olhoFechado
+              }
+              alt="mostrar/ocultar senha"
+              className="input-icon-clickable"
+              onClick={() => setMostrarConfirmarSenha(!mostrarConfirmarSenha)}
+            />
+            <input
+              type={mostrarConfirmarSenha ? "text" : "password"}
+              id="confirmarSenha"
+              name="confirmarSenha"
+              placeholder="Confirme sua senha"
+              value={dadosCadastro.confirmarSenha}
+              onChange={mudarCad}
+            />
+          </div>
 
           {erroSenha && (
             <p
@@ -229,15 +261,7 @@ function Cadastro() {
       </div>
 
       <div className="cadastro-info">
-        <div className="divisor">
-          <img
-            src="/imagens/SvgjsG2251.png"
-            alt="icone central"
-            className="iconeGrande"
-          />
-        </div>
-        <br />
-        <br />
+        <img src={iconsCA.icon2} alt="icone central" className="iconeGrande" />
         <h3>Cadastre-se para ganhar novas experiências!</h3>
       </div>
     </div>
