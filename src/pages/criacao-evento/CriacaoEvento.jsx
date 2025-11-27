@@ -22,16 +22,27 @@ function CriacaoEvento() {
   const [cep, setCep] = useState('');
   const [bairro, setBairro] = useState('');
   const [numero, setNumero] = useState('');
-  const [organizadorNome, setOrganizadorNome] = useState('');
-  const [organizadorDescricao, setOrganizadorDescricao] = useState('');
   const [aceitaTermos, setAceitaTermos] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const [ingressos, setIngressos] = useState([]);
+  const [showIngressoForm, setShowIngressoForm] = useState(false);
+  const [tipoIngressoForm, setTipoIngressoForm] = useState('');
+
+  const [ingressoForm, setIngressoForm] = useState({
+    titulo: '',
+    idtipo_ingresso: 1,
+    quantidade: '',
+    valor_unitario: '',
+    data_inicio: '',
+    data_termino: '',
+    max_qtd_por_compra: ''
+  });
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-
     if (file && file.type.startsWith('image/')) {
       setImage(file);
-
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreview(reader.result);
@@ -44,6 +55,110 @@ function CriacaoEvento() {
     setImage(null);
     setPreview(null);
   };
+
+  const handleAbrirFormIngresso = (tipo) => {
+    setTipoIngressoForm(tipo);
+    setShowIngressoForm(true);
+    setIngressoForm({
+      titulo: '',
+      idtipo_ingresso: tipo === 'pago' ? 1 : 2,
+      quantidade: '',
+      valor_unitario: tipo === 'gratuito' ? 0 : '',
+      data_inicio: '',
+      data_termino: '',
+      max_qtd_por_compra: ''
+    });
+  };
+
+  const handleAdicionarIngresso = () => {
+    if (!ingressoForm.titulo || !ingressoForm.quantidade) {
+      alert('Preencha o título e quantidade do ingresso!');
+      return;
+    }
+
+    if (tipoIngressoForm === 'pago' && !ingressoForm.valor_unitario) {
+      alert('Preencha o valor do ingresso!');
+      return;
+    }
+
+    const novoIngresso = {
+      ...ingressoForm,
+      vendidos: 0,
+      max_qtd_por_compra: ingressoForm.max_qtd_por_compra || ingressoForm.quantidade
+    };
+
+    setIngressos([...ingressos, novoIngresso]);
+    setShowIngressoForm(false);
+  };
+
+  const handleRemoverIngresso = (index) => {
+    setIngressos(ingressos.filter((_, i) => i !== index));
+  };
+
+  const handleEditarIngresso = (index) => {
+    const ingresso = ingressos[index];
+    setIngressoForm(ingresso);
+    setTipoIngressoForm(ingresso.valor_unitario > 0 ? 'pago' : 'gratuito');
+    setShowIngressoForm(true);
+    handleRemoverIngresso(index);
+  };
+
+  const handlePublicarEvento = async (e) => {
+    e.preventDefault();
+    
+    if (!nameEvent || !category || !dateInicio || !timeInicio || !dateTermino || !timeTermino) {
+      alert('Por favor, preencha todos os campos obrigatórios!');
+      return;
+    }
+
+    if (!aceitaTermos) {
+      alert('Você precisa aceitar os termos de responsabilidade!');
+      return;
+    }
+
+    setLoading(true);
+
+  try {
+    const dataInicioFormatada = `${dateInicio} ${timeInicio}:00`;
+    const dataTerminoFormatada = `${dateTermino} ${timeTermino}:00`;
+
+    const eventData = {
+      nome: nameEvent,
+      idcategoria_evento: parseInt(category),
+      assunto_principal: descricao,
+      classificacao: classification,
+      data_inicio: dataInicioFormatada,
+      data_termino: dataTerminoFormatada,
+      idconta: 2, //  PEGAR DO CONTEXTO DE AUTENTICAÇÃO
+      endereco: {
+        local: localEvento,
+        rua: avenidaRua,
+        complemento: complemento,
+        bairro: bairro,
+        cidade: cidade,
+        estado: estado,
+        cep: cep,
+        numero: numero
+      },
+      ingressos: ingressos
+    };
+
+      if (response.ok) {
+        alert('Evento criado com sucesso!');
+        console.log('ID do evento criado:', data.idevento);
+      } else {
+        alert(`Erro: ${data.error}`);
+      }
+
+    } catch (error) {
+      console.error('Erro ao criar evento:', error);
+      alert('Erro ao conectar com o servidor. Tente novamente!');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  
 
   return (
     <div>
@@ -73,10 +188,16 @@ function CriacaoEvento() {
                   onChange={(e) => setCategory(e.target.value)}
                 >
                   <option value="selection">Selecione</option>
-                  <option value="opcao1">Opção 1</option>
-                  <option value="opcao2">Opção 2</option>
-                  <option value="opcao3">Opção 3</option>
-                  <option value="opcao4">Opção 4</option>
+                  <option value="opcao1">Festas</option>
+                  <option value="opcao2">Teatros</option>
+                  <option value="opcao3">Infantil</option>
+                  <option value="opcao4">Shows</option>
+                  <option value="opcao4">Stand Up</option>
+                  <option value="opcao4">Esportivos</option>
+                  <option value="opcao4">Workshops</option>
+                  <option value="opcao4">Online</option>
+                  <option value="opcao4">Online</option>
+                  <option value="opcao4">Gatronomia</option>
                 </select>
               </div>
             </div>
@@ -350,34 +471,6 @@ function CriacaoEvento() {
         <div class="alerta">
           <span class="alerta-icon">!</span>
           Atenção: A meia-entrada precisa ser a mesma para todos os grupos elegíveis
-        </div>
-      </div>
-
-      {/* BOX 06 */}
-      <div className='box-06'>
-        <h2 className='titulo-style'>6. Sobre o organizador</h2>
-        <p className='descricao-box'>
-          Conte um pouco sobre você ou a sua empresa. É importante mostrar ao público
-          quem está por trás do evento.
-        </p>
-
-        <div className='campo'>
-          <label>Nome *</label>
-          <input
-            type='text'
-            placeholder='Digite o nome do organizador'
-            value={organizadorNome}
-            onChange={(e) => setOrganizadorNome(e.target.value)}
-          />
-        </div>
-
-        <div className='campo'>
-          <label>Descrição *</label>
-          <textarea
-            placeholder='Fale brevemente sobre você ou a empresa'
-            value={organizadorDescricao}
-            onChange={(e) => setOrganizadorDescricao(e.target.value)}
-          />
         </div>
       </div>
 

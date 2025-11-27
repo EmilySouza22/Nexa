@@ -1,3 +1,4 @@
+
 .box-01 {
   background: linear-gradient(135deg, #F8B7D9 0%, #D296FF 100%);
   min-height: 100vh;
@@ -604,65 +605,6 @@ select {
   justify-content: center;
 }
 
-/* Box 06 - Sobre o organizador */
-.box-06 {
-  background: #ffffff;
-  border-radius: 20px;
-  padding: 40px;
-  max-width: 1100px;
-  margin: 40px auto 0;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-}
-
-.box-06 .descricao-box {
-  font-size: 15px;
-  color: #4c4c4c;
-  max-width: 600px;
-  line-height: 1.5;
-}
-
-.box-06 .campo {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  width: 100%;
-}
-
-.box-06 label {
-  font-size: 15px;
-  font-weight: 600;
-  color: #d884ff;
-}
-
-.box-06 input {
-  width: 100%;
-  padding: 14px;
-  background: #ffffff;
-  border-radius: 12px;
-  border: 2px solid #e7b5ff;
-  outline: none;
-  font-size: 16px;
-}
-
-.box-06 textarea {
-  width: 100%;
-  min-height: 130px;
-  padding: 14px;
-  background: #ffffff;
-  border-radius: 12px;
-  border: 2px solid #e7b5ff;
-  outline: none;
-  font-size: 16px;
-  resize: none;
-}
-
-.box-06 input:focus,
-.box-06 textarea:focus {
-  border-color: #c46cff;
-}
 
 /* Box 07 - Responsabilidades */
 .box-07 {
@@ -824,5 +766,3 @@ select {
   .box-08 { padding: 20px; justify-content: center; }
   .btn-publicar-evento { font-size: 15px; padding: 12px 28px; }
 }
-
-
