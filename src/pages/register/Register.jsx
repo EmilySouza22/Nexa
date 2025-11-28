@@ -252,7 +252,10 @@ function Cadastro() {
                 color: "#F8A0CC",
                 fontSize: "12px",
                 textAlign: "center",
-                marginTop: "5px",
+                marginTop: "10px",
+                backgroundColor: "rgba(248, 160, 204, 0.1)",
+                padding: "8px",
+                borderRadius: "4px",
               }}
             >
               {erroSenha}
