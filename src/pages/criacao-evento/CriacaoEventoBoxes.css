@@ -1,0 +1,663 @@
+/* ============================================
+   ESTILOS DOS BOXES - CriacaoEventoBoxes.css
+   ============================================ */
+
+/* ==================== BOX 01 ==================== */
+.box-01 {
+    background: linear-gradient(135deg, #F8B7D9 0%, #D296FF 100%);
+    min-height: 100vh;
+    padding: 40px 20px;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Container do formulário dentro do Box 01 */
+  .box-01 form {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 50px;
+    max-width: 1100px;
+    margin: 0 auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Labels específicos do Box 01 */
+  .box-01 .nome-evento,
+  .box-01 .classificacao {
+    color: #d4a5d4;
+  }
+  
+  /* Upload de Imagem - Box 01 */
+  .upload-imagem {
+    border: 2px dashed #e8d4f8;
+    border-radius: 10px;
+    padding: 50px 20px;
+    min-height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fdfcff;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+  
+  .upload-imagem:hover {
+    border-color: #c8b5e8;
+    background-color: #f8f4ff;
+  }
+  
+  .file-input-hidden {
+    display: none;
+  }
+  
+  .upload-placeholder {
+    color: #d4a5d4;
+    font-size: 14px;
+    text-align: center;
+  }
+  
+  .upload-placeholder p {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .upload-icon {
+    width: 40px;
+    height: 40px;
+    opacity: 0.6;
+  }
+  
+  /* Preview da Imagem */
+  .container-preview {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .preview-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+    max-height: 300px;
+  }
+  
+  .botao-remover {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #ff4757;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    z-index: 10;
+  }
+  
+  .botao-remover::before {
+    content: '×';
+  }
+  
+  .botao-remover:hover {
+    background-color: #ff3838;
+  }
+  
+  /* Responsividade Box 01 */
+  @media (max-width: 768px) {
+    .box-01 form {
+      padding: 20px;
+    }
+  
+    .upload-imagem {
+      padding: 30px 20px;
+      min-height: 150px;
+    }
+  }
+  
+  /* ==================== BOX 02 - Data e Horário ==================== */
+  .box-02 {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 30px 50px;
+    margin: 0 auto 20px auto;
+    max-width: 1100px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .box-02 .titulo-style {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+  
+  .box-02 p {
+    color: #1a1a1a;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    text-align: left;
+  }
+  
+  /* Container dos campos de data/hora */
+  .form-linha-datas {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .form-linha-datas .campo {
+    flex: 1;
+    min-width: 0;
+    margin-bottom: 0;
+  }
+  
+  .form-linha-datas .campo label {
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+  
+  /* Input com ícone */
+  .input-simples {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border: 2px solid #e8d4f8;
+    border-radius: 12px;
+    background: #ffffff;
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+    height: 50px;
+  }
+  
+  .input-simples:focus-within {
+    border-color: #c8b5e8;
+  }
+  
+  .icon-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 100%;
+    background: transparent;
+    cursor: pointer;
+    border-right: 2px solid #e8d4f8;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+  }
+  
+  .icon-area:hover {
+    background-color: #fdfcff;
+    border-right-color: #c8b5e8;
+  }
+  
+  .icon-area img {
+    width: 20px;
+    height: 20px;
+    opacity: 0.5;
+  }
+  
+  .input-simples input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 0 18px;
+    height: 100%;
+    font-size: 15px;
+    color: #1a1a1a;
+    background: transparent;
+    font-family: inherit;
+  }
+  
+  .input-simples input[type="date"],
+  .input-simples input[type="time"] {
+    cursor: pointer;
+  }
+  
+  .input-simples input[type="date"]::-webkit-calendar-picker-indicator,
+  .input-simples input[type="time"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+  }
+  
+  /* Responsividade Box 02 */
+  @media (max-width: 1024px) {
+    .form-linha-datas {
+      flex-wrap: wrap;
+    }
+  
+    .form-linha-datas .campo {
+      flex: 1 1 calc(50% - 10px);
+      min-width: 200px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .box-02 {
+      padding: 20px;
+    }
+  
+    .box-02 .titulo-style {
+      font-size: 18px;
+    }
+  
+    .form-linha-datas {
+      flex-direction: column;
+    }
+  
+    .form-linha-datas .campo {
+      flex: 1 1 100%;
+    }
+  }
+  
+  /* ==================== BOX 03 - Descrição ==================== */
+  .box-03 {
+    background: white;
+    border-radius: 20px;
+    padding: 30px 50px;
+    margin: 0 auto 20px auto;
+    max-width: 1100px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .box-03 .titulo-style {
+    font-size: 20px;
+    margin-bottom: 6px;
+  }
+  
+  .box-03 p {
+    color: #1a1a1a;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    text-align: left;
+  }
+  
+  .campo-descricao {
+    margin-bottom: 12px;
+  }
+  
+  .textarea-descricao {
+    min-height: 220px;
+  }
+  
+  .contador-caracteres {
+    text-align: right;
+    padding-top: 8px;
+  }
+  
+  .contador-caracteres span {
+    font-size: 12px;
+    color: #999999;
+  }
+  
+  /* Responsividade Box 03 */
+  @media (max-width: 768px) {
+    .box-03 {
+      padding: 20px;
+    }
+  
+    .box-03 .titulo-style {
+      font-size: 18px;
+    }
+  }
+  
+  /* ==================== BOX 04 - Local do Evento ==================== */
+  .box-04 {
+    background: white;
+    border-radius: 20px;
+    padding: 30px 50px;
+    margin: 0 auto 20px auto;
+    max-width: 1100px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .box-04 .titulo-style {
+    font-size: 20px;
+    margin-bottom: 30px;
+  }
+  
+  /* Layout de duas colunas */
+  .form-linha-local {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  
+  .coluna-local {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .campo-local {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .campo-local label {
+    margin-bottom: 6px;
+    font-size: 13px;
+    color: #d4a5d4;
+    font-weight: 500;
+  }
+  
+  /* Responsividade Box 04 */
+  @media (max-width: 768px) {
+    .box-04 {
+      padding: 20px;
+    }
+  
+    .box-04 .titulo-style {
+      font-size: 18px;
+    }
+  
+    .form-linha-local {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+  }
+  
+  /* ==================== BOX 05 - Ingressos ==================== */
+  .box-05 {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 40px 60px;
+    max-width: 1100px;
+    margin: 20px auto 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  }
+  
+  .box-05 h3 {
+    color: #1a1a1a;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    text-align: left;
+  }
+  
+  .box-05 p {
+    color: #1a1a1a;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 0 30px 0;
+    text-align: left;
+  }
+  
+  .buttons-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+  
+  .btn-ingresso {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(to right, #e496ff, #b48bff);
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+  }
+  
+  .btn-ingresso:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+  }
+  
+  .btn-ingresso .icon {
+    background: rgba(255, 255, 255, 0.25);
+    padding: 4px 9px;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  .alerta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(to right, #ffdede, #eec9ff);
+    padding: 16px 22px;
+    border-radius: 12px;
+    font-size: 14px;
+    color: #5c4c4c;
+  }
+  
+  .alerta-icon {
+    background: rgba(255, 255, 255, 0.55);
+    color: #e7638c;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  
+  /* Responsividade Box 05 */
+  @media (max-width: 768px) {
+    .box-05 {
+      padding: 30px 20px;
+    }
+  
+    .buttons-wrapper {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .btn-ingresso {
+      width: 100%;
+      max-width: 300px;
+      justify-content: center;
+    }
+  }
+  
+  /* ==================== BOX 06 - Organizador ==================== */
+  .box-06 {
+    background: white;
+    border-radius: 20px;
+    padding: 30px 50px;
+    margin: 20px auto 0;
+    max-width: 1100px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .box-06 .titulo-style {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+  
+  .box-06 .descricao-box {
+    color: #1a1a1a;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    text-align: left;
+  }
+  
+  /* Responsividade Box 06 */
+  @media (max-width: 768px) {
+    .box-06 {
+      padding: 20px;
+    }
+  
+    .box-06 .titulo-style {
+      font-size: 18px;
+    }
+  }
+  
+  /* ==================== BOX 07 - Responsabilidades ==================== */
+  .box-07 {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 40px 50px;
+    max-width: 1100px;
+    margin: 20px auto 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .box-07 .titulo-style {
+    font-size: 20px;
+    margin-bottom: 24px;
+  }
+  
+  .responsabilidades-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .checkbox-wrapper {
+    position: relative;
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  
+  .checkbox-input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .checkbox-custom {
+    width: 24px;
+    height: 24px;
+    border: 2px solid #e8d4f8;
+    border-radius: 6px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+  
+  .checkbox-custom.checked {
+    background: linear-gradient(135deg, #F8B7D9 0%, #D296FF 100%);
+    border-color: #D296FF;
+  }
+  
+  .checkbox-icon {
+    width: 16px;
+    height: 16px;
+    color: white;
+  }
+  
+  .checkbox-wrapper:hover .checkbox-custom {
+    border-color: #c8b5e8;
+  }
+  
+  .responsabilidades-texto {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #4c4c4c;
+    margin: 0;
+    flex: 1;
+  }
+  
+  /* Responsividade Box 07 */
+  @media (max-width: 768px) {
+    .box-07 {
+      padding: 30px 20px;
+    }
+  
+    .box-07 .titulo-style {
+      font-size: 18px;
+    }
+  
+    .responsabilidades-container {
+      gap: 12px;
+    }
+  
+    .responsabilidades-texto {
+      font-size: 14px;
+    }
+  }
+  
+  /* ==================== BOX 08 - Botão Publicar ==================== */
+  .box-08 {
+    background: transparent;
+    padding: 40px;
+    max-width: 1100px;
+    margin: 40px auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  
+  .btn-publicar-evento {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 14px 38px;
+    border-radius: 50px;
+    background: #ffffff;
+    border: 2px solid #f0d6ff;
+    box-shadow: 0px 4px 16px rgba(210, 150, 255, 0.18);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 18px;
+    font-weight: 600;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  
+  .btn-publicar-evento:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0px 8px 24px rgba(210, 150, 255, 0.24);
+  }
+  
+  .btn-publicar-evento:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+  
+  .btn-text {
+    background: linear-gradient(90deg, #F8A0CC 0%, #D296FF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
+  
+  .btn-icon {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    display: block;
+  }
+  
+  /* Responsividade Box 08 */
+  @media (max-width: 768px) {
+    .box-08 {
+      padding: 20px;
+      justify-content: center;
+    }
+  
+    .btn-publicar-evento {
+      font-size: 15px;
+      padding: 12px 28px;
+    }
+  }
