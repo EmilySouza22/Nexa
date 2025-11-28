@@ -7,11 +7,11 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
-  left: 1;
+  left: 0;
   top: 0;
   gap: 25px;
   position:fixed;
-  z-index: 1;
+  z-index: 1000; /*p navbar ficar na frente de outros componentes*/
 }
 
 .navbar a {
@@ -45,7 +45,6 @@
   font-weight: 800;
   font-size: 15px;
 }
-
 
 .profile-avatar {
   width: 40px;
