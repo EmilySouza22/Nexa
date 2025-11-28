@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./Register.css";
 import axios from "axios";
-import { iconsCA } from "../../utils/icons"; // Importa os ícones
+import { iconsCA } from "../../utils/icons";
 
 function Cadastro() {
   const [dadosCadastro, setDadosCadastro] = useState({
@@ -12,11 +12,21 @@ function Cadastro() {
     confirmarSenha: "",
   });
 
+
+  // Guarda as mensagens de erro 
   const [erroSenha, setErroSenha] = useState("");
+
+  // Pra ocultar e mostrar a senha 
   const [mostrarSenha, setMostrarSenha] = useState(false);
+
+  // Pra ocultar e mostrar a senha (só que no campo de confirmar senha)
   const [mostrarConfirmarSenha, setMostrarConfirmarSenha] = useState(false);
 
-  // Função para limpar telefone - remove tudo que não for número
+  // === FORMATAÇÕES === //
+
+  // Telefone //
+
+  // Função para limpar telefone -> remove tudo que não for número
   const limparTelefone = (telefone) => {
     return telefone.replace(/\D/g, "");
   };
@@ -60,13 +70,15 @@ function Cadastro() {
   const enviarCad = async (e) => {
     e.preventDefault();
 
-    // Validação 1: Verifica se as senhas são iguais
+    // === VALIDAÇÕES === //
+
+    // Verifica se as senhas são iguais
     if (dadosCadastro.senha !== dadosCadastro.confirmarSenha) {
       setErroSenha("As senhas não coincidem");
       return;
     }
 
-    // Validação 2: Verifica se todos os campos foram preenchidos
+    // Verifica se todos os campos foram preenchidos
     if (
       !dadosCadastro.nomeCompleto ||
       !dadosCadastro.email ||
@@ -78,27 +90,29 @@ function Cadastro() {
       return;
     }
 
-    // Limpa o telefone removendo a máscara - envia só números pro backend
-    const telefoneLimpo = limparTelefone(dadosCadastro.telefone);
-
-    // Validação 3: Verifica se o telefone tem entre 10 e 11 dígitos
+    // Verifica se o telefone tem entre 10 e 11 dígitos
     if (telefoneLimpo.length < 10 || telefoneLimpo.length > 11) {
       setErroSenha("Telefone inválido!");
       return;
     }
 
-    // Validação 4: Verifica se o e-mail tem formato válido (exemplo@dominio.com)
+    // Verifica se o e-mail tem formato válido
     const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(dadosCadastro.email);
     if (!emailValido) {
       setErroSenha("Digite um e-mail válido!");
       return;
     }
 
-    // Validação 5: Verifica se a senha tem no mínimo 6 caracteres
+    // Verifica se a senha tem no mínimo 6 caracteres
     if (dadosCadastro.senha.length < 6) {
       setErroSenha("A senha deve ter pelo menos 6 caracteres");
       return;
     }
+
+    // === Limpando === //
+
+    // Limpa o telefone removendo a máscara - envia só números pro backend
+    const telefoneLimpo = limparTelefone(dadosCadastro.telefone);
 
     // Limpa o erro se passou em todas as validações
     setErroSenha("");
