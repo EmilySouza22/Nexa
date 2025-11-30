@@ -4,7 +4,6 @@
 
 /* ==================== BOX 01 ==================== */
 .box-01 {
-    background: linear-gradient(135deg, #F8B7D9 0%, #D296FF 100%);
     min-height: 100vh;
     padding: 40px 20px;
     font-family: 'Arial', sans-serif;

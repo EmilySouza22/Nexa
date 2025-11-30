@@ -263,10 +263,15 @@ function CriacaoEvento() {
                   aria-describedby={errors.category ? "category-error" : undefined}
                 >
                   <option value="selection">Selecione</option>
-                  <option value="opcao1">Opção 1</option>
-                  <option value="opcao2">Opção 2</option>
-                  <option value="opcao3">Opção 3</option>
-                  <option value="opcao4">Opção 4</option>
+                  <option value="opcao1">Festa</option>
+                  <option value="opcao2">Teatros</option>
+                  <option value="opcao3">Infantil</option>
+                  <option value="opcao4">Shows</option>
+                  <option value="opca5">Stand Up</option>
+                  <option value="opcao6">Esportivos</option>
+                  <option value="opcao5">Workshops</option>
+                  <option value="opcao7">Online</option>
+                  <option value="opcao8">Gastronomia</option>
                 </select>
                 {errors.category && (
                   <span id="category-error" className="error-message">{errors.category}</span>
