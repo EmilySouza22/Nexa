@@ -7,7 +7,7 @@ function EventoConvidado() {
 
   useEffect(() => {
     const fakeEvento = {
-      nome: "Conecta Sul 2025",
+      nome: "Conecta Sul ",
       bannerUrl: "https://picsum.photos/800/400",
       data: "20/11/2025",
       hora: "14:00",
@@ -44,7 +44,7 @@ function EventoConvidado() {
       <img className="evento-banner" src={evento.bannerUrl} alt="banner" />
 
         <div className="evento-header">
-        <h2>{evento.nome}</h2>
+        <h1>{evento.nome}</h1>
 
         <div className="evento-info-topo">
           <img src={icones.data} alt="data" />
