@@ -1,3 +1,6 @@
+/* == Card ==  */ 
+
+/*Espaço do card branco*/ 
 .agenda-section {
   width: 100%;
   max-width: 1400px;
@@ -5,10 +8,11 @@
   padding: 0 20px;
 }
 
+/*título do card (agenda de eventos)*/
 .agenda-header {
   background: #ffffff;
   border-radius: 16px 16px 0 0;
-  padding: 24px 32px;
+  padding: 32px 32px 28px 32px;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -20,23 +24,23 @@
 }
 
 .agenda-titulo {
-  font-size: 24px;
+  font-size: 32px;
   font-weight: 600;
   color: #2c2127;
-  margin: 0;
 }
 
 .agenda-content {
   background: #ffffff;
   border-radius: 0 0 16px 16px;
-  padding: 32px;
+  padding: 40px 32px 80px 32px;
 }
 
-/* Grid unificado - 3 colunas com linhas de tamanho fixo */
+/* == Eventos ==  */ 
+
 .agenda-eventos-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 240px 240px;
+  grid-template-rows: 240px 240px; /* TODAS as linhas com 240px */
   gap: 20px;
 }
 
@@ -49,16 +53,11 @@
   height: 100%;
 }
 
-/* Forçar posição dos eventos 4 e 5 */
-.agenda-evento-card:nth-child(4) {
-  grid-column: 1;
-  grid-row: 2;
-}
-
 .agenda-evento-card:hover {
   transform: scale(1.02);
 }
 
+/*Imagem do evento*/
 .agenda-evento-imagem {
   width: 100%;
   height: 100%;
@@ -66,6 +65,7 @@
   display: block;
 }
 
+/*Quantos dias faltam*/ 
 .agenda-evento-badge {
   position: absolute;
   bottom: 12px;
@@ -82,6 +82,7 @@
 }
 
 /* == Card de criar evento ==  */
+
 .agenda-criar-evento-card {
   position: relative;
   grid-column: 2;
@@ -89,27 +90,22 @@
   border-radius: 16px;
   cursor: pointer;
   transition: all 0.2s;
-
-  /* para a borda ficar linear*/
   border: 4px solid transparent;
   background-image: linear-gradient(white, white),
     linear-gradient(135deg, #f8b7d9 0%, #d296ff 100%);
   background-origin: border-box;
   background-clip: padding-box, border-box;
+  height: 100%;
 }
 
 .agenda-criar-evento-card:hover {
   transform: scale(1.02);
 }
 
-/* o botão de criar evento dentro do card*/
-
 .criar-evento-button {
-  /*para ele ficar no canto*/
   position: absolute;
   bottom: 0;
   right: 0;
-
   display: flex;
   align-items: center;
   gap: 15px;
@@ -129,104 +125,150 @@
   margin-top: 2px;
 }
 
-/* Calendário na coluna 3, linha 2 */
+
+/* == Calendário == */
+
 .agenda-calendario {
-  grid-column: 3;
-  grid-row: 2;
-  background: #ffffff;
-  border: 2px solid #f0f0f0;
+  /* borda linear*/ 
+  border: 3px solid transparent;
+  background-image: linear-gradient(white, white),
+  linear-gradient(135deg, #f8b7d9 0%, #d296ff 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
   border-radius: 16px;
-  padding: 12px;
+  padding: 16px 14px 14px 14px;
   display: flex;
   flex-direction: column;
   gap: 8px;
   height: 100%;
+  box-sizing: border-box;
+}
+
+/* container (div) que envolve tanto o calendário quanto a barra do mês */
+.agenda-calendario-wrapper {
+  grid-column: 3;
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 240px;
 }
 
 .calendario-header {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 3px;
-  margin-bottom: 2px;
+  gap: 6px;
+  margin-bottom: 6px;
 }
 
+/* D,S,T,Q,Q,S,S */
 .calendario-dia {
   text-align: center;
-  font-size: 11px;
-  font-weight: 600;
-  color: #2c2127;
+  font-size: 13px;
+  font-weight: 700;
+  color: #2B2B2B;
+  padding: 2px 0;
 }
 
 .calendario-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 3px;
+  /* CORREÇÃO: Altura fixa para cada linha ao invés de fr */
+  grid-auto-rows: 24px;
+  gap: 6px;
   flex: 1;
-  overflow: hidden;
+  min-height: 0;
+  /* Alinha o conteúdo no topo */
+  align-content: start;
 }
 
 .calendario-numero {
-  aspect-ratio: 1;
+  width: 100%;
+  height: 24px; /* Altura fixa */
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 10px;
+  font-size: 15px;
   font-weight: 500;
-  color: #2c2127;
-  border-radius: 6px;
+  color: #808080;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background 0.2s;
-}
-
-.calendario-numero:hover {
-  background: #f5f5f5;
-}
-
-.calendario-numero-evento {
-  background: linear-gradient(135deg, #f8b7d9 0%, #d296ff 100%);
-  color: #ffffff;
-  font-weight: 600;
-}
-
-.calendario-numero-atual {
   position: relative;
 }
 
-.calendario-numero-atual::after {
+
+/* Dia atual */
+.calendario-numero-atual {
+  background: linear-gradient(135deg, #f8b7d9 0%, #d296ff 100%);
+  color: #ffffff !important;
+  font-size: 15px;
+  font-weight: 700;
+  width: 32px;
+  height: 32px;
+  margin: auto;
+}
+
+/* Dias com eventos */
+.calendario-numero-evento:not(.calendario-numero-atual) {
+  background: linear-gradient(90deg, #f8b7d9 0%, #d296ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
+}
+
+/*pra ficar a bolinha rosa onde tem evento*/ 
+.calendario-numero-evento:not(.calendario-numero-atual)::after {
   content: "";
   position: absolute;
-  top: 50%;
+  bottom: 1px;
   left: 50%;
-  transform: translate(-50%, -50%);
-  width: 24px;
-  height: 24px;
-  border: 2px solid #ffffff;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  background: #d296ff;
   border-radius: 50%;
-  pointer-events: none;
 }
+
+
+/*hover só em dias que não são os atuais ou possuem eventos*/
+.calendario-numero:hover:not(.calendario-numero-atual):not(.calendario-numero-evento) {
+  background: #f5f5f5;
+  transition: background 0.2s;
+}
+
+/* Barra do mês  */
 
 .calendario-mes {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding-top: 6px;
-  border-top: 1px solid #f0f0f0;
-  flex-shrink: 0;
+  gap: 12px;
+  padding: 4px 16px;
+  margin-top: 0;
 }
+
+/*seta do mês*/
 
 .calendario-seta {
   background: none;
   border: none;
-  font-size: 14px;
+  font-size: 30px;
   color: #d296ff;
   cursor: pointer;
-  padding: 2px;
+  padding: 4px 8px;
+  transition: opacity 0.2s;
 }
 
+.calendario-seta:hover {
+  opacity: 0.7;
+}
+
+/* texto da barra do mês*/ 
+
 .calendario-mes-texto {
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 700;
   background: linear-gradient(90deg, #f8b7d9 0%, #d296ff 100%);
   -webkit-background-clip: text;
   background-clip: text;
