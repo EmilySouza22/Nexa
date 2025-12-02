@@ -55,11 +55,6 @@
   grid-row: 2;
 }
 
-.agenda-evento-card:nth-child(5) {
-  grid-column: 2;
-  grid-row: 2;
-}
-
 .agenda-evento-card:hover {
   transform: scale(1.02);
 }
@@ -84,6 +79,54 @@
   font-size: 14px;
   font-weight: 600;
   color: #ffffff;
+}
+
+/* == Card de criar evento ==  */
+.agenda-criar-evento-card {
+  position: relative;
+  grid-column: 2;
+  grid-row: 2;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  /* para a borda ficar linear*/
+  border: 4px solid transparent;
+  background-image: linear-gradient(white, white),
+    linear-gradient(135deg, #f8b7d9 0%, #d296ff 100%);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+}
+
+.agenda-criar-evento-card:hover {
+  transform: scale(1.02);
+}
+
+/* o botão de criar evento dentro do card*/
+
+.criar-evento-button {
+  /*para ele ficar no canto*/
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: linear-gradient(180deg, #f8b7d9 0%, #d296ff 100%);
+  border: none;
+  border-radius: 18px 0 11px 0;
+  padding: 10px 24px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.criar-evento-icon {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
 }
 
 /* Calendário na coluna 3, linha 2 */
@@ -150,7 +193,7 @@
 }
 
 .calendario-numero-atual::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;

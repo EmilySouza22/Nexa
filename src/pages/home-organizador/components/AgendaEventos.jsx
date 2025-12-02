@@ -4,7 +4,6 @@ import evento1 from "../../../assets/home-organizador/exemplo-evento.png";
 import evento2 from "../../../assets/home-organizador/evento2.png";
 import evento3 from "../../../assets/home-organizador/evento3.png";
 import evento4 from "../../../assets/home-organizador/evento4.png";
-import evento5 from "../../../assets/home-organizador/evento5.png";
 
 // Dados mockados - futuramente virão do backend
 const eventosMock = [
@@ -28,11 +27,6 @@ const eventosMock = [
     imagem: evento4,
     diasRestantes: 45,
   },
-  {
-    id: 5,
-    imagem: evento5,
-    diasRestantes: 60,
-  },
 ];
 
 function AgendaEventos() {
@@ -40,6 +34,11 @@ function AgendaEventos() {
   const formatarDias = (dias) => {
     if (dias === 1) return "1 dia";
     return `${dias} dias`;
+  };
+
+  const handleCriarEvento = () => {
+    // Futuramente abrirá modal ou redireciona para página de criar evento
+    console.log("Criar novo evento");
   };
 
   return (
@@ -68,6 +67,18 @@ function AgendaEventos() {
               </div>
             </div>
           ))}
+
+          {/* Card de Criar Evento */}
+          <div className="agenda-criar-evento-card" onClick={handleCriarEvento}>
+            <button className="criar-evento-button">
+              <img
+                src={iconsHO.add2}
+                alt="Adicionar"
+                className="criar-evento-icon"
+              />
+              Criar evento
+            </button>
+          </div>
 
           {/* Calendário na posição 6 do grid (linha 2, coluna 3) */}
           <div className="agenda-calendario">
