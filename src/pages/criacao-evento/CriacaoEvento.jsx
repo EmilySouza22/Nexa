@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './CriacaoEvento.css';
 import './CriacaoEventoBoxes.css';
+import ModalIngresso from './ModalIngresso';
 
 function CriacaoEvento() {
   const [nameEvent, setEventName] = useState('');
@@ -26,17 +27,30 @@ function CriacaoEvento() {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  
+  const [modalAberto, setModalAberto] = useState(false);
+  const [tipoIngresso, setTipoIngresso] = useState(null);
+
+
+  const abrirModal = (tipo) => {
+    setTipoIngresso(tipo);
+    setModalAberto(true);
+  };
+
+  const fecharModal = () => {
+    setModalAberto(false);
+    setTipoIngresso(null);
+  };
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
 
     if (file) {
-      // Validar tipo de arquivo
       if (!file.type.startsWith('image/')) {
         setErrors(prev => ({ ...prev, image: 'Por favor, selecione apenas arquivos de imagem' }));
         return;
       }
 
-      // Validar tamanho (máximo 5MB)
       if (file.size > 5 * 1024 * 1024) {
         setErrors(prev => ({ ...prev, image: 'A imagem deve ter no máximo 5MB' }));
         return;
@@ -74,27 +88,22 @@ function CriacaoEvento() {
   const validateForm = () => {
     const newErrors = {};
 
-    // Validar nome do evento
     if (!nameEvent.trim()) {
       newErrors.nameEvent = 'Nome do evento é obrigatório';
     }
 
-    // Validar categoria
     if (!category || category === 'selection') {
       newErrors.category = 'Selecione uma categoria';
     }
 
-    // Validar imagem
     if (!image) {
       newErrors.image = 'Imagem de divulgação é obrigatória';
     }
 
-    // Validar classificação
     if (!classification || classification === 'selection') {
       newErrors.classification = 'Selecione uma classificação indicativa';
     }
 
-    // Validar data de início
     if (!dateInicio) {
       newErrors.dateInicio = 'Data de início é obrigatória';
     } else {
@@ -107,12 +116,10 @@ function CriacaoEvento() {
       }
     }
 
-    // Validar hora de início
     if (!timeInicio) {
       newErrors.timeInicio = 'Hora de início é obrigatória';
     }
 
-    // Validar data de término
     if (!dateTermino) {
       newErrors.dateTermino = 'Data de término é obrigatória';
     } else if (dateInicio && dateTermino) {
@@ -124,49 +131,40 @@ function CriacaoEvento() {
       }
     }
 
-    // Validar hora de término
     if (!timeTermino) {
       newErrors.timeTermino = 'Hora de término é obrigatória';
     }
 
-    // Validar descrição
     if (!descricao.trim()) {
       newErrors.descricao = 'Descrição do evento é obrigatória';
     } else if (descricao.trim().length < 50) {
       newErrors.descricao = 'A descrição deve ter pelo menos 50 caracteres';
     }
 
-    // Validar local
     if (!localEvento.trim()) {
       newErrors.localEvento = 'Informe o local do evento';
     }
 
-    // Validar avenida/rua
     if (!avenidaRua.trim()) {
       newErrors.avenidaRua = 'Avenida/Rua é obrigatória';
     }
 
-    // Validar estado
     if (!estado) {
       newErrors.estado = 'Selecione um estado';
     }
 
-    // Validar cidade
     if (!cidade.trim()) {
       newErrors.cidade = 'Cidade é obrigatória';
     }
 
-    // Validar bairro
     if (!bairro.trim()) {
       newErrors.bairro = 'Bairro é obrigatório';
     }
 
-    // Validar CEP (opcional, mas se preenchido deve estar correto)
     if (cep && cep.replace(/\D/g, '').length !== 8) {
       newErrors.cep = 'CEP inválido (formato: 00000-000)';
     }
 
-    // Validar termos
     if (!aceitaTermos) {
       newErrors.aceitaTermos = 'Você deve aceitar os termos para publicar o evento';
     }
@@ -177,7 +175,6 @@ function CriacaoEvento() {
 
   const handleSubmit = async () => {
     if (!validateForm()) {
-      // Scroll para o primeiro erro
       const firstErrorField = document.querySelector('.error-message');
       if (firstErrorField) {
         firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -187,7 +184,6 @@ function CriacaoEvento() {
 
     setIsSubmitting(true);
 
-    // Simular envio (substitua pela sua lógica real)
     try {
       const eventData = {
         nameEvent,
@@ -213,9 +209,6 @@ function CriacaoEvento() {
 
       console.log('Dados do evento:', eventData);
       
-      // Aqui você faria a requisição para sua API
-      // await api.post('/eventos', eventData);
-      
       alert('Evento publicado com sucesso!');
       
     } catch (error) {
@@ -230,12 +223,10 @@ function CriacaoEvento() {
     <div>
       <div className='box-01'>
         <div className='content-principal'>
-          {/* MANTENDO A TAG FORM PARA PRESERVAR A ESTILIZAÇÃO */}
           <form onSubmit={(e) => e.preventDefault()}>
             <h2 className='titulo-style'>Agora vamos detalhar esse evento!</h2>
             <p className='titulo2-style'>1. Informações básicas</p>
 
-            {/* Linha 1 */}
             <div className='form-linha'>
               <div>
                 <label htmlFor="nameEvent" className='nome-evento'>Nome do Evento*</label>
@@ -279,7 +270,6 @@ function CriacaoEvento() {
               </div>
             </div>
 
-            {/* Linha 2 */}
             <div className='form-linha'>
               <div>
                 <label>Imagem de Divulgação*</label>
@@ -359,13 +349,11 @@ function CriacaoEvento() {
         </div>
       </div>
 
-      {/* BOX 02 */}
       <div className='box-02'>
         <h2 className='titulo-style'>2. Data e horário</h2>
         <p>Informe quando seu evento irá acontecer</p>
 
         <div className='form-linha-datas'>
-          {/* Data início */}
           <div className="campo">
             <label htmlFor="dateInicio">Data de início*</label>
             <div className="input-simples">
@@ -386,7 +374,6 @@ function CriacaoEvento() {
             )}
           </div>
 
-          {/* Hora início */}
           <div className="campo">
             <label htmlFor="timeInicio">Hora de início*</label>
             <div className="input-simples">
@@ -407,7 +394,6 @@ function CriacaoEvento() {
             )}
           </div>
 
-          {/* Data término */}
           <div className="campo">
             <label htmlFor="dateTermino">Data de término*</label>
             <div className="input-simples">
@@ -428,7 +414,6 @@ function CriacaoEvento() {
             )}
           </div>
 
-          {/* Hora término */}
           <div className="campo">
             <label htmlFor="timeTermino">Hora de término*</label>
             <div className="input-simples">
@@ -451,7 +436,6 @@ function CriacaoEvento() {
         </div>
       </div>
 
-      {/* BOX 03 */}
       <div className='box-03'>
         <h2 className='titulo-style'>3. Descrição do evento</h2>
         <p>Conte todos os detalhes do seu evento</p>
@@ -477,12 +461,10 @@ function CriacaoEvento() {
         )}
       </div>
 
-      {/* BOX 04 */}
       <div className='box-04'>
         <h2 className='titulo-style'>4. Local do evento</h2>
 
         <div className='form-linha-local'>
-          {/* Coluna 1 */}
           <div className='coluna-local'>
             <div className='campo-local'>
               <label htmlFor="localEvento">Informe o local do evento *</label>
@@ -540,7 +522,6 @@ function CriacaoEvento() {
             </div>
           </div>
 
-          {/* Coluna 2 */}
           <div className='coluna-local'>
             <div className='campo-local'>
               <label htmlFor="estado">Estado*</label>
@@ -618,6 +599,7 @@ function CriacaoEvento() {
           <button 
             type="button"
             className="btn-ingresso"
+            onClick={() => abrirModal('pago')}
             aria-label="Adicionar ingresso pago"
           >
             <span className="icon">+</span>
@@ -627,6 +609,7 @@ function CriacaoEvento() {
           <button 
             type="button"
             className="btn-ingresso"
+            onClick={() => abrirModal('gratuito')}
             aria-label="Adicionar ingresso gratuito"
           >
             <span className="icon">+</span>
@@ -689,6 +672,12 @@ function CriacaoEvento() {
           </span>
         </button>
       </div>
+
+      <ModalIngresso 
+        isOpen={modalAberto}
+        onClose={fecharModal}
+        tipo={tipoIngresso}
+      />
     </div>
   )
 }

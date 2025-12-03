@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import './ModalIngresso.css';
 
-/* -------------------------------------------------------------------------- */
-/*                           MODAL INGRESSO PAGO                              */
-/* -------------------------------------------------------------------------- */
-
-export function ModalIngressoPago({ isOpen, onClose, onCriar }) {
+function ModalIngresso({ isOpen, onClose, tipo }) {
+  const isPago = tipo === 'pago';
+  
   const [formData, setFormData] = useState({
     titulo: '',
     quantidade: '',
@@ -18,17 +16,19 @@ export function ModalIngressoPago({ isOpen, onClose, onCriar }) {
   });
 
   const handleChange = (field, value) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData(prev => ({
+      ...prev,
+      [field]: value
+    }));
   };
 
   const handleSubmit = () => {
-    if (!formData.titulo || !formData.quantidade || !formData.valor) {
-      alert('Preencha todos os campos obrigatórios');
-      return;
-    }
+    console.log('Dados do ingresso:', { ...formData, tipo });
+    // Aqui você pode adicionar a lógica para salvar o ingresso
+    onClose();
+  };
 
-    onCriar({ ...formData, tipo: 'pago' });
-    
+  const handleCancel = () => {
     setFormData({
       titulo: '',
       quantidade: '',
@@ -39,164 +39,155 @@ export function ModalIngressoPago({ isOpen, onClose, onCriar }) {
       quantidadeMaxima: '',
       valor: ''
     });
-  };
-
-  const handleCancel = () => {
     onClose();
-    setFormData({
-      titulo: '',
-      quantidade: '',
-      dataInicioVendas: '',
-      horaInicio: '',
-      dataTerminoVendas: '',
-      horaTermino: '',
-      quantidadeMaxima: '',
-      valor: ''
-    });
   };
 
   if (!isOpen) return null;
 
   return (
-    <div className="modal-overlay-pago" onClick={onClose}>
-      <div className="modal-content-pago" onClick={(e) => e.stopPropagation()}>
-        <div className="modal-header-pago">
-          <div className="modal-titulo-wrapper-pago">
-            <span className="modal-icone-pago">»</span>
-            <h3 className="modal-titulo-pago">
-              Criando ingresso <span className="tipo-pago">pago</span>
-            </h3>
-          </div>
+    <div className="modal-overlay" onClick={handleCancel}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        <div className="modal-header">
+          <h2 className="modal-title">
+            <span className="chevron-icon">»</span>
+            Criando ingresso <span className={isPago ? 'tipo-pago' : 'tipo-gratuito'}>{tipo}</span>
+          </h2>
         </div>
 
-        <div className="modal-body-pago">
-          {/* Linha 1: Título e Quantidade */}
-          <div className="form-row-pago">
-            <div className="form-group-pago flex-2-pago">
-              <label htmlFor="titulo-pago">Título do ingresso</label>
+        <div className="modal-body">
+          <div className="form-row">
+            <div className="form-field">
+              <label htmlFor="titulo">Título do ingresso</label>
               <input
-                id="titulo-pago"
+                id="titulo"
                 type="text"
                 value={formData.titulo}
                 onChange={(e) => handleChange('titulo', e.target.value)}
-                placeholder="Ex: VIP, Pista, Camarote..."
+                className="input-field"
               />
             </div>
-            <div className="form-group-pago flex-1-pago">
-              <label htmlFor="quantidade-pago">Quantidade</label>
+
+            <div className="form-field">
+              <label htmlFor="quantidade">Quantidade</label>
               <input
-                id="quantidade-pago"
+                id="quantidade"
                 type="number"
                 value={formData.quantidade}
                 onChange={(e) => handleChange('quantidade', e.target.value)}
-                placeholder="0"
+                className="input-field"
               />
             </div>
           </div>
 
-          {/* Linha 2: Data e Hora de Início */}
-          <div className="form-row-pago">
-            <div className="form-group-pago flex-1-pago">
-              <label htmlFor="data-inicio-pago">Data de início das vendas</label>
-              <div className="input-with-icon-pago">
-                <span className="input-icon-pago">📅</span>
+          <div className="form-row">
+            <div className="form-field">
+              <label htmlFor="dataInicioVendas">Data de início das vendas</label>
+              <div className="input-with-icon">
+         
                 <input
-                  id="data-inicio-pago"
+                  id="dataInicioVendas"
                   type="date"
                   value={formData.dataInicioVendas}
                   onChange={(e) => handleChange('dataInicioVendas', e.target.value)}
+                  className="input-field with-icon"
                 />
               </div>
             </div>
-            <div className="form-group-pago flex-1-pago">
-              <label htmlFor="hora-inicio-pago">Hora de início</label>
-              <div className="input-with-icon-pago">
-                <span className="input-icon-pago">🕐</span>
+
+            <div className="form-field">
+              <label htmlFor="horaInicio">Hora de início</label>
+              <div className="input-with-icon">
+                
                 <input
-                  id="hora-inicio-pago"
+                  id="horaInicio"
                   type="time"
                   value={formData.horaInicio}
                   onChange={(e) => handleChange('horaInicio', e.target.value)}
+                  className="input-field with-icon"
                 />
               </div>
             </div>
           </div>
 
-          {/* Linha 3: Data e Hora de Término */}
-          <div className="form-row-pago">
-            <div className="form-group-pago flex-1-pago">
-              <label htmlFor="data-termino-pago">Data de término das vendas</label>
-              <div className="input-with-icon-pago">
-                <span className="input-icon-pago">📅</span>
+          <div className="form-row">
+            <div className="form-field">
+              <label htmlFor="dataTerminoVendas">Data de término das vendas</label>
+              <div className="input-with-icon">
+         
                 <input
-                  id="data-termino-pago"
+                  id="dataTerminoVendas"
                   type="date"
                   value={formData.dataTerminoVendas}
                   onChange={(e) => handleChange('dataTerminoVendas', e.target.value)}
+                  className="input-field with-icon"
                 />
               </div>
             </div>
-            <div className="form-group-pago flex-1-pago">
-              <label htmlFor="hora-termino-pago">Hora de término</label>
-              <div className="input-with-icon-pago">
-                <span className="input-icon-pago">🕐</span>
+
+            <div className="form-field">
+              <label htmlFor="horaTermino">Hora de término</label>
+              <div className="input-with-icon">
+             
                 <input
-                  id="hora-termino-pago"
+                  id="horaTermino"
                   type="time"
                   value={formData.horaTermino}
                   onChange={(e) => handleChange('horaTermino', e.target.value)}
+                  className="input-field with-icon"
                 />
               </div>
             </div>
           </div>
 
-          {/* Linha 4: Quantidade Máxima */}
-          <div className="form-row-pago">
-            <div className="form-group-pago">
-              <label htmlFor="qtd-maxima-pago">Quantidade máxima permitida por compra</label>
-              <input
-                id="qtd-maxima-pago"
-                type="number"
-                value={formData.quantidadeMaxima}
-                onChange={(e) => handleChange('quantidadeMaxima', e.target.value)}
-                placeholder="0"
-                className="input-small-pago"
-              />
+          {isPago && (
+            <div className="form-row single">
+              <div className="form-field">
+                <label htmlFor="quantidadeMaxima">Quantidade máxima permitida por compra</label>
+                <input
+                  id="quantidadeMaxima"
+                  type="number"
+                  value={formData.quantidadeMaxima}
+                  onChange={(e) => handleChange('quantidadeMaxima', e.target.value)}
+                  className="input-field"
+                />
+              </div>
             </div>
-          </div>
+          )}
 
-          {/* Linha 5: Valor */}
-          <div className="form-row-pago">
-            <div className="form-group-pago">
-              <label htmlFor="valor-pago">Valor a receber</label>
-              <input
-                id="valor-pago"
-                type="text"
-                value={formData.valor}
-                onChange={(e) => handleChange('valor', e.target.value)}
-                placeholder="R$ 0,00"
-                className="input-small-pago"
-              />
+          {isPago && (
+            <div className="form-row single">
+              <div className="form-field">
+                <label htmlFor="valor">Valor a receber</label>
+                <input
+                  id="valor"
+                  type="text"
+                  value={formData.valor}
+                  onChange={(e) => handleChange('valor', e.target.value)}
+                  className="input-field"
+                  placeholder="R$ 0,00"
+                />
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
-        <div className="modal-footer-pago">
-          <button 
+        <div className="modal-footer">
+          <button
             type="button"
-            className="btn-cancelar-pago"
+            className="btn-cancelar"
             onClick={handleCancel}
           >
-            <span className="btn-icon-cancelar-pago">↩</span>
+            <span className="btn-icon">✕</span>
             Cancelar
           </button>
-          <button 
+
+          <button
             type="button"
-            className="btn-criar-pago"
+            className="btn-criar"
             onClick={handleSubmit}
           >
-            <span className="btn-icon-criar-pago">💳</span>
-            Criar ingresso
+            <span className="btn-icon">+</span>
+            Criar Ingresso
           </button>
         </div>
       </div>
@@ -204,169 +195,4 @@ export function ModalIngressoPago({ isOpen, onClose, onCriar }) {
   );
 }
 
-/* -------------------------------------------------------------------------- */
-/*                         MODAL INGRESSO GRATUITO                            */
-/* -------------------------------------------------------------------------- */
-
-export function ModalIngressoGratuito({ isOpen, onClose, onCriar }) {
-  const [formData, setFormData] = useState({
-    titulo: '',
-    quantidade: '',
-    dataInicioVendas: '',
-    horaInicio: '',
-    dataTerminoVendas: '',
-    horaTermino: ''
-  });
-
-  const handleChange = (field, value) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
-  };
-
-  const handleSubmit = () => {
-    if (!formData.titulo || !formData.quantidade) {
-      alert('Preencha todos os campos obrigatórios');
-      return;
-    }
-
-    onCriar({ ...formData, tipo: 'gratuito', valor: '0,00' });
-    
-    setFormData({
-      titulo: '',
-      quantidade: '',
-      dataInicioVendas: '',
-      horaInicio: '',
-      dataTerminoVendas: '',
-      horaTermino: ''
-    });
-  };
-
-  const handleCancel = () => {
-    onClose();
-    setFormData({
-      titulo: '',
-      quantidade: '',
-      dataInicioVendas: '',
-      horaInicio: '',
-      dataTerminoVendas: '',
-      horaTermino: ''
-    });
-  };
-
-  if (!isOpen) return null;
-
-  return (
-    <div className="modal-overlay-gratuito" onClick={onClose}>
-      <div className="modal-content-gratuito" onClick={(e) => e.stopPropagation()}>
-        <div className="modal-header-gratuito">
-          <div className="modal-titulo-wrapper-gratuito">
-            <span className="modal-icone-gratuito">»</span>
-            <h3 className="modal-titulo-gratuito">
-              Criando ingresso <span className="tipo-gratuito">gratuito</span>
-            </h3>
-          </div>
-        </div>
-
-        <div className="modal-body-gratuito">
-          {/* Linha 1: Título e Quantidade */}
-          <div className="form-row-gratuito">
-            <div className="form-group-gratuito flex-2-gratuito">
-              <label htmlFor="titulo-gratuito">Título do ingresso</label>
-              <input
-                id="titulo-gratuito"
-                type="text"
-                value={formData.titulo}
-                onChange={(e) => handleChange('titulo', e.target.value)}
-                placeholder="Ex: Entrada Franca, Cortesia..."
-              />
-            </div>
-            <div className="form-group-gratuito flex-1-gratuito">
-              <label htmlFor="quantidade-gratuito">Quantidade</label>
-              <input
-                id="quantidade-gratuito"
-                type="number"
-                value={formData.quantidade}
-                onChange={(e) => handleChange('quantidade', e.target.value)}
-                placeholder="0"
-              />
-            </div>
-          </div>
-
-          {/* Linha 2: Data e Hora de Início */}
-          <div className="form-row-gratuito">
-            <div className="form-group-gratuito flex-1-gratuito">
-              <label htmlFor="data-inicio-gratuito">Data de início das vendas</label>
-              <div className="input-with-icon-gratuito">
-                <span className="input-icon-gratuito">📅</span>
-                <input
-                  id="data-inicio-gratuito"
-                  type="date"
-                  value={formData.dataInicioVendas}
-                  onChange={(e) => handleChange('dataInicioVendas', e.target.value)}
-                />
-              </div>
-            </div>
-            <div className="form-group-gratuito flex-1-gratuito">
-              <label htmlFor="hora-inicio-gratuito">Hora de início</label>
-              <div className="input-with-icon-gratuito">
-                <span className="input-icon-gratuito">🕐</span>
-                <input
-                  id="hora-inicio-gratuito"
-                  type="time"
-                  value={formData.horaInicio}
-                  onChange={(e) => handleChange('horaInicio', e.target.value)}
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Linha 3: Data e Hora de Término */}
-          <div className="form-row-gratuito">
-            <div className="form-group-gratuito flex-1-gratuito">
-              <label htmlFor="data-termino-gratuito">Data de término das vendas</label>
-              <div className="input-with-icon-gratuito">
-                <span className="input-icon-gratuito">📅</span>
-                <input
-                  id="data-termino-gratuito"
-                  type="date"
-                  value={formData.dataTerminoVendas}
-                  onChange={(e) => handleChange('dataTerminoVendas', e.target.value)}
-                />
-              </div>
-            </div>
-            <div className="form-group-gratuito flex-1-gratuito">
-              <label htmlFor="hora-termino-gratuito">Hora de término</label>
-              <div className="input-with-icon-gratuito">
-                <span className="input-icon-gratuito">🕐</span>
-                <input
-                  id="hora-termino-gratuito"
-                  type="time"
-                  value={formData.horaTermino}
-                  onChange={(e) => handleChange('horaTermino', e.target.value)}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="modal-footer-gratuito">
-          <button 
-            type="button"
-            className="btn-cancelar-gratuito"
-            onClick={handleCancel}
-          >
-            <span className="btn-icon-cancelar-gratuito">↩</span>
-            Cancelar
-          </button>
-          <button 
-            type="button"
-            className="btn-criar-gratuito"
-            onClick={handleSubmit}
-          >
-            <span className="btn-icon-criar-gratuito">💳</span>
-            Criar ingresso
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
+export default ModalIngresso;
