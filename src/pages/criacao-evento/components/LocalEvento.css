@@ -1,0 +1,45 @@
+.box-04 {
+  background: white;
+  border-radius: 20px;
+  padding: 30px 50px;
+  margin: 0 auto 20px auto;
+  max-width: 1100px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Layout de duas colunas */
+.form-linha-local {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.coluna-local {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.campo-local {
+  display: flex;
+  flex-direction: column;
+}
+
+.campo-local label {
+  margin-bottom: 6px;
+  font-size: 13px;
+  color: #d4a5d4;
+  font-weight: 500;
+}
+
+/* Responsividade Box 04 */
+@media (max-width: 768px) {
+  .box-04 {
+    padding: 20px;
+  }
+
+  .form-linha-local {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
