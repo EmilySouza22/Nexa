@@ -1,0 +1,409 @@
+/* ==================== ModalIngressoPago.css ==================== */
+
+.modal-overlay-pago {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-content-pago {
+  background: linear-gradient(135deg, #f3e7f7 0%, #e8d9f0 100%);
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header-pago {
+  margin-bottom: 30px;
+}
+
+.modal-titulo-wrapper-pago {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modal-icone-pago {
+  font-size: 28px;
+  color: #8b5a9f;
+}
+
+.modal-titulo-pago {
+  font-size: 22px;
+  color: #333;
+  margin: 0;
+}
+
+.tipo-pago {
+  color: #ff69b4;
+  font-weight: bold;
+}
+
+.modal-body-pago {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row-pago {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+}
+
+.form-group-pago {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group-pago.flex-1-pago {
+  flex: 1;
+}
+
+.form-group-pago.flex-2-pago {
+  flex: 2;
+}
+
+.form-group-pago label {
+  font-size: 13px;
+  color: #555;
+  font-weight: 500;
+}
+
+.form-group-pago input,
+.form-group-pago select {
+  padding: 12px 15px;
+  border: 2px solid #e0d0eb;
+  border-radius: 12px;
+  font-size: 14px;
+  background-color: white;
+  transition: all 0.3s ease;
+}
+
+.form-group-pago input:focus {
+  outline: none;
+  border-color: #ff69b4;
+  box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.1);
+}
+
+.input-with-icon-pago {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon-pago {
+  position: absolute;
+  left: 12px;
+  font-size: 18px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.input-with-icon-pago input {
+  padding-left: 45px;
+  width: 100%;
+}
+
+.input-small-pago {
+  max-width: 150px;
+}
+
+.modal-footer-pago {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+  justify-content: space-between;
+}
+
+.btn-cancelar-pago,
+.btn-criar-pago {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.btn-cancelar-pago {
+  background-color: transparent;
+  color: #ff69b4;
+  border: 2px solid #ff69b4;
+}
+
+.btn-cancelar-pago:hover {
+  background-color: #fff0f5;
+}
+
+.btn-criar-pago {
+  background-color: #ff69b4;
+  color: white;
+  flex: 1;
+  justify-content: center;
+}
+
+.btn-criar-pago:hover {
+  background-color: #ff1493;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 105, 180, 0.3);
+}
+
+.btn-icon-cancelar-pago,
+.btn-icon-criar-pago {
+  font-size: 18px;
+}
+
+/* Scrollbar customizada */
+.modal-content-pago::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-content-pago::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.modal-content-pago::-webkit-scrollbar-thumb {
+  background: #ff69b4;
+  border-radius: 10px;
+}
+
+.modal-content-pago::-webkit-scrollbar-thumb:hover {
+  background: #ff1493;
+}
+
+@media (max-width: 768px) {
+  .form-row-pago {
+    flex-direction: column;
+  }
+
+  .modal-footer-pago {
+    flex-direction: column;
+  }
+
+  .btn-cancelar-pago,
+  .btn-criar-pago {
+    width: 100%;
+  }
+}
+
+/* ==================== ModalIngressoGratuito.css ==================== */
+
+.modal-overlay-gratuito {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-content-gratuito {
+  background: linear-gradient(135deg, #f3e7f7 0%, #e8d9f0 100%);
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header-gratuito {
+  margin-bottom: 30px;
+}
+
+.modal-titulo-wrapper-gratuito {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modal-icone-gratuito {
+  font-size: 28px;
+  color: #8b5a9f;
+}
+
+.modal-titulo-gratuito {
+  font-size: 22px;
+  color: #333;
+  margin: 0;
+}
+
+.tipo-gratuito {
+  color: #b19cd9;
+  font-weight: bold;
+}
+
+.modal-body-gratuito {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row-gratuito {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+}
+
+.form-group-gratuito {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group-gratuito.flex-1-gratuito {
+  flex: 1;
+}
+
+.form-group-gratuito.flex-2-gratuito {
+  flex: 2;
+}
+
+.form-group-gratuito label {
+  font-size: 13px;
+  color: #555;
+  font-weight: 500;
+}
+
+.form-group-gratuito input,
+.form-group-gratuito select {
+  padding: 12px 15px;
+  border: 2px solid #e0d0eb;
+  border-radius: 12px;
+  font-size: 14px;
+  background-color: white;
+  transition: all 0.3s ease;
+}
+
+.form-group-gratuito input:focus {
+  outline: none;
+  border-color: #b19cd9;
+  box-shadow: 0 0 0 3px rgba(177, 156, 217, 0.1);
+}
+
+.input-with-icon-gratuito {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon-gratuito {
+  position: absolute;
+  left: 12px;
+  font-size: 18px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.input-with-icon-gratuito input {
+  padding-left: 45px;
+  width: 100%;
+}
+
+.modal-footer-gratuito {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+  justify-content: space-between;
+}
+
+.btn-cancelar-gratuito,
+.btn-criar-gratuito {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.btn-cancelar-gratuito {
+  background-color: transparent;
+  color: #b19cd9;
+  border: 2px solid #b19cd9;
+}
+
+.btn-cancelar-gratuito:hover {
+  background-color: #f9f5ff;
+}
+
+.btn-criar-gratuito {
+  background-color: #b19cd9;
+  color: white;
+  flex: 1;
+  justify-content: center;
+}
+
+.btn-criar-gratuito:hover {
+  background-color: #9b7ec4;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(177, 156, 217, 0.3);
+}
+
+.btn-icon-cancelar-gratuito,
+.btn-icon-criar-gratuito {
+  font-size: 18px;
+}
+
+/* Scrollbar customizada */
+.modal-content-gratuito::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-content-gratuito::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.modal-content-gratuito::-webkit-scrollbar-thumb {
+  background: #b19cd9;
+  border-radius: 10px;
+}
+
+.modal-content-gratuito::-webkit-scrollbar-thumb:hover {
+  background: #9b7ec4;
+}
+
+@media (max-width: 768px) {
+  .form-row-gratuito {
+    flex-direction: column;
+  }
+
+  .modal-footer-gratuito {
+    flex-direction: column;
+  }
+
+  .btn-cancelar-gratuito,
+  .btn-criar-gratuito {
+    width: 100%;
+  }
+}

@@ -1,7 +1,6 @@
-import React from 'react'
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './CriacaoEvento.css';
-import iconAdicionar from '../../assets/criacao-evento/icon-adicionar.svg';
+import './CriacaoEventoBoxes.css';
 
 function CriacaoEvento() {
   const [nameEvent, setEventName] = useState('');
@@ -22,15 +21,29 @@ function CriacaoEvento() {
   const [cep, setCep] = useState('');
   const [bairro, setBairro] = useState('');
   const [numero, setNumero] = useState('');
-  const [organizadorNome, setOrganizadorNome] = useState('');
-  const [organizadorDescricao, setOrganizadorDescricao] = useState('');
   const [aceitaTermos, setAceitaTermos] = useState(false);
+  
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
 
-    if (file && file.type.startsWith('image/')) {
+    if (file) {
+      // Validar tipo de arquivo
+      if (!file.type.startsWith('image/')) {
+        setErrors(prev => ({ ...prev, image: 'Por favor, selecione apenas arquivos de imagem' }));
+        return;
+      }
+
+      // Validar tamanho (máximo 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        setErrors(prev => ({ ...prev, image: 'A imagem deve ter no máximo 5MB' }));
+        return;
+      }
+
       setImage(file);
+      setErrors(prev => ({ ...prev, image: '' }));
 
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -45,39 +58,224 @@ function CriacaoEvento() {
     setPreview(null);
   };
 
+  const formatCEP = (value) => {
+    const numbers = value.replace(/\D/g, '');
+    if (numbers.length <= 5) {
+      return numbers;
+    }
+    return `${numbers.slice(0, 5)}-${numbers.slice(5, 8)}`;
+  };
+
+  const handleCEPChange = (e) => {
+    const formatted = formatCEP(e.target.value);
+    setCep(formatted);
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    // Validar nome do evento
+    if (!nameEvent.trim()) {
+      newErrors.nameEvent = 'Nome do evento é obrigatório';
+    }
+
+    // Validar categoria
+    if (!category || category === 'selection') {
+      newErrors.category = 'Selecione uma categoria';
+    }
+
+    // Validar imagem
+    if (!image) {
+      newErrors.image = 'Imagem de divulgação é obrigatória';
+    }
+
+    // Validar classificação
+    if (!classification || classification === 'selection') {
+      newErrors.classification = 'Selecione uma classificação indicativa';
+    }
+
+    // Validar data de início
+    if (!dateInicio) {
+      newErrors.dateInicio = 'Data de início é obrigatória';
+    } else {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const startDate = new Date(dateInicio);
+      
+      if (startDate < today) {
+        newErrors.dateInicio = 'A data de início não pode ser no passado';
+      }
+    }
+
+    // Validar hora de início
+    if (!timeInicio) {
+      newErrors.timeInicio = 'Hora de início é obrigatória';
+    }
+
+    // Validar data de término
+    if (!dateTermino) {
+      newErrors.dateTermino = 'Data de término é obrigatória';
+    } else if (dateInicio && dateTermino) {
+      const start = new Date(`${dateInicio}T${timeInicio || '00:00'}`);
+      const end = new Date(`${dateTermino}T${timeTermino || '00:00'}`);
+      
+      if (end <= start) {
+        newErrors.dateTermino = 'A data/hora de término deve ser posterior à de início';
+      }
+    }
+
+    // Validar hora de término
+    if (!timeTermino) {
+      newErrors.timeTermino = 'Hora de término é obrigatória';
+    }
+
+    // Validar descrição
+    if (!descricao.trim()) {
+      newErrors.descricao = 'Descrição do evento é obrigatória';
+    } else if (descricao.trim().length < 50) {
+      newErrors.descricao = 'A descrição deve ter pelo menos 50 caracteres';
+    }
+
+    // Validar local
+    if (!localEvento.trim()) {
+      newErrors.localEvento = 'Informe o local do evento';
+    }
+
+    // Validar avenida/rua
+    if (!avenidaRua.trim()) {
+      newErrors.avenidaRua = 'Avenida/Rua é obrigatória';
+    }
+
+    // Validar estado
+    if (!estado) {
+      newErrors.estado = 'Selecione um estado';
+    }
+
+    // Validar cidade
+    if (!cidade.trim()) {
+      newErrors.cidade = 'Cidade é obrigatória';
+    }
+
+    // Validar bairro
+    if (!bairro.trim()) {
+      newErrors.bairro = 'Bairro é obrigatório';
+    }
+
+    // Validar CEP (opcional, mas se preenchido deve estar correto)
+    if (cep && cep.replace(/\D/g, '').length !== 8) {
+      newErrors.cep = 'CEP inválido (formato: 00000-000)';
+    }
+
+    // Validar termos
+    if (!aceitaTermos) {
+      newErrors.aceitaTermos = 'Você deve aceitar os termos para publicar o evento';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = async () => {
+    if (!validateForm()) {
+      // Scroll para o primeiro erro
+      const firstErrorField = document.querySelector('.error-message');
+      if (firstErrorField) {
+        firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    // Simular envio (substitua pela sua lógica real)
+    try {
+      const eventData = {
+        nameEvent,
+        category,
+        image,
+        classification,
+        dateInicio,
+        timeInicio,
+        dateTermino,
+        timeTermino,
+        descricao,
+        endereco: {
+          localEvento,
+          avenidaRua,
+          cidade,
+          complemento,
+          cep,
+          bairro,
+          numero,
+          estado
+        }
+      };
+
+      console.log('Dados do evento:', eventData);
+      
+      // Aqui você faria a requisição para sua API
+      // await api.post('/eventos', eventData);
+      
+      alert('Evento publicado com sucesso!');
+      
+    } catch (error) {
+      console.error('Erro ao publicar evento:', error);
+      alert('Erro ao publicar evento. Tente novamente.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div>
-
       <div className='box-01'>
         <div className='content-principal'>
-          <form>
+          {/* MANTENDO A TAG FORM PARA PRESERVAR A ESTILIZAÇÃO */}
+          <form onSubmit={(e) => e.preventDefault()}>
             <h2 className='titulo-style'>Agora vamos detalhar esse evento!</h2>
             <p className='titulo2-style'>1. Informações básicas</p>
 
             {/* Linha 1 */}
             <div className='form-linha'>
               <div>
-                <label className='nome-evento'>Nome do Evento*</label>
+                <label htmlFor="nameEvent" className='nome-evento'>Nome do Evento*</label>
                 <input
+                  id="nameEvent"
                   type="text"
                   value={nameEvent}
                   onChange={(e) => setEventName(e.target.value)}
                   placeholder="Digite o nome"
+                  aria-invalid={!!errors.nameEvent}
+                  aria-describedby={errors.nameEvent ? "nameEvent-error" : undefined}
                 />
+                {errors.nameEvent && (
+                  <span id="nameEvent-error" className="error-message">{errors.nameEvent}</span>
+                )}
               </div>
 
               <div>
-                <label>Categoria</label>
+                <label htmlFor="category">Categoria*</label>
                 <select
+                  id="category"
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
+                  aria-invalid={!!errors.category}
+                  aria-describedby={errors.category ? "category-error" : undefined}
                 >
                   <option value="selection">Selecione</option>
-                  <option value="opcao1">Opção 1</option>
-                  <option value="opcao2">Opção 2</option>
-                  <option value="opcao3">Opção 3</option>
-                  <option value="opcao4">Opção 4</option>
+                  <option value="opcao1">Festa</option>
+                  <option value="opcao2">Teatros</option>
+                  <option value="opcao3">Infantil</option>
+                  <option value="opcao4">Shows</option>
+                  <option value="opca5">Stand Up</option>
+                  <option value="opcao6">Esportivos</option>
+                  <option value="opcao5">Workshops</option>
+                  <option value="opcao7">Online</option>
+                  <option value="opcao8">Gastronomia</option>
                 </select>
+                {errors.category && (
+                  <span id="category-error" className="error-message">{errors.category}</span>
+                )}
               </div>
             </div>
 
@@ -89,6 +287,14 @@ function CriacaoEvento() {
                   className='upload-imagem'
                   onClick={() => document.getElementById('fileInput').click()}
                   style={{ cursor: "pointer" }}
+                  role="button"
+                  tabIndex={0}
+                  onKeyPress={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      document.getElementById('fileInput').click();
+                    }
+                  }}
+                  aria-label="Clique para adicionar imagem de divulgação"
                 >
                   <input
                     id="fileInput"
@@ -96,13 +302,14 @@ function CriacaoEvento() {
                     accept="image/*"
                     onChange={handleImageChange}
                     className="file-input-hidden"
+                    aria-describedby={errors.image ? "image-error" : undefined}
                   />
 
                   {preview ? (
                     <div className="container-preview">
                       <img
                         src={preview}
-                        alt="Preview"
+                        alt="Preview da imagem de divulgação"
                         className="preview-image"
                       />
                       <button
@@ -112,22 +319,28 @@ function CriacaoEvento() {
                         }}
                         className="botao-remover"
                         type="button"
+                        aria-label="Remover imagem"
                       />
                     </div>
                   ) : (
                     <div className="upload-placeholder">
-                      <img src={iconAdicionar} alt="Adicionar" className="upload-icon" />
                       <p>Clique para adicionar imagem</p>
                     </div>
                   )}
                 </div>
+                {errors.image && (
+                  <span id="image-error" className="error-message">{errors.image}</span>
+                )}
               </div>
 
               <div>
-                <label className='classificacao'>Classificação indicativa</label>
+                <label htmlFor="classification" className='classificacao'>Classificação indicativa*</label>
                 <select
+                  id="classification"
                   value={classification}
                   onChange={(e) => setClassification(e.target.value)}
+                  aria-invalid={!!errors.classification}
+                  aria-describedby={errors.classification ? "classification-error" : undefined}
                 >
                   <option value="selection">Selecione</option>
                   <option value="Livre">Livre para Todos</option>
@@ -137,6 +350,9 @@ function CriacaoEvento() {
                   <option value="16+">Acima de 16 anos</option>
                   <option value="Maior de Idade">Para Maiores de Idade</option>
                 </select>
+                {errors.classification && (
+                  <span id="classification-error" className="error-message">{errors.classification}</span>
+                )}
               </div>
             </div>
           </form>
@@ -144,74 +360,93 @@ function CriacaoEvento() {
       </div>
 
       {/* BOX 02 */}
-      {/* BOX 02 - VERSÃO CORRIGIDA */}
       <div className='box-02'>
-        <h2 className='titulo-style'>Data e horário</h2>
+        <h2 className='titulo-style'>2. Data e horário</h2>
         <p>Informe quando seu evento irá acontecer</p>
 
         <div className='form-linha-datas'>
           {/* Data início */}
           <div className="campo">
-            <label>Data de início*</label>
+            <label htmlFor="dateInicio">Data de início*</label>
             <div className="input-simples">
               <div className="icon-area" onClick={() => document.getElementById('dateInicio').showPicker()}>
-                <img src="/assets/criacao-evento/icon-data.svg" alt="Calendário" />
+                <img src="/assets/criacao-evento/icon-data.svg" alt="" />
               </div>
               <input
                 id="dateInicio"
                 type="date"
                 value={dateInicio}
                 onChange={(e) => setDateInicio(e.target.value)}
+                aria-invalid={!!errors.dateInicio}
+                aria-describedby={errors.dateInicio ? "dateInicio-error" : undefined}
               />
             </div>
+            {errors.dateInicio && (
+              <span id="dateInicio-error" className="error-message">{errors.dateInicio}</span>
+            )}
           </div>
 
           {/* Hora início */}
           <div className="campo">
-            <label>Hora de início*</label>
+            <label htmlFor="timeInicio">Hora de início*</label>
             <div className="input-simples">
               <div className="icon-area" onClick={() => document.getElementById('timeInicio').showPicker()}>
-                <img src="/assets/criacao-evento/icon-hora.svg" alt="Relógio" />
+                <img src="/assets/criacao-evento/icon-hora.svg" alt="" />
               </div>
               <input
                 id="timeInicio"
                 type="time"
                 value={timeInicio}
                 onChange={(e) => setTimeInicio(e.target.value)}
+                aria-invalid={!!errors.timeInicio}
+                aria-describedby={errors.timeInicio ? "timeInicio-error" : undefined}
               />
             </div>
+            {errors.timeInicio && (
+              <span id="timeInicio-error" className="error-message">{errors.timeInicio}</span>
+            )}
           </div>
 
           {/* Data término */}
           <div className="campo">
-            <label>Data de término*</label>
+            <label htmlFor="dateTermino">Data de término*</label>
             <div className="input-simples">
               <div className="icon-area" onClick={() => document.getElementById('dateTermino').showPicker()}>
-                <img src="/assets/criacao-evento/icon-data.svg" alt="Calendário" />
+                <img src="/assets/criacao-evento/icon-data.svg" alt="" />
               </div>
               <input
                 id="dateTermino"
                 type="date"
                 value={dateTermino}
                 onChange={(e) => setDateTermino(e.target.value)}
+                aria-invalid={!!errors.dateTermino}
+                aria-describedby={errors.dateTermino ? "dateTermino-error" : undefined}
               />
             </div>
+            {errors.dateTermino && (
+              <span id="dateTermino-error" className="error-message">{errors.dateTermino}</span>
+            )}
           </div>
 
           {/* Hora término */}
           <div className="campo">
-            <label>Hora de término*</label>
+            <label htmlFor="timeTermino">Hora de término*</label>
             <div className="input-simples">
               <div className="icon-area" onClick={() => document.getElementById('timeTermino').showPicker()}>
-                <img src="/assets/criacao-evento/icon-hora.svg" alt="Relógio" />
+                <img src="/assets/criacao-evento/icon-hora.svg" alt="" />
               </div>
               <input
                 id="timeTermino"
                 type="time"
                 value={timeTermino}
                 onChange={(e) => setTimeTermino(e.target.value)}
+                aria-invalid={!!errors.timeTermino}
+                aria-describedby={errors.timeTermino ? "timeTermino-error" : undefined}
               />
             </div>
+            {errors.timeTermino && (
+              <span id="timeTermino-error" className="error-message">{errors.timeTermino}</span>
+            )}
           </div>
         </div>
       </div>
@@ -223,17 +458,23 @@ function CriacaoEvento() {
 
         <div className='campo-descricao'>
           <textarea
+            id="descricao"
             value={descricao}
             onChange={(e) => setDescricao(e.target.value)}
             placeholder="Digite a descrição do evento..."
             className='textarea-descricao'
             rows={8}
+            aria-invalid={!!errors.descricao}
+            aria-describedby={errors.descricao ? "descricao-error" : undefined}
           />
         </div>
 
         <div className='contador-caracteres'>
           <span>{descricao.length} caracteres</span>
         </div>
+        {errors.descricao && (
+          <span id="descricao-error" className="error-message">{errors.descricao}</span>
+        )}
       </div>
 
       {/* BOX 04 */}
@@ -244,26 +485,39 @@ function CriacaoEvento() {
           {/* Coluna 1 */}
           <div className='coluna-local'>
             <div className='campo-local'>
-              <label>Informe o local do evento *</label>
+              <label htmlFor="localEvento">Informe o local do evento *</label>
               <input
+                id="localEvento"
                 type="text"
                 value={localEvento}
                 onChange={(e) => setLocalEvento(e.target.value)}
+                aria-invalid={!!errors.localEvento}
+                aria-describedby={errors.localEvento ? "localEvento-error" : undefined}
               />
+              {errors.localEvento && (
+                <span id="localEvento-error" className="error-message">{errors.localEvento}</span>
+              )}
             </div>
 
             <div className='campo-local'>
-              <label>Av./Rua*</label>
+              <label htmlFor="avenidaRua">Av./Rua*</label>
               <input
+                id="avenidaRua"
                 type="text"
                 value={avenidaRua}
                 onChange={(e) => setAvenidaRua(e.target.value)}
+                aria-invalid={!!errors.avenidaRua}
+                aria-describedby={errors.avenidaRua ? "avenidaRua-error" : undefined}
               />
+              {errors.avenidaRua && (
+                <span id="avenidaRua-error" className="error-message">{errors.avenidaRua}</span>
+              )}
             </div>
 
             <div className='campo-local'>
-              <label>Complemento</label>
+              <label htmlFor="complemento">Complemento</label>
               <input
+                id="complemento"
                 type="text"
                 value={complemento}
                 onChange={(e) => setComplemento(e.target.value)}
@@ -271,24 +525,33 @@ function CriacaoEvento() {
             </div>
 
             <div className='campo-local'>
-              <label>Bairro*</label>
+              <label htmlFor="bairro">Bairro*</label>
               <input
+                id="bairro"
                 type="text"
                 value={bairro}
                 onChange={(e) => setBairro(e.target.value)}
+                aria-invalid={!!errors.bairro}
+                aria-describedby={errors.bairro ? "bairro-error" : undefined}
               />
+              {errors.bairro && (
+                <span id="bairro-error" className="error-message">{errors.bairro}</span>
+              )}
             </div>
           </div>
 
           {/* Coluna 2 */}
           <div className='coluna-local'>
             <div className='campo-local'>
-              <label>Estado*</label>
+              <label htmlFor="estado">Estado*</label>
               <select
+                id="estado"
                 value={estado}
                 onChange={(e) => setEstado(e.target.value)}
+                aria-invalid={!!errors.estado}
+                aria-describedby={errors.estado ? "estado-error" : undefined}
               >
-                <option value="">Selecione</option>
+                <option value="">Selecione um estado</option>
                 {[
                   "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA",
                   "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN",
@@ -297,31 +560,47 @@ function CriacaoEvento() {
                   <option key={uf} value={uf}>{uf}</option>
                 ))}
               </select>
+              {errors.estado && (
+                <span id="estado-error" className="error-message">{errors.estado}</span>
+              )}
             </div>
 
             <div className='campo-local'>
-              <label>Cidade*</label>
+              <label htmlFor="cidade">Cidade*</label>
               <input
+                id="cidade"
                 type="text"
                 value={cidade}
                 onChange={(e) => setCidade(e.target.value)}
+                aria-invalid={!!errors.cidade}
+                aria-describedby={errors.cidade ? "cidade-error" : undefined}
               />
+              {errors.cidade && (
+                <span id="cidade-error" className="error-message">{errors.cidade}</span>
+              )}
             </div>
 
             <div className='campo-local'>
-              <label>CEP</label>
+              <label htmlFor="cep">CEP</label>
               <input
+                id="cep"
                 type="text"
                 value={cep}
-                onChange={(e) => setCep(e.target.value)}
+                onChange={handleCEPChange}
                 placeholder="00000-000"
                 maxLength="9"
+                aria-invalid={!!errors.cep}
+                aria-describedby={errors.cep ? "cep-error" : undefined}
               />
+              {errors.cep && (
+                <span id="cep-error" className="error-message">{errors.cep}</span>
+              )}
             </div>
 
             <div className='campo-local'>
-              <label>Número</label>
+              <label htmlFor="numero">Número</label>
               <input
+                id="numero"
                 type="text"
                 value={numero}
                 onChange={(e) => setNumero(e.target.value)}
@@ -331,66 +610,44 @@ function CriacaoEvento() {
         </div>
       </div>
 
-      <div class="box-05">
+      <div className="box-05">
         <h3>5. Ingressos</h3>
         <p>Crie o ingresso ideal para o seu evento!</p>
 
-        <div class="buttons-wrapper">
-          <button class="btn-ingresso">
-            <span class="icon">+</span>
+        <div className="buttons-wrapper">
+          <button 
+            type="button"
+            className="btn-ingresso"
+            aria-label="Adicionar ingresso pago"
+          >
+            <span className="icon">+</span>
             Ingresso pago
           </button>
 
-          <button class="btn-ingresso">
-            <span class="icon">+</span>
+          <button 
+            type="button"
+            className="btn-ingresso"
+            aria-label="Adicionar ingresso gratuito"
+          >
+            <span className="icon">+</span>
             Ingresso gratuito
           </button>
-        </div>
-
-        <div class="alerta">
-          <span class="alerta-icon">!</span>
-          Atenção: A meia-entrada precisa ser a mesma para todos os grupos elegíveis
-        </div>
-      </div>
-
-      {/* BOX 06 */}
-      <div className='box-06'>
-        <h2 className='titulo-style'>6. Sobre o organizador</h2>
-        <p className='descricao-box'>
-          Conte um pouco sobre você ou a sua empresa. É importante mostrar ao público
-          quem está por trás do evento.
-        </p>
-
-        <div className='campo'>
-          <label>Nome *</label>
-          <input
-            type='text'
-            placeholder='Digite o nome do organizador'
-            value={organizadorNome}
-            onChange={(e) => setOrganizadorNome(e.target.value)}
-          />
-        </div>
-
-        <div className='campo'>
-          <label>Descrição *</label>
-          <textarea
-            placeholder='Fale brevemente sobre você ou a empresa'
-            value={organizadorDescricao}
-            onChange={(e) => setOrganizadorDescricao(e.target.value)}
-          />
         </div>
       </div>
 
       <div className='box-07'>
-        <h2 className='titulo-style'>7. Responsabilidades</h2>
+        <h2 className='titulo-style'>6. Responsabilidades</h2>
 
         <div className='responsabilidades-container'>
           <label className='checkbox-wrapper'>
             <input
+              id="aceitaTermos"
               type="checkbox"
               checked={aceitaTermos}
               onChange={(e) => setAceitaTermos(e.target.checked)}
               className='checkbox-input'
+              aria-invalid={!!errors.aceitaTermos}
+              aria-describedby={errors.aceitaTermos ? "aceitaTermos-error" : undefined}
             />
             <div className={`checkbox-custom ${aceitaTermos ? 'checked' : ''}`}>
               {aceitaTermos && (
@@ -402,6 +659,7 @@ function CriacaoEvento() {
                   strokeWidth="3"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
+                  aria-hidden="true"
                 >
                   <path d="M5 13l4 4L19 7"></path>
                 </svg>
@@ -413,16 +671,24 @@ function CriacaoEvento() {
             Ao publicar este evento, estou de acordo com os Termos de uso, com as Diretrizes de Comunidade e com as Regras de meia-entrada, bem como declaro estar ciente da Política de Privacidade e das Obrigatoriedades Legais.
           </p>
         </div>
+        {errors.aceitaTermos && (
+          <span id="aceitaTermos-error" className="error-message">{errors.aceitaTermos}</span>
+        )}
       </div>
-
 
       <div className="box-08">
-        <button className="btn-publicar-evento">
-          <span className="btn-text">Publicar evento</span>
+        <button 
+          type="button"
+          className="btn-publicar-evento"
+          onClick={handleSubmit}
+          disabled={isSubmitting}
+          aria-label={isSubmitting ? "Publicando evento..." : "Publicar evento"}
+        >
+          <span className="btn-text">
+            {isSubmitting ? 'Publicando...' : 'Publicar evento'}
+          </span>
         </button>
       </div>
-
-
     </div>
   )
 }
