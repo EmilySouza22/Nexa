@@ -104,8 +104,9 @@
 
 .criar-evento-button {
   position: absolute;
-  bottom: 0;
-  right: 0;
+  /*pro botão cobrir a borda com o botão*/
+  bottom: -1px;
+  right: -1px;
   display: flex;
   align-items: center;
   gap: 15px;
