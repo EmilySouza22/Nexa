@@ -5,6 +5,7 @@ import evento2 from "../../../assets/home-organizador/evento2.png";
 import evento3 from "../../../assets/home-organizador/evento3.png";
 import evento4 from "../../../assets/home-organizador/evento4.png";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom"; 
 
 // Dados mockados - futuramente virão do backend
 const eventosMock = [
@@ -39,6 +40,7 @@ function AgendaEventos() {
   // Iniciar com o mês ATUAL (não mais mockado)
   const [mesAtual, setMesAtual] = useState(new Date());
   const hoje = new Date();
+  const navigate = useNavigate(); 
 
   // Função para formatar o texto de dias
   const formatarDias = (dias) => {
@@ -48,7 +50,7 @@ function AgendaEventos() {
 
   const handleCriarEvento = () => {
     // Futuramente abrirá modal ou redireciona para página de criar evento
-    console.log("Criar novo evento");
+    navigate("/criar-evento"); // Redireciona para a rota de criar evento
   };
 
   // Função para gerar os dias do calendário
