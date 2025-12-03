@@ -1,64 +1,93 @@
+import React from 'react';
+import './DataHorario.css'
+
 const DataHorario = ({ formData, errors, onChange }) => (
-  <div style={{ backgroundColor: '#fff', padding: '30px', marginBottom: '20px', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-    <h2 style={{ fontSize: '20px', marginBottom: '8px' }}>2. Data e horário</h2>
-    <p style={{ fontSize: '14px', color: '#666', marginBottom: '24px' }}>Informe quando seu evento irá acontecer</p>
+  <div className="box-02">
+    <h2 className="titulo-style">2. Data e horário</h2>
+    <p>Informe quando seu evento irá acontecer</p>
 
-    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '15px' }}>
-      <div>
-        <label htmlFor="dateInicio" style={{ display: 'block', marginBottom: '8px', fontSize: '14px' }}>
-          Data de início*
-        </label>
-        <input
-          id="dateInicio"
-          type="date"
-          value={formData.dateInicio}
-          onChange={(e) => onChange('dateInicio', e.target.value)}
-          style={{ width: '100%', padding: '10px', border: '1px solid #ddd', borderRadius: '6px' }}
-        />
-        <ErrorMessage id="dateInicio-error" message={errors.dateInicio} />
+    <div className="form-linha-datas">
+      <div className="campo">
+        <label htmlFor="dateInicio">Data de início*</label>
+        <div className="input-simples">
+          <div className="icon-area" onClick={() => document.getElementById('dateInicio').showPicker()}>
+            <img src="/assets/criacao-evento/icon-data.svg" alt="" />
+          </div>
+          <input
+            id="dateInicio"
+            type="date"
+            value={formData.dateInicio}
+            onChange={(e) => onChange('dateInicio', e.target.value)}
+            aria-invalid={!!errors.dateInicio}
+            aria-describedby={errors.dateInicio ? "dateInicio-error" : undefined}
+          />
+        </div>
+        {errors.dateInicio && (
+          <span id="dateInicio-error" className="error-message">{errors.dateInicio}</span>
+        )}
       </div>
 
-      <div>
-        <label htmlFor="timeInicio" style={{ display: 'block', marginBottom: '8px', fontSize: '14px' }}>
-          Hora de início*
-        </label>
-        <input
-          id="timeInicio"
-          type="time"
-          value={formData.timeInicio}
-          onChange={(e) => onChange('timeInicio', e.target.value)}
-          style={{ width: '100%', padding: '10px', border: '1px solid #ddd', borderRadius: '6px' }}
-        />
-        <ErrorMessage id="timeInicio-error" message={errors.timeInicio} />
+      <div className="campo">
+        <label htmlFor="timeInicio">Hora de início*</label>
+        <div className="input-simples">
+          <div className="icon-area" onClick={() => document.getElementById('timeInicio').showPicker()}>
+            <img src="/assets/criacao-evento/icon-hora.svg" alt="" />
+          </div>
+          <input
+            id="timeInicio"
+            type="time"
+            value={formData.timeInicio}
+            onChange={(e) => onChange('timeInicio', e.target.value)}
+            aria-invalid={!!errors.timeInicio}
+            aria-describedby={errors.timeInicio ? "timeInicio-error" : undefined}
+          />
+        </div>
+        {errors.timeInicio && (
+          <span id="timeInicio-error" className="error-message">{errors.timeInicio}</span>
+        )}
       </div>
 
-      <div>
-        <label htmlFor="dateTermino" style={{ display: 'block', marginBottom: '8px', fontSize: '14px' }}>
-          Data de término*
-        </label>
-        <input
-          id="dateTermino"
-          type="date"
-          value={formData.dateTermino}
-          onChange={(e) => onChange('dateTermino', e.target.value)}
-          style={{ width: '100%', padding: '10px', border: '1px solid #ddd', borderRadius: '6px' }}
-        />
-        <ErrorMessage id="dateTermino-error" message={errors.dateTermino} />
+      <div className="campo">
+        <label htmlFor="dateTermino">Data de término*</label>
+        <div className="input-simples">
+          <div className="icon-area" onClick={() => document.getElementById('dateTermino').showPicker()}>
+            <img src="/assets/criacao-evento/icon-data.svg" alt="" />
+          </div>
+          <input
+            id="dateTermino"
+            type="date"
+            value={formData.dateTermino}
+            onChange={(e) => onChange('dateTermino', e.target.value)}
+            aria-invalid={!!errors.dateTermino}
+            aria-describedby={errors.dateTermino ? "dateTermino-error" : undefined}
+          />
+        </div>
+        {errors.dateTermino && (
+          <span id="dateTermino-error" className="error-message">{errors.dateTermino}</span>
+        )}
       </div>
 
-      <div>
-        <label htmlFor="timeTermino" style={{ display: 'block', marginBottom: '8px', fontSize: '14px' }}>
-          Hora de término*
-        </label>
-        <input
-          id="timeTermino"
-          type="time"
-          value={formData.timeTermino}
-          onChange={(e) => onChange('timeTermino', e.target.value)}
-          style={{ width: '100%', padding: '10px', border: '1px solid #ddd', borderRadius: '6px' }}
-        />
-        <ErrorMessage id="timeTermino-error" message={errors.timeTermino} />
+      <div className="campo">
+        <label htmlFor="timeTermino">Hora de término*</label>
+        <div className="input-simples">
+          <div className="icon-area" onClick={() => document.getElementById('timeTermino').showPicker()}>
+            <img src="/assets/criacao-evento/icon-hora.svg" alt="" />
+          </div>
+          <input
+            id="timeTermino"
+            type="time"
+            value={formData.timeTermino}
+            onChange={(e) => onChange('timeTermino', e.target.value)}
+            aria-invalid={!!errors.timeTermino}
+            aria-describedby={errors.timeTermino ? "timeTermino-error" : undefined}
+          />
+        </div>
+        {errors.timeTermino && (
+          <span id="timeTermino-error" className="error-message">{errors.timeTermino}</span>
+        )}
       </div>
     </div>
   </div>
 );
+
+export default DataHorario;

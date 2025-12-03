@@ -1,3 +1,6 @@
+import React from 'react';
+import './LocalEvento.css';
+
 const LocalEvento = ({ formData, errors, onChange }) => {
   const estados = [
     "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA",
@@ -6,104 +9,104 @@ const LocalEvento = ({ formData, errors, onChange }) => {
   ];
 
   return (
-    <div style={{ backgroundColor: '#fff', padding: '30px', marginBottom: '20px', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-      <h2 style={{ fontSize: '20px', marginBottom: '24px' }}>4. Local do evento</h2>
+    <div className="box-04">
+      <h2 className="titulo-style">4. Local do evento</h2>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          <div>
-            <label htmlFor="localEvento" style={{ display: 'block', marginBottom: '8px', fontSize: '14px' }}>
-              Informe o local do evento*
-            </label>
+      <div className="form-linha-local">
+        <div className="coluna-local">
+          <div className="campo-local">
+            <label htmlFor="localEvento">Informe o local do evento*</label>
             <input
               id="localEvento"
               type="text"
               value={formData.localEvento}
               onChange={(e) => onChange('localEvento', e.target.value)}
-              style={{ width: '100%', padding: '10px', border: '1px solid #ddd', borderRadius: '6px' }}
+              aria-invalid={!!errors.localEvento}
+              aria-describedby={errors.localEvento ? "localEvento-error" : undefined}
             />
-            <ErrorMessage id="localEvento-error" message={errors.localEvento} />
+            {errors.localEvento && (
+              <span id="localEvento-error" className="error-message">{errors.localEvento}</span>
+            )}
           </div>
 
-          <div>
-            <label htmlFor="avenidaRua" style={{ display: 'block', marginBottom: '8px', fontSize: '14px' }}>
-              Av./Rua*
-            </label>
+          <div className="campo-local">
+            <label htmlFor="avenidaRua">Av./Rua*</label>
             <input
               id="avenidaRua"
               type="text"
               value={formData.avenidaRua}
               onChange={(e) => onChange('avenidaRua', e.target.value)}
-              style={{ width: '100%', padding: '10px', border: '1px solid #ddd', borderRadius: '6px' }}
+              aria-invalid={!!errors.avenidaRua}
+              aria-describedby={errors.avenidaRua ? "avenidaRua-error" : undefined}
             />
-            <ErrorMessage id="avenidaRua-error" message={errors.avenidaRua} />
+            {errors.avenidaRua && (
+              <span id="avenidaRua-error" className="error-message">{errors.avenidaRua}</span>
+            )}
           </div>
 
-          <div>
-            <label htmlFor="complemento" style={{ display: 'block', marginBottom: '8px', fontSize: '14px' }}>
-              Complemento
-            </label>
+          <div className="campo-local">
+            <label htmlFor="complemento">Complemento</label>
             <input
               id="complemento"
               type="text"
               value={formData.complemento}
               onChange={(e) => onChange('complemento', e.target.value)}
-              style={{ width: '100%', padding: '10px', border: '1px solid #ddd', borderRadius: '6px' }}
             />
           </div>
 
-          <div>
-            <label htmlFor="bairro" style={{ display: 'block', marginBottom: '8px', fontSize: '14px' }}>
-              Bairro*
-            </label>
+          <div className="campo-local">
+            <label htmlFor="bairro">Bairro*</label>
             <input
               id="bairro"
               type="text"
               value={formData.bairro}
               onChange={(e) => onChange('bairro', e.target.value)}
-              style={{ width: '100%', padding: '10px', border: '1px solid #ddd', borderRadius: '6px' }}
+              aria-invalid={!!errors.bairro}
+              aria-describedby={errors.bairro ? "bairro-error" : undefined}
             />
-            <ErrorMessage id="bairro-error" message={errors.bairro} />
+            {errors.bairro && (
+              <span id="bairro-error" className="error-message">{errors.bairro}</span>
+            )}
           </div>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          <div>
-            <label htmlFor="estado" style={{ display: 'block', marginBottom: '8px', fontSize: '14px' }}>
-              Estado*
-            </label>
+        <div className="coluna-local">
+          <div className="campo-local">
+            <label htmlFor="estado">Estado*</label>
             <select
               id="estado"
               value={formData.estado}
               onChange={(e) => onChange('estado', e.target.value)}
-              style={{ width: '100%', padding: '10px', border: '1px solid #ddd', borderRadius: '6px' }}
+              aria-invalid={!!errors.estado}
+              aria-describedby={errors.estado ? "estado-error" : undefined}
             >
               <option value="">Selecione um estado</option>
               {estados.map(uf => (
                 <option key={uf} value={uf}>{uf}</option>
               ))}
             </select>
-            <ErrorMessage id="estado-error" message={errors.estado} />
+            {errors.estado && (
+              <span id="estado-error" className="error-message">{errors.estado}</span>
+            )}
           </div>
 
-          <div>
-            <label htmlFor="cidade" style={{ display: 'block', marginBottom: '8px', fontSize: '14px' }}>
-              Cidade*
-            </label>
+          <div className="campo-local">
+            <label htmlFor="cidade">Cidade*</label>
             <input
               id="cidade"
               type="text"
               value={formData.cidade}
               onChange={(e) => onChange('cidade', e.target.value)}
-              style={{ width: '100%', padding: '10px', border: '1px solid #ddd', borderRadius: '6px' }}
+              aria-invalid={!!errors.cidade}
+              aria-describedby={errors.cidade ? "cidade-error" : undefined}
             />
-            <ErrorMessage id="cidade-error" message={errors.cidade} />
+            {errors.cidade && (
+              <span id="cidade-error" className="error-message">{errors.cidade}</span>
+            )}
           </div>
 
-          <div>
-            <label htmlFor="cep" style={{ display: 'block', marginBottom: '8px', fontSize: '14px' }}>
-              CEP
-            </label>
+          <div className="campo-local">
+            <label htmlFor="cep">CEP</label>
             <input
               id="cep"
               type="text"
@@ -111,21 +114,21 @@ const LocalEvento = ({ formData, errors, onChange }) => {
               onChange={(e) => onChange('cep', e.target.value)}
               placeholder="00000-000"
               maxLength="9"
-              style={{ width: '100%', padding: '10px', border: '1px solid #ddd', borderRadius: '6px' }}
+              aria-invalid={!!errors.cep}
+              aria-describedby={errors.cep ? "cep-error" : undefined}
             />
-            <ErrorMessage id="cep-error" message={errors.cep} />
+            {errors.cep && (
+              <span id="cep-error" className="error-message">{errors.cep}</span>
+            )}
           </div>
 
-          <div>
-            <label htmlFor="numero" style={{ display: 'block', marginBottom: '8px', fontSize: '14px' }}>
-              Número
-            </label>
+          <div className="campo-local">
+            <label htmlFor="numero">Número</label>
             <input
               id="numero"
               type="text"
               value={formData.numero}
               onChange={(e) => onChange('numero', e.target.value)}
-              style={{ width: '100%', padding: '10px', border: '1px solid #ddd', borderRadius: '6px' }}
             />
           </div>
         </div>
@@ -133,3 +136,5 @@ const LocalEvento = ({ formData, errors, onChange }) => {
     </div>
   );
 };
+
+export default LocalEvento;

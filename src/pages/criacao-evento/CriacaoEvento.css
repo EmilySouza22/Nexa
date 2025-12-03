@@ -2,6 +2,14 @@
   box-sizing: border-box;
 }
 
+/* Container Principal */
+.container-criacao-evento {
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 /* Títulos Globais */
 .titulo-style {
   color: #1a1a1a;
@@ -14,6 +22,22 @@
 .titulo2-style {
   color: #1a1a1a;
   font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.titulo-principal {
+  color: #1a1a1a;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.subtitulo-secao {
+  color: #1a1a1a;
+  font-size: 14px;
   font-weight: 600;
   margin-bottom: 30px;
   text-align: left;
@@ -105,10 +129,14 @@ button:disabled {
   cursor: not-allowed;
 }
 
-/* Container Principal */
-.content-principal {
-  max-width: 1200px;
-  margin: 0 auto;
+/* Box/Seção Padrão */
+.box-secao {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 30px 50px;
+  max-width: 1100px;
+  margin: 0 auto 20px auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 /* Campos Genéricos */
@@ -133,12 +161,25 @@ button:disabled {
 
 /* Responsividade Global */
 @media (max-width: 768px) {
+  .container-criacao-evento {
+    padding: 10px;
+  }
+
+  .box-secao {
+    padding: 20px;
+  }
+
   .titulo-style {
     font-size: 22px;
   }
 
-  .titulo2-style {
+  .titulo2-style,
+  .subtitulo-secao {
     font-size: 14px;
+  }
+
+  .titulo-principal {
+    font-size: 18px;
   }
 
   .form-linha {

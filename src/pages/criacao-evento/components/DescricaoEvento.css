@@ -1,0 +1,33 @@
+.box-03 {
+  background: white;
+  border-radius: 20px;
+  padding: 30px 50px;
+  margin: 0 auto 20px auto;
+  max-width: 1100px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.campo-descricao {
+  margin-bottom: 12px;
+}
+
+.textarea-descricao {
+  min-height: 220px;
+}
+
+.contador-caracteres {
+  text-align: right;
+  padding-top: 8px;
+}
+
+.contador-caracteres span {
+  font-size: 12px;
+  color: #999999;
+}
+
+/* Responsividade Box 03 */
+@media (max-width: 768px) {
+  .box-03 {
+    padding: 20px;
+  }
+}

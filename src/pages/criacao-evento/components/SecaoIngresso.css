@@ -1,4 +1,64 @@
-/* Modal Overlay */
+.box-05 {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 40px 60px;
+  max-width: 1100px;
+  margin: 20px auto 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.box-05 h3 {
+  color: #1a1a1a;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.box-05 p {
+  color: #1a1a1a;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 30px 0;
+  text-align: left;
+}
+
+.buttons-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.btn-ingresso {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(to right, #e496ff, #b48bff);
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 30px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.btn-ingresso:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.btn-ingresso .icon {
+  background: rgba(255, 255, 255, 0.25);
+  padding: 4px 9px;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* Modal Ingresso - Overlay */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -155,7 +215,6 @@
   flex-shrink: 0;
 }
 
-/* Espaço para adicionar ícone depois */
 .input-icon::before {
   content: '';
   display: block;
@@ -233,7 +292,6 @@
   justify-content: center;
 }
 
-/* Espaço reservado para ícone */
 .btn-icon:empty {
   width: 0;
   margin: 0;
@@ -258,7 +316,25 @@
   background: #BA68C8;
 }
 
-/* Responsive */
+/* Responsividade Box 05 */
+@media (max-width: 768px) {
+  .box-05 {
+    padding: 30px 20px;
+  }
+
+  .buttons-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btn-ingresso {
+    width: 100%;
+    max-width: 300px;
+    justify-content: center;
+  }
+}
+
+/* Modal Responsive */
 @media (max-width: 600px) {
   .modal-content {
     margin: 10px;

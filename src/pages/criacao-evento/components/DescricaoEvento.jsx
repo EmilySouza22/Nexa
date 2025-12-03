@@ -1,26 +1,31 @@
-const DescricaoEvento = ({ descricao, onChange, error }) => (
-  <div style={{ backgroundColor: '#fff', padding: '30px', marginBottom: '20px', borderRadius: '12px', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}>
-    <h2 style={{ fontSize: '20px', marginBottom: '8px' }}>3. Descrição do evento</h2>
-    <p style={{ fontSize: '14px', color: '#666', marginBottom: '24px' }}>Conte todos os detalhes do seu evento</p>
+import React from 'react';
+import './DescricaoEvento.css';
 
-    <textarea
-      id="descricao"
-      value={descricao}
-      onChange={onChange}
-      placeholder="Digite a descrição do evento..."
-      rows={8}
-      style={{ 
-        width: '100%', 
-        padding: '12px', 
-        fontSize: '14px',
-        border: '1px solid #ddd',
-        borderRadius: '6px',
-        resize: 'vertical'
-      }}
-    />
-    <div style={{ textAlign: 'right', fontSize: '12px', color: '#666', marginTop: '8px' }}>
-      {descricao.length} caracteres
+const DescricaoEvento = ({ descricao, onChange, error }) => (
+  <div className="box-03">
+    <h2 className="titulo-style">3. Descrição do evento</h2>
+    <p>Conte todos os detalhes do seu evento</p>
+
+    <div className="campo-descricao">
+      <textarea
+        id="descricao"
+        value={descricao}
+        onChange={onChange}
+        placeholder="Digite a descrição do evento..."
+        className="textarea-descricao"
+        rows={8}
+        aria-invalid={!!error}
+        aria-describedby={error ? "descricao-error" : undefined}
+      />
     </div>
-    <ErrorMessage id="descricao-error" message={error} />
+
+    <div className="contador-caracteres">
+      <span>{descricao.length} caracteres</span>
+    </div>
+    {error && (
+      <span id="descricao-error" className="error-message">{error}</span>
+    )}
   </div>
 );
+
+export default DescricaoEvento;
