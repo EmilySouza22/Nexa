@@ -19,7 +19,6 @@ function HomeConvidado() {
             <Sidebar userType='convidado'/>
             <SectionMuralEvento/>
             <SectionBuscarEvento/>
-            <SectionFooter/>
         </div>
         
     );

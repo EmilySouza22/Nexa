@@ -1,7 +1,7 @@
 .HomeConv-MuralEvento{
     background-color: #FFFFFF;
     width: 95.6%;
-    height: 91vh;
+    height: 92vh;
     position:absolute;
     /* z-index:0; */
     left: 70px;
@@ -17,18 +17,25 @@
     height: 450px;
 }
 
+.HomeConv-TitleEvento{
+    padding-bottom: 8px;
+}
+
 .HomeConv-InfoEvento{
     width: 500px;
     display: flex;
     justify-content: space-around;
+    padding-bottom: 30px;
 }
 
 .HomeConv-InfoData{
     display: flex;
+    gap: 8px;
 }
 
 .HomeConv-InfoLocal{
     display: flex;
+    gap: 8px;
 }
 
 .HomeConvTextMural{

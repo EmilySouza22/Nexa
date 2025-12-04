@@ -43,7 +43,7 @@ function BarraPesquisa() {
     }, [palavra]);
 
     return (
-        <div>
+        <>
             <input 
                 type="text" 
                 id="img-lupa" 
@@ -61,7 +61,7 @@ function BarraPesquisa() {
                     <li key={evento.id}>{evento.nome}</li>
                     ))}
             </ul>
-        </div>
+        </>
     );
 }
 

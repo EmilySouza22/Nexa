@@ -1,0 +1,36 @@
+.HomeConv-ContainerProximoEvento{
+    background-color: #FFF;
+    border-radius: 25px;
+    height: 120px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.HomeConv-ContainerTempo{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 42px;
+    width: 130px;
+    background: linear-gradient(90deg, #F8B7D9 0%, #D296FF 100%);
+    font-size: 18px;
+    border-radius: 30px;
+}
+
+.HomeConv-TitleProximoEvento{
+    color: #2B2B2B;
+    font-weight: 600;
+    padding-bottom: 18px;
+}
+
+.HomeConv-iconHorario{
+    height: 25px;
+    width: 25px;
+}
+
+.HomeConv-dadoHorarioEvento{
+    color: #FFF;
+}

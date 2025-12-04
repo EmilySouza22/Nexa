@@ -2,6 +2,7 @@ import React from 'react';
 import "./SectionBuscarEvento.css";
 import { iconsHomeConv } from "../../../utils/iconsHomeConv.js";
 import BarraPesquisa from './BarraPesquisa.jsx';
+import ProximoEvento from './ProximoEvento.jsx';
 
 function SectionBuscarEvento() {
   return (
@@ -11,17 +12,10 @@ function SectionBuscarEvento() {
                 <p className='HomeConvTitle1'>Procure sua próxima experiência</p>
                 <BarraPesquisa/>
             </div>
-            <div className='HomeConv-ContainerProximoEvento'>
-                {/* Só vai ter esse container se o convidado possuir um ingresso para um evento */}
-                <p>Próximo evento acontecerá em:</p>
-                <div className='HomeConv-ContainerTempo'>
-                    <img src={iconsHomeConv.horaIcon} alt="Relógio" />
-                    2d 16h
-                </div>
-            </div>
+            <ProximoEvento/>  
         </div>
         <div className='HomeConv-ContainerCategoria'>
-            <p>Categorias</p>
+            <p className='HomeConv-TitleCategoria'>Categorias</p>
             <div className='HomeConv-ContainerCategorias'>
                 <div>
                     <img src={iconsHomeConv.musicIcon} alt="Icon-Nota-Musical" />
