@@ -1,18 +1,18 @@
 /* ===== CARD EVENTO DETALHES ===== */
 .card-evento-detalhes-container {
   width: 100%;
-  max-width: 1200px;
-  margin: 80px auto 0 auto; /* 👈 Adicionei margin-top de 80px */
-  padding: 20px;
+  max-width: 1600px;
+  margin: 30px auto 0 auto;
+  padding: 0; /* 👈 REMOVA O PADDING DAQUI */
 }
 
 .info-card-evento {
   background: #ffffff;
   border-radius: 12px;
-  padding: 30px;
+  padding: 32px; /* 👈 AUMENTE DE 30px PARA 32px para padronizar */
   display: flex;
   flex-direction: row;
-  gap: 40px;
+  gap: 63px;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
   align-items: flex-start;
 }
@@ -48,7 +48,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin: 0 0 10px 0;
+  margin: 0 0 34px 0;
 }
 
 /* ===== LINHA DE INFORMAÇÃO (ícone + texto) ===== */
@@ -68,7 +68,7 @@
 }
 
 .info-label-evento {
-  font-size: 14px;
+  font-size: 17px;
   color: #333333;
   font-weight: 400;
   line-height: 1.5;
@@ -86,7 +86,7 @@
   font-size: 16px;
   transition: all 0.2s ease;
   box-shadow: 0 4px 12px rgba(232, 165, 212, 0.3);
-  margin-top: 12px;
+  margin-top: 70px;
   align-self: flex-start;
 }
 
@@ -98,7 +98,7 @@
 /* ===== RESPONSIVIDADE ===== */
 @media (max-width: 768px) {
   .card-evento-detalhes-container {
-    margin-top: 70px; /* 👈 Ajuste para mobile também */
+    margin-top: 20px;
   }
 
   .info-card-evento {
