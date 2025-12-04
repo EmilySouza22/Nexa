@@ -11,9 +11,9 @@ import Responsabilidades from "./components/Responsabilidades";
 import BotaoPublicar from "./components/BotaoPublicar";
 
 function CriacaoEvento() {
-  // Pegar dados do usuário (você precisa implementar isso)
-  const userName = localStorage.getItem("userName") || "Organizadora Emily";
-  const userInitials = localStorage.getItem("userInitials") || "EA";
+  // Pegar dados do sessionStorage (salvos no login)
+  const userName = sessionStorage.getItem("userName") || "Organizador";
+  const userInitials = sessionStorage.getItem("userInitials") || "OR";
 
   const [formData, setFormData] = useState({
     nameEvent: "",
@@ -133,8 +133,7 @@ function CriacaoEvento() {
 
     setIsSubmitting(true);
     try {
-      const userId =
-        localStorage.getItem("userId") || sessionStorage.getItem("userId");
+      const userId = sessionStorage.getItem("userId");
 
       if (!userId) {
         alert("Você precisa estar logado para criar um evento!");

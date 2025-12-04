@@ -8,9 +8,9 @@ import AgendaEventos from "./components/AgendaEventos";
 import Analytics from "./components/Analytics";
 
 function HomeOrganizador() {
-  // Depois esses dados vão vir do backend, aqui deixei mockado
-  const userName = "Organizadora Emily";
-  const userInitials = "EA";
+  // Pegar dados do sessionStorage (salvos no login)
+  const userName = sessionStorage.getItem("userName") || "Organizador";
+  const userInitials = sessionStorage.getItem("userInitials") || "OR";
 
   return (
     <div className="home-organizador">
@@ -28,6 +28,5 @@ function HomeOrganizador() {
     </div>
   );
 }
-
 
 export default HomeOrganizador;
