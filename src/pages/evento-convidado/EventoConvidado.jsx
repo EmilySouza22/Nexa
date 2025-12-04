@@ -1,31 +1,40 @@
 import { useState, useEffect } from "react";
 import "./EventoConvidado.css";
-import { icones } from "../../utils/iconEventoConvidado";
+import Navbar from "../../components/Navbar";
+import Sidebar from "../../components/Sidebar";
+import CardEventoOgz from "./components/CardEventoOgz";
+import DetalhesEvento from "./components/DetalhesEvento";
+import SobreOrganizador from "./components/SobreOrganizador";
 
 function EventoConvidado() {
   const [evento, setEvento] = useState(null);
 
   useEffect(() => {
+    // Dados mockados - depois virá do backend
     const fakeEvento = {
-      nome: "Conecta Sul ",
+      nome: "Conecta Sul",
       bannerUrl: "https://picsum.photos/800/400",
-      data: "20/11/2025",
-      hora: "14:00",
-      descricao: "Um evento incrível para profissionais da área.",
-      topicos: [
-        "Networking com profissionais",
-        "Palestras exclusivas",
-        "Workshops práticos"
-      ],
-      classificacao: "+16",
+      data: "23 de Outubro à 27 de Outubro",
+      hora: "Quinta, Sexta às 20h00, Sábado às 16h00, Domingo às 15h00",
       local: {
-        nome: "Centro de Eventos Conecta",
-        endereco: "Rua das Flores, 123 - Florianópolis"
+        nome: "Teatro Santander",
+        endereco: "Avenida Presidente Juscelino Kubitschek, 2041, São Paulo - SP"
       },
-      organizadorFoto: "https://picsum.photos/200",
-      organizadorLogo: "https://picsum.photos/150",
-      organizadorNome: "Organização Conecta",
-      organizadorDescricao: "Promovendo eventos educacionais e tecnológicos."
+      descricao: "O Deep Tech Summit 2025 é o principal evento da América Latina dedicado à inovação baseada em ciência e engenharia de fronteira. Durante dois dias, reunimos as startups mais promissoras, os investidores globais e grandes corporações para discutir e construir o futuro por meio de deep techs.",
+      descricaoCompleta: "Com trilhas de conteúdo curadas, experiências de matchmaking, reconhecimento das startups mais ousadas da região e um ambiente pensado para conexões reais, o evento é a plataforma ideal para quem está na vanguarda da inovação tecnológica.",
+      dataEvento: "23 a 27 de outubro de 2025",
+      tituloTopicos: "Por que participar do Deep Tech Summit?",
+      topicos: [
+        "Foco Exclusivo em Deep Techs: Evento 100% voltado para inovação baseada em ciência.",
+        "Ecossistema Global em Conexão: Startups, corporações, fundos de investimento e +2000 participantes conectando ciência ao mercado.",
+        "Conteúdo Curado com Profundidade: Três palcos com trilhas complementares para fundadores, investidores, pesquisadores e executivos.",
+        "Matchmaking de Verdade: Aplicativo oficial, agenda de reuniões e encontros direcionados para fechar parcerias e negócios.",
+        "Prêmio Deep Tech do Ano: Reconhecimento das deep techs mais ousadas, com pitch ao vivo e banca de especialistas."
+      ],
+      classificacao: "Aberto para todos os idades",
+      organizadorNome: "Confederação Nacional do Comércio de Bens, Serviços e Turismo (CNC)",
+      organizadorDescricao: "A Confederação Nacional do Comércio de Bens, Serviços e Turismo é uma entidade sindical que representa os direitos e interesses dos quase cinco milhões de empreendedores do comércio brasileiro.",
+      organizadorLogo: "https://picsum.photos/150"
     };
 
     setTimeout(() => {
@@ -33,115 +42,36 @@ function EventoConvidado() {
     }, 500);
   }, []);
 
-  // 👇 ESSA LINHA ESTAVA FALTANDO!
-  if (!evento) return <p>Carregando evento...</p>;
+  const userName = "Organizadora Emily";
+  const userInitials = "EA";
+
+  if (!evento) {
+    return (
+      <div className="home-organizador">
+        <Navbar userName={userName} userInitials={userInitials} />
+        <div className="home-organizador-layout">
+          <Sidebar userType="organizador" />
+          <main>
+            <p>Carregando evento...</p>
+          </main>
+        </div>
+      </div>
+    );
+  }
 
   return (
-<div className="evento-container">
-    
-    {/* INFO PRINCIPAL */}
-    <div className="evento-card">
-      <img className="evento-banner" src={evento.bannerUrl} alt="banner" />
-
-        <div className="evento-header">
-        <h1>{evento.nome}</h1>
-
-        <div className="evento-info-topo">
-          <img src={icones.data} alt="data" />
-          <p>{evento.data}</p>
-        </div>
-
-        <div className="evento-info-topo">
-          <img src={icones.hora} alt="hora" />
-          <p>{evento.hora}</p>
-        </div>
-
-        <div className="evento-info-topo">
-          <img src={icones.local_cinza} alt="local" />
-          <p>{evento.local.nome}</p>
-        </div>
-
-        <div className="evento-organizador">
-          <button className="btn-ingresso">Comprar Ingresso</button>
-        </div>
-
-        </div>
+    <div className="home-organizador">
+      <Navbar userName={userName} userInitials={userInitials} />
+      <div className="home-organizador-layout">
+        <Sidebar userType="organizador" />
+        <main>
+          <CardEventoOgz evento={evento} />
+          <DetalhesEvento evento={evento} />
+          <SobreOrganizador evento={evento} />
+        </main>
+      </div>
     </div>
-
-    
-    <div className="box evento-detalhes-box">
-      
-      {/* DESCRIÇÃO */}
-      <div className="secao-detalhes descricao">
-            <div className="box-title">
-            <img src={icones.descricao} alt="descricao" />
-            <h3>Descrição</h3>
-            </div>
-
-            <p>{evento.descricao}</p>
-
-            <ul>
-            {evento.topicos?.map((item, index) => (
-                <li key={index}>• {item}</li>
-            ))}
-            </ul>
-        </div>
-
-        {/* CLASSIFICAÇÃO */}
-        <div className="secao-detalhes classificacao">
-            <div className="box-title">
-            <img src={icones.classificacao} alt="classificacao" />
-            <h3>Classificação</h3>
-            </div>
-            <p>{evento.classificacao}</p>
-        </div>
-
-        {/* LOCAL */}
-        <div className="secao-detalhes local">
-            <div className="box-title">
-            <img src={icones.local_paleta} alt="local" />
-            <h3>Local do evento</h3>
-            </div>
-
-            <p>{evento.local.nome}</p>
-            <p>{evento.local.endereco}</p>
-        </div>
-
-        </div>
-
-        {/* ORGANIZADOR */}
-        <div className="box organizador">
-        <div className="box-title">
-            <img src={icones.sobre_organizador} alt="organizador" />
-            <h3>Sobre o Organizador</h3>
-        </div>
-
-        <div className="organizador-info">
-            <img
-            src={evento.organizadorLogo}
-            className="logo-org"
-            alt="logo organizador"
-            />
-
-            <div>
-            <h4>{evento.organizadorNome}</h4>
-            <p>{evento.organizadorDescricao}</p>
-
-            <button className="btn-contato">
-                <img src={icones.email} alt="email" />
-                Falar com o organizador
-            </button>
-
-            <button className="btn-outros-eventos">
-                <img src={icones.local_mais_evento} alt="mais eventos" />
-                Mais eventos
-            </button>
-            </div>
-        </div>
-        </div>
-
-</div>
-);
+  );
 }
 
 export default EventoConvidado;

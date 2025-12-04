@@ -1,0 +1,188 @@
+/* ===== CONTAINER PRINCIPAL ===== */
+.detalhes-evento-container {
+  width: 100%;
+  max-width: 1600px; /* 👈 PADRONIZADO */
+  margin: 30px auto 0 auto;
+  padding: 32px; /* 👈 PADRONIZADO PARA 32px */
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+/* ===== SEÇÕES ===== */
+.secao-detalhes {
+  margin-bottom: 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.secao-detalhes:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+/* ===== TÍTULO DA SEÇÃO ===== */
+.detalhes-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.detalhes-title img {
+  width: 24px;
+  height: 24px;
+  opacity: 0.7;
+}
+
+.detalhes-title h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333333;
+  margin: 0;
+}
+
+/* ===== CONTEÚDO ===== */
+.detalhes-content {
+  color: #555555;
+  line-height: 1.7;
+}
+
+.detalhes-content p {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+}
+
+.detalhes-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* ===== DESCRIÇÃO ===== */
+.descricao-adicional {
+  margin-top: 16px;
+}
+
+.data-destaque {
+  margin-top: 16px !important;
+  font-size: 14px !important;
+}
+
+.topico-titulo {
+  margin-top: 20px !important;
+  margin-bottom: 12px !important;
+  font-weight: 500;
+}
+
+.lista-topicos {
+  list-style: none;
+  padding-left: 0;
+  margin: 12px 0;
+}
+
+.lista-topicos li {
+  position: relative;
+  padding-left: 24px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #555555;
+}
+
+.lista-topicos li::before {
+  content: "•";
+  position: absolute;
+  left: 8px;
+  color: #D296FF;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.lista-detalhes {
+  list-style: none;
+  padding-left: 0;
+  margin: 16px 0;
+}
+
+.lista-detalhes > li {
+  margin-bottom: 16px;
+  font-size: 14px;
+}
+
+.lista-detalhes strong {
+  color: #333333;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.sublista {
+  list-style: none;
+  padding-left: 16px;
+  margin-top: 8px;
+}
+
+.sublista li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: #555555;
+}
+
+.sublista li::before {
+  content: "•";
+  position: absolute;
+  left: 4px;
+  color: #D296FF;
+  font-size: 14px;
+}
+
+.premio-destaque {
+  margin-top: 20px !important;
+  padding: 16px;
+  background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 100%);
+  border-radius: 8px;
+  font-size: 14px !important;
+}
+
+/* ===== CLASSIFICAÇÃO ===== */
+.classificacao-valor {
+  font-size: 16px !important;
+  font-weight: 600;
+  color: #333333;
+}
+
+/* ===== LOCAL ===== */
+.local-nome {
+  font-weight: 600;
+  color: #333333;
+  font-size: 15px !important;
+  margin-bottom: 8px !important;
+}
+
+.local-endereco {
+  color: #666666;
+  font-size: 14px !important;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 768px) {
+  .detalhes-evento-container {
+    padding: 20px;
+    margin: 16px auto;
+  }
+
+  .secao-detalhes {
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+  }
+
+  .detalhes-title h3 {
+    font-size: 16px;
+  }
+
+  .detalhes-content p,
+  .lista-topicos li,
+  .sublista li {
+    font-size: 13px;
+  }
+}

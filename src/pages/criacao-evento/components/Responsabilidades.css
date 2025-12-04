@@ -1,0 +1,78 @@
+.box-07 {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 40px 50px;
+  max-width: 1100px;
+  margin: 20px auto 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.responsabilidades-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.checkbox-wrapper {
+  position: relative;
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.checkbox-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.checkbox-custom {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #e8d4f8;
+  border-radius: 6px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.checkbox-custom.checked {
+  background: linear-gradient(135deg, #F8B7D9 0%, #D296FF 100%);
+  border-color: #D296FF;
+}
+
+.checkbox-icon {
+  width: 16px;
+  height: 16px;
+  color: white;
+}
+
+.checkbox-wrapper:hover .checkbox-custom {
+  border-color: #c8b5e8;
+}
+
+.responsabilidades-texto {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #4c4c4c;
+  margin: 0;
+  flex: 1;
+}
+
+/* Responsividade Box 07 */
+@media (max-width: 768px) {
+  .box-07 {
+    padding: 30px 20px;
+  }
+
+  .responsabilidades-container {
+    gap: 12px;
+  }
+
+  .responsabilidades-texto {
+    font-size: 14px;
+  }
+}

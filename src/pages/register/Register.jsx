@@ -12,6 +12,7 @@ function Cadastro() {
     confirmarSenha: "",
   });
 
+<<<<<<< HEAD
   // Adiciona e remove a classe do body
   useEffect(() => {
     document.body.classList.add("cadastro-page");
@@ -22,6 +23,8 @@ function Cadastro() {
     };
   }, []);
 
+=======
+>>>>>>> 9681f234edd2564b766874d089dd8218522179da
   // Guarda as mensagens de erro
   const [erroSenha, setErroSenha] = useState("");
 
@@ -79,6 +82,10 @@ function Cadastro() {
   const enviarCad = async (e) => {
     e.preventDefault();
 
+    // === Limpando === //
+    // Limpa o telefone removendo a máscara - envia só números pro backend
+    const telefoneLimpo = limparTelefone(dadosCadastro.telefone);
+
     // === VALIDAÇÕES === //
 
     // Verifica se as senhas são iguais
@@ -117,11 +124,6 @@ function Cadastro() {
       setErroSenha("A senha deve ter pelo menos 6 caracteres");
       return;
     }
-
-    // === Limpando === //
-
-    // Limpa o telefone removendo a máscara - envia só números pro backend
-    const telefoneLimpo = limparTelefone(dadosCadastro.telefone);
 
     // Limpa o erro se passou em todas as validações
     setErroSenha("");
@@ -293,7 +295,5 @@ function Cadastro() {
     </div>
   );
 }
-
-
 
 export default Cadastro;
