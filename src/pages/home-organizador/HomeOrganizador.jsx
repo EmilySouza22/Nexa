@@ -27,6 +27,8 @@ function HomeOrganizador() {
       </div>
     </div>
   );
+
+ 
 }
 
 
