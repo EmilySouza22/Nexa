@@ -6,7 +6,7 @@ import authRoutes from "./authRoutes";
 import organizadorRoutes from "./organizadorRoutes";
 
 const router = createBrowserRouter([
-  { path: "/", element: <HomeConvidado /> },
+  { path: "/home-convidado", element: <HomeConvidado /> },
   { path: "/organizador", element: <HomeOrganizador /> },
   { path: "/evento-convidado", element: <EventoConvidado /> },
   ...authRoutes,

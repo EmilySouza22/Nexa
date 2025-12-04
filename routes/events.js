@@ -180,4 +180,8 @@ router.post('/create', async (req, res) => {
     }
 });
 
+router.get('/search', async(req, res) => {
+    //faze
+});
+
 export default router;

@@ -1,6 +1,7 @@
 import React from 'react';
 import "./SectionBuscarEvento.css";
 import { iconsHomeConv } from "../../../utils/iconsHomeConv.js";
+import BarraPesquisa from './BarraPesquisa.jsx';
 
 function SectionBuscarEvento() {
   return (
@@ -8,10 +9,7 @@ function SectionBuscarEvento() {
         <div className='HomeConv-ContainerTop'>
             <div className='HomeConv-ContainerPesquisa'>
                 <p className='HomeConvTitle1'>Procure sua próxima experiência</p>
-                <div className='HomeConv-PesquisaEvento'>
-                    <img src={iconsHomeConv.lupaIcon} alt="Lupa" className='HomeConv-IconLupa'/>
-                    <p className='HomeConv-TextSearch'>Buscar evento</p>
-                </div>
+                <BarraPesquisa/>
             </div>
             <div className='HomeConv-ContainerProximoEvento'>
                 {/* Só vai ter esse container se o convidado possuir um ingresso para um evento */}
