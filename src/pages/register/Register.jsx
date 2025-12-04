@@ -12,7 +12,6 @@ function Cadastro() {
     confirmarSenha: "",
   });
 
-<<<<<<< HEAD
   // Adiciona e remove a classe do body
   useEffect(() => {
     document.body.classList.add("cadastro-page");
@@ -23,8 +22,6 @@ function Cadastro() {
     };
   }, []);
 
-=======
->>>>>>> 9681f234edd2564b766874d089dd8218522179da
   // Guarda as mensagens de erro
   const [erroSenha, setErroSenha] = useState("");
 
