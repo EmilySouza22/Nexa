@@ -16,6 +16,10 @@ body {
     min-height: 100vh; /* ocupa toda altura da tela */
 }
 
+body.cadastro-page { /* Para o scroll sair só quando estiver nessa tela*/
+    overflow: hidden; /* só quando tiver a classe */
+}
+
 /* === CONTAINER PRINCIPAL === */
 .cadastro-container {
     background-image: url('');
@@ -37,7 +41,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 40px 80px;
+    padding: 20px 80px; /* diminuído de 40px para 20px */
 }
 
 /* === PERSONALIZAR TÍTULO === */
@@ -50,7 +54,7 @@ body {
 .cadastro-form form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px; /* diminuído de 15px para 10px */
     max-width: 600px;
     margin: 0 auto;
     width: 100%;
@@ -115,11 +119,21 @@ body {
     width: 20px;
     height: 20px;
     pointer-events: none;
+    background: transparent !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .input-icon-clickable {
     cursor: pointer;
     pointer-events: auto;
+}
+
+/* Remover fundo das imagens de ícone */
+.input-wrapper .input-icon,
+.input-wrapper .input-icon-clickable {
+    background: transparent !important;
 }
 
 /* === BOTÃO ANTIGO  === */

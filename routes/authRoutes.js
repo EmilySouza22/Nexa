@@ -36,7 +36,7 @@ router.post('/register', async (req, res) => {
         const senhaHash = await bcrypt.hash(senha, 10);
 
         const [resultado] = await db.query(
-            `INSERT INTO conta (nome, email, telefone, senha, idtipo_conta) 
+            `INSERT INTO conta (nome, email, telefone, senha, tipo_contaid) 
              VALUES (?, ?, ?, ?, ?)`,
             [nomeCompleto, email, telefone, senhaHash, 1]
         );
@@ -67,7 +67,7 @@ router.post('/login', async (req, res) => {
         }
 
         const [rows] = await db.query(
-            'SELECT idconta, nome, email, senha, idtipo_conta FROM conta WHERE email = ?',
+            'SELECT idconta, nome, email, senha, tipo_contaid FROM conta WHERE email = ?',
             [email]
         );
 
@@ -89,10 +89,10 @@ router.post('/login', async (req, res) => {
         res.status(200).json({
             message: 'Login realizado com sucesso',
             usuario: {
-                id: usuario.idconta,
+                idconta: usuario.idconta,  
                 nome: usuario.nome,
                 email: usuario.email,
-                tipoConta: usuario.idtipo_conta
+                tipoConta: usuario.tipo_contaid  
             }
         });
 

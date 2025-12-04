@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./Register.css";
 import axios from "axios";
 import { iconsCA } from "../../utils/icons";
@@ -11,6 +11,16 @@ function Cadastro() {
     senha: "",
     confirmarSenha: "",
   });
+
+  // Adiciona e remove a classe do body
+  useEffect(() => {
+    document.body.classList.add("cadastro-page");
+
+    // Cleanup: remove a classe quando sair da página
+    return () => {
+      document.body.classList.remove("cadastro-page");
+    };
+  }, []);
 
   // Guarda as mensagens de erro
   const [erroSenha, setErroSenha] = useState("");

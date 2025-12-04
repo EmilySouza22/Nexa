@@ -50,10 +50,6 @@ function Analytics() {
         </div>
       </div>
 
-      <button className="botao-grafico">
-        <img src={iconsHO.add} alt="Gráfico" className="botao-grafico-icon" />
-        <span className="botao-grafico-texto">Ver gráficos</span>
-      </button>
     </div>
   );
 }

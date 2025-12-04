@@ -11,7 +11,6 @@ import Responsabilidades from "./components/Responsabilidades";
 import BotaoPublicar from "./components/BotaoPublicar";
 
 function CriacaoEvento() {
-  // Pegar dados do sessionStorage (salvos no login)
   const userName = sessionStorage.getItem("userName") || "Organizador";
   const userInitials = sessionStorage.getItem("userInitials") || "OR";
 
@@ -134,9 +133,26 @@ function CriacaoEvento() {
     setIsSubmitting(true);
     try {
       const userId = sessionStorage.getItem("userId");
+      const userIdInt = sessionStorage.getItem("userIdInt");
+      const idconta = sessionStorage.getItem("idconta");
 
-      if (!userId) {
-        alert("Você precisa estar logado para criar um evento!");
+      const possibleIds = [userId, userIdInt, idconta];
+      const validId = possibleIds.find(
+        (id) => id && id !== "null" && id !== "undefined"
+      );
+
+      if (!validId) {
+        alert(
+          "❌ Você precisa estar logado para criar um evento!\n\nPor favor, faça login novamente."
+        );
+        setIsSubmitting(false);
+        return;
+      }
+
+      const idcontaInt = parseInt(validId);
+
+      if (isNaN(idcontaInt)) {
+        alert("❌ ID de usuário inválido! Por favor, faça login novamente.");
         setIsSubmitting(false);
         return;
       }
@@ -148,7 +164,7 @@ function CriacaoEvento() {
         classificacao: formData.classification,
         data_inicio: `${formData.dateInicio} ${formData.timeInicio}:00`,
         data_termino: `${formData.dateTermino} ${formData.timeTermino}:00`,
-        idconta: parseInt(userId),
+        idconta: idcontaInt,
         endereco: {
           local: formData.localEvento,
           rua: formData.avenidaRua,
@@ -161,8 +177,6 @@ function CriacaoEvento() {
         },
       };
 
-      console.log("📤 Enviando dados para o backend:", eventoData);
-
       const response = await fetch("http://localhost:3000/api/eventos/create", {
         method: "POST",
         headers: {
@@ -172,17 +186,14 @@ function CriacaoEvento() {
       });
 
       const data = await response.json();
-      console.log("📥 Resposta do backend:", data);
 
       if (!response.ok) {
         throw new Error(data.error || "Erro ao criar evento");
       }
 
-      console.log("✅ Evento criado com sucesso! ID:", data.idevento);
-      alert("Evento publicado com sucesso!");
+      alert("🎉 Evento publicado com sucesso!");
     } catch (error) {
-      console.error("❌ Erro ao publicar evento:", error);
-      alert(`Erro ao publicar evento: ${error.message}`);
+      alert(`❌ Erro ao publicar evento: ${error.message}`);
     } finally {
       setIsSubmitting(false);
     }

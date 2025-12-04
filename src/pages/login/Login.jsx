@@ -81,7 +81,7 @@ function Login() {
 
         // Redirecionar baseado no tipo de conta
         if (data.usuario.tipoConta === 2) {
-          navigate("/dashboard-organizador");
+          navigate("/organizador");
         } else {
           navigate("/home");
         }
