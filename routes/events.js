@@ -24,7 +24,7 @@ router.post('/create', async (req, res) => {
         // Validações básicas do evento
         if (!nome || !idcategoria_evento || !data_inicio || !data_termino || !idconta) {
             return res.status(400).json({
-                error: 'Campos obrigatórios: nome, categoria, datas e organizador'
+                error: 'Campos obrigatórios: nome, idcategoria_evento, data_inicio, data_termino e idconta'
             });
         }
 
@@ -35,9 +35,9 @@ router.post('/create', async (req, res) => {
             });
         }
 
-        // Verificar se a conta existe e é do tipo organizador
+    
         const [contaExistente] = await connection.query(
-            'SELECT idconta, idtipo_conta FROM conta WHERE idconta = ?',
+            'SELECT idconta, tipo_contaid FROM conta WHERE idconta = ?',
             [idconta]
         );
 
@@ -47,7 +47,7 @@ router.post('/create', async (req, res) => {
             });
         }
 
-        if (contaExistente[0].idtipo_conta !== 2) {
+        if (contaExistente[0].tipo_contaid !== 2) {
             return res.status(403).json({
                 error: 'Apenas organizadores podem criar eventos'
             });
@@ -86,10 +86,9 @@ router.post('/create', async (req, res) => {
             idendereco_evento = resultadoEndereco.insertId;
         }
 
-        // Inserir evento
         const [resultadoEvento] = await connection.query(
-            `INSERT INTO evento (nome, idcategoria_evento, assunto_principal, classificacao, 
-                                data_inicio, data_termino, evento_ativo, idconta, idendereco_evento)
+            `INSERT INTO evento (nome, categoria_eventoid, assunto_principal, classificacao, 
+                                data_inicio, data_termino, evento_ativo, conta_id, endereco_eventoid)
              VALUES (?, ?, ?, ?, ?, ?, TRUE, ?, ?)`,
             [
                 nome,
@@ -113,8 +112,8 @@ router.post('/create', async (req, res) => {
                     idtipo_ingresso,
                     quantidade,
                     valor_unitario,
-                    data_inicio,
-                    data_termino,
+                    data_inicio: ingresso_data_inicio,
+                    data_termino: ingresso_data_termino,
                     taxa_servico,
                     min_qtd_por_compra,
                     max_qtd_por_compra
@@ -142,17 +141,17 @@ router.post('/create', async (req, res) => {
                 }
 
                 await connection.query(
-                    `INSERT INTO ingresso (titulo, idtipo_ingresso, quantidade, valor_unitario, 
+                    `INSERT INTO ingresso (titulo, tipo_ingressoid, quantidade, valor_unitario, 
                                           data_inicio, data_termino, taxa_servico, 
-                                          min_qtd_por_compra, max_qtd_por_compra, idevento)
+                                          min_qtd_por_compra, max_qtd_por_compra, evento_id)
                      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
                     [
                         titulo,
                         idtipo_ingresso,
                         quantidade,
                         valor_unitario,
-                        data_inicio || null,
-                        data_termino || null,
+                        ingresso_data_inicio || null,
+                        ingresso_data_termino || null,
                         taxa_servico || 0,
                         min_qtd_por_compra || 1,
                         max_qtd_por_compra || quantidade,
@@ -173,7 +172,8 @@ router.post('/create', async (req, res) => {
         await connection.rollback();
         console.error('Erro ao criar evento:', error);
         res.status(500).json({
-            error: 'Erro ao criar evento'
+            error: 'Erro ao criar evento',
+            details: error.message
         });
     } finally {
         connection.release();
