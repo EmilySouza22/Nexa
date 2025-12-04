@@ -14,6 +14,8 @@ import mascaraIcon from "../assets/home-convidado/icon-mascara.svg";
 import microfoneIcon from "../assets/home-convidado/icon-microfone.svg";
 import musicIcon from "../assets/home-convidado/icon-music.svg";
 import reuniaoIcon from "../assets/home-convidado/icon-reuniao.svg";
+import setadaDireita from "../assets/home-convidado/icon-setadaDireita.svg";
+import setadaEsquerda from "../assets/home-convidado/icon-setadaEsquerda.svg";
 
 //Não repetir nomes de icons com os nomes de icons de outras telas para não dar erro
 
@@ -34,4 +36,6 @@ export const iconsHomeConv = {
     microfoneIcon,
     musicIcon,
     reuniaoIcon,
+    setadaDireita,
+    setadaEsquerda
 };
