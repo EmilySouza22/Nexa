@@ -12,8 +12,9 @@
 body, html{
   min-height: 100vh;
   background: linear-gradient(90deg, #F8B7D9 0%, #D296FF 100%);
+  overflow-y: auto;
 }
 
 #root{
-  min-height: 300vh
+  min-height: 100vh
 }
