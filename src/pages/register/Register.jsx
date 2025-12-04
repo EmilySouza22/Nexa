@@ -12,11 +12,10 @@ function Cadastro() {
     confirmarSenha: "",
   });
 
-
-  // Guarda as mensagens de erro 
+  // Guarda as mensagens de erro
   const [erroSenha, setErroSenha] = useState("");
 
-  // Pra ocultar e mostrar a senha 
+  // Pra ocultar e mostrar a senha
   const [mostrarSenha, setMostrarSenha] = useState(false);
 
   // Pra ocultar e mostrar a senha (só que no campo de confirmar senha)
@@ -70,6 +69,10 @@ function Cadastro() {
   const enviarCad = async (e) => {
     e.preventDefault();
 
+    // === Limpando === //
+    // Limpa o telefone removendo a máscara - envia só números pro backend
+    const telefoneLimpo = limparTelefone(dadosCadastro.telefone);
+
     // === VALIDAÇÕES === //
 
     // Verifica se as senhas são iguais
@@ -108,11 +111,6 @@ function Cadastro() {
       setErroSenha("A senha deve ter pelo menos 6 caracteres");
       return;
     }
-
-    // === Limpando === //
-
-    // Limpa o telefone removendo a máscara - envia só números pro backend
-    const telefoneLimpo = limparTelefone(dadosCadastro.telefone);
 
     // Limpa o erro se passou em todas as validações
     setErroSenha("");
@@ -284,7 +282,5 @@ function Cadastro() {
     </div>
   );
 }
-
-
 
 export default Cadastro;

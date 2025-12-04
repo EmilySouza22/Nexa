@@ -1,25 +1,31 @@
-import './InformacaoBasicas.css'
+import "./InformacaoBasicas.css";
 
-const InformacoesBasicas = ({ formData, errors, onChange, onImageChange, onImageRemove }) => {
+const InformacoesBasicas = ({
+  formData,
+  errors,
+  onChange,
+  onImageChange,
+  onImageRemove,
+}) => {
   const categorias = [
-    { value: 'opcao1', label: 'Festa' },
-    { value: 'opcao2', label: 'Teatros' },
-    { value: 'opcao3', label: 'Infantil' },
-    { value: 'opcao4', label: 'Shows' },
-    { value: 'opcao5', label: 'Stand Up' },
-    { value: 'opcao6', label: 'Esportivos' },
-    { value: 'opcao7', label: 'Workshops' },
-    { value: 'opcao8', label: 'Online' },
-    { value: 'opcao9', label: 'Gastronomia' },
+    { value: "1", label: "Festa" },
+    { value: "2", label: "Teatros" },
+    { value: "3", label: "Infantil" },
+    { value: "4", label: "Shows" },
+    { value: "5", label: "Stand Up" },
+    { value: "6", label: "Esportivos" },
+    { value: "7", label: "Workshops" },
+    { value: "8", label: "Online" },
+    { value: "9", label: "Gastronomia" },
   ];
 
   const classificacoes = [
-    { value: 'Livre', label: 'Livre para Todos' },
-    { value: '10+', label: 'Acima de 10 anos' },
-    { value: '12+', label: 'Acima de 12 anos' },
-    { value: '14+', label: 'Acima de 14 anos' },
-    { value: '16+', label: 'Acima de 16 anos' },
-    { value: 'Maior de Idade', label: 'Para Maiores de Idade' },
+    { value: "Livre", label: "Livre para Todos" },
+    { value: "10+", label: "Acima de 10 anos" },
+    { value: "12+", label: "Acima de 12 anos" },
+    { value: "14+", label: "Acima de 14 anos" },
+    { value: "16+", label: "Acima de 16 anos" },
+    { value: "Maior de Idade", label: "Para Maiores de Idade" },
   ];
 
   return (
@@ -29,18 +35,22 @@ const InformacoesBasicas = ({ formData, errors, onChange, onImageChange, onImage
 
       <div className="form-linha">
         <div className="campo-form">
-          <label htmlFor="nameEvent" className="nome-evento">Nome do Evento*</label>
+          <label htmlFor="nameEvent" className="nome-evento">
+            Nome do Evento*
+          </label>
           <input
             id="nameEvent"
             type="text"
             value={formData.nameEvent}
-            onChange={(e) => onChange('nameEvent', e.target.value)}
+            onChange={(e) => onChange("nameEvent", e.target.value)}
             placeholder="Digite o nome"
             aria-invalid={!!errors.nameEvent}
             aria-describedby={errors.nameEvent ? "nameEvent-error" : undefined}
           />
           {errors.nameEvent && (
-            <span id="nameEvent-error" className="error-message">{errors.nameEvent}</span>
+            <span id="nameEvent-error" className="error-message">
+              {errors.nameEvent}
+            </span>
           )}
         </div>
 
@@ -49,17 +59,21 @@ const InformacoesBasicas = ({ formData, errors, onChange, onImageChange, onImage
           <select
             id="category"
             value={formData.category}
-            onChange={(e) => onChange('category', e.target.value)}
+            onChange={(e) => onChange("category", e.target.value)}
             aria-invalid={!!errors.category}
             aria-describedby={errors.category ? "category-error" : undefined}
           >
             <option value="">Selecione</option>
-            {categorias.map(opt => (
-              <option key={opt.value} value={opt.value}>{opt.label}</option>
+            {categorias.map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
             ))}
           </select>
           {errors.category && (
-            <span id="category-error" className="error-message">{errors.category}</span>
+            <span id="category-error" className="error-message">
+              {errors.category}
+            </span>
           )}
         </div>
       </div>
@@ -69,12 +83,12 @@ const InformacoesBasicas = ({ formData, errors, onChange, onImageChange, onImage
           <label>Imagem de Divulgação*</label>
           <div
             className="upload-imagem"
-            onClick={() => document.getElementById('fileInput').click()}
+            onClick={() => document.getElementById("fileInput").click()}
             role="button"
             tabIndex={0}
             onKeyPress={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                document.getElementById('fileInput').click();
+              if (e.key === "Enter" || e.key === " ") {
+                document.getElementById("fileInput").click();
               }
             }}
             aria-label="Clique para adicionar imagem de divulgação"
@@ -89,7 +103,11 @@ const InformacoesBasicas = ({ formData, errors, onChange, onImageChange, onImage
             />
             {formData.preview ? (
               <div className="container-preview">
-                <img src={formData.preview} alt="Preview da imagem de divulgação" className="preview-image" />
+                <img
+                  src={formData.preview}
+                  alt="Preview da imagem de divulgação"
+                  className="preview-image"
+                />
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
@@ -108,26 +126,36 @@ const InformacoesBasicas = ({ formData, errors, onChange, onImageChange, onImage
             )}
           </div>
           {errors.image && (
-            <span id="image-error" className="error-message">{errors.image}</span>
+            <span id="image-error" className="error-message">
+              {errors.image}
+            </span>
           )}
         </div>
 
         <div className="campo-form">
-          <label htmlFor="classification" className="classificacao">Classificação indicativa*</label>
+          <label htmlFor="classification" className="classificacao">
+            Classificação indicativa*
+          </label>
           <select
             id="classification"
             value={formData.classification}
-            onChange={(e) => onChange('classification', e.target.value)}
+            onChange={(e) => onChange("classification", e.target.value)}
             aria-invalid={!!errors.classification}
-            aria-describedby={errors.classification ? "classification-error" : undefined}
+            aria-describedby={
+              errors.classification ? "classification-error" : undefined
+            }
           >
             <option value="">Selecione</option>
-            {classificacoes.map(opt => (
-              <option key={opt.value} value={opt.value}>{opt.label}</option>
+            {classificacoes.map((opt) => (
+              <option key={opt.value} value={opt.value}>
+                {opt.label}
+              </option>
             ))}
           </select>
           {errors.classification && (
-            <span id="classification-error" className="error-message">{errors.classification}</span>
+            <span id="classification-error" className="error-message">
+              {errors.classification}
+            </span>
           )}
         </div>
       </div>
@@ -135,4 +163,4 @@ const InformacoesBasicas = ({ formData, errors, onChange, onImageChange, onImage
   );
 };
 
-export default InformacoesBasicas; // ← ADICIONE ESTA LINHA!
+export default InformacoesBasicas;
