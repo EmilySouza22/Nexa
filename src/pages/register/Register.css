@@ -14,7 +14,10 @@ body {
     margin: 0;
     padding: 0;
     min-height: 100vh; /* ocupa toda altura da tela */
-    overflow: hidden; /* remove o scroll dessa página */
+}
+
+body.cadastro-page { /* Para o scroll sair só quando estiver nessa tela*/
+    overflow: hidden; /* só quando tiver a classe */
 }
 
 /* === CONTAINER PRINCIPAL === */
@@ -38,7 +41,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 40px 80px;
+    padding: 20px 80px; /* diminuído de 40px para 20px */
 }
 
 /* === PERSONALIZAR TÍTULO === */
@@ -51,7 +54,7 @@ body {
 .cadastro-form form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px; /* diminuído de 15px para 10px */
     max-width: 600px;
     margin: 0 auto;
     width: 100%;
@@ -66,23 +69,18 @@ body {
 }
 
 /* === INPUTS === */
-.cadastro-form input {
+.cadastro-form input[type="text"],
+.cadastro-form input[type="password"] {
     background-color: #ffffff;
     border: none;
     border-radius: 16px;
     padding: 14px;
+    height: 50px;
     color: #000000;
     outline: none;
     font-size: 14px;
 }
 
-.cadastro-form input::placeholder {
-    color: #b9a1d9;
-}
-
-.cadastro-form input:focus {
-    box-shadow: 0 0 0 2px #F8A0CC;
-}
 
 /* === INPUT WRAPPER === */
 .input-wrapper {
@@ -90,9 +88,26 @@ body {
     width: 100%;
 }
 
-.input-wrapper input {
+.input-wrapper input[type="text"],
+.input-wrapper input[type="password"] {
     width: 100%;
-    padding-left: 45px;
+    padding: 12px 12px 12px 45px;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 16px;
+    color: #000000;
+    outline: none;
+    font-size: 14px;
+}
+
+.input-wrapper input[type="text"]::placeholder,
+.input-wrapper input[type="password"]::placeholder {
+    color: #87848b;
+}
+
+.input-wrapper input[type="text"]:focus,
+.input-wrapper input[type="password"]:focus {
+    box-shadow: 0 0 0 2px #F8A0CC;
 }
 
 .input-wrapper .input-icon,
@@ -104,11 +119,21 @@ body {
     width: 20px;
     height: 20px;
     pointer-events: none;
+    background: transparent !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .input-icon-clickable {
     cursor: pointer;
     pointer-events: auto;
+}
+
+/* Remover fundo das imagens de ícone */
+.input-wrapper .input-icon,
+.input-wrapper .input-icon-clickable {
+    background: transparent !important;
 }
 
 /* === BOTÃO ANTIGO  === */

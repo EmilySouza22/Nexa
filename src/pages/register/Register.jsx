@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./Register.css";
 import axios from "axios";
 import { iconsCA } from "../../utils/icons";
@@ -12,11 +12,20 @@ function Cadastro() {
     confirmarSenha: "",
   });
 
+  // Adiciona e remove a classe do body
+  useEffect(() => {
+    document.body.classList.add("cadastro-page");
 
-  // Guarda as mensagens de erro 
+    // Cleanup: remove a classe quando sair da página
+    return () => {
+      document.body.classList.remove("cadastro-page");
+    };
+  }, []);
+
+  // Guarda as mensagens de erro
   const [erroSenha, setErroSenha] = useState("");
 
-  // Pra ocultar e mostrar a senha 
+  // Pra ocultar e mostrar a senha
   const [mostrarSenha, setMostrarSenha] = useState(false);
 
   // Pra ocultar e mostrar a senha (só que no campo de confirmar senha)
@@ -70,6 +79,10 @@ function Cadastro() {
   const enviarCad = async (e) => {
     e.preventDefault();
 
+    // === Limpando === //
+    // Limpa o telefone removendo a máscara - envia só números pro backend
+    const telefoneLimpo = limparTelefone(dadosCadastro.telefone);
+
     // === VALIDAÇÕES === //
 
     // Verifica se as senhas são iguais
@@ -108,11 +121,6 @@ function Cadastro() {
       setErroSenha("A senha deve ter pelo menos 6 caracteres");
       return;
     }
-
-    // === Limpando === //
-
-    // Limpa o telefone removendo a máscara - envia só números pro backend
-    const telefoneLimpo = limparTelefone(dadosCadastro.telefone);
 
     // Limpa o erro se passou em todas as validações
     setErroSenha("");
@@ -284,7 +292,5 @@ function Cadastro() {
     </div>
   );
 }
-
-
 
 export default Cadastro;

@@ -38,6 +38,7 @@ import timerHO from "../assets/home-organizador/icon-timer.svg"
 import lojaHO from "../assets/home-organizador/icon-loja.svg"
 import addHO from "../assets/home-organizador/icon-add.svg"
 import analyticsHO from "../assets/home-organizador/icon-analytics.svg"
+import add2HO from "../assets/home-organizador/icon-add2.svg"
 
 export const iconsHO= {
     relogio: relogioHO,
@@ -49,6 +50,7 @@ export const iconsHO= {
     timer: timerHO,
     loja: lojaHO, 
     add: addHO,
+    add2: add2HO,
     analytics: analyticsHO
 };
 

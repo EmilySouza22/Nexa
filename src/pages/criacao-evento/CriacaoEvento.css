@@ -1,13 +1,35 @@
-/* ============================================
-   ESTILOS GERAIS - CriacaoEvento.css
-   ============================================ */
-
-/* Reset e Configurações Globais */
 * {
   box-sizing: border-box;
 }
 
-/* Títulos Globais */
+/* ===== LAYOUT PRINCIPAL ===== */
+.criacao-evento-page {
+  min-height: 100vh;
+  background: linear-gradient(90deg, #F8B7D9 0%, #D296FF 100%);
+}
+
+.criacao-evento-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.criacao-evento-content {
+  flex: 1;
+  width: 100%;
+  padding: 20px;
+  margin-top: 70px; /* Altura da navbar */
+  /* SEM margin-left - sidebar vai sobrepor */
+}
+
+/* Container Principal */
+.container-criacao-evento {
+  padding: 20px;
+  font-family: 'Poppins', 'Arial', sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ===== TÍTULOS ===== */
 .titulo-style {
   color: #1a1a1a;
   font-size: 28px;
@@ -24,7 +46,23 @@
   text-align: left;
 }
 
-/* Labels Globais */
+.titulo-principal {
+  color: #1a1a1a;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.subtitulo-secao {
+  color: #1a1a1a;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+/* ===== LABELS ===== */
 label {
   display: block;
   margin-bottom: 6px;
@@ -33,10 +71,11 @@ label {
   font-weight: 500;
 }
 
-/* Inputs Globais */
+/* ===== INPUTS ===== */
 input[type="text"],
 input[type="date"],
 input[type="time"],
+input[type="number"],
 select,
 textarea {
   width: 100%;
@@ -46,7 +85,7 @@ textarea {
   font-size: 15px;
   color: #1a1a1a;
   background-color: #ffffff;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
   outline: none;
   box-sizing: border-box;
   font-family: inherit;
@@ -55,9 +94,11 @@ textarea {
 input[type="text"]:focus,
 input[type="date"]:focus,
 input[type="time"]:focus,
+input[type="number"]:focus,
 select:focus,
 textarea:focus {
   border-color: #c8b5e8;
+  box-shadow: 0 0 0 3px rgba(200, 181, 232, 0.1);
 }
 
 input[type="text"]::placeholder,
@@ -72,16 +113,34 @@ textarea[aria-invalid="true"] {
   border-color: #ff4757;
 }
 
-/* Mensagens de erro */
+input[aria-invalid="true"]:focus,
+select[aria-invalid="true"]:focus,
+textarea[aria-invalid="true"]:focus {
+  box-shadow: 0 0 0 3px rgba(255, 71, 87, 0.1);
+}
+
+/* ===== MENSAGENS DE ERRO ===== */
 .error-message {
   display: block;
   color: #ff4757;
   font-size: 13px;
   margin-top: 6px;
   font-weight: 500;
+  animation: slideDown 0.3s ease;
 }
 
-/* Select Customizado */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== SELECT CUSTOMIZADO ===== */
 select {
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23d4a5d4' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
@@ -91,18 +150,27 @@ select {
   cursor: pointer;
 }
 
-/* Textarea */
+/* ===== TEXTAREA ===== */
 textarea {
   resize: vertical;
   min-height: 120px;
   line-height: 1.6;
 }
 
-/* Botões Gerais */
+/* ===== BOTÕES ===== */
 button {
   font-family: inherit;
   cursor: pointer;
   transition: all 0.3s ease;
+  border: none;
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+button:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 button:disabled {
@@ -110,20 +178,29 @@ button:disabled {
   cursor: not-allowed;
 }
 
-/* Container Principal */
-.content-principal {
-  max-width: 1200px;
-  margin: 0 auto;
+/* ===== BOX/SEÇÃO PADRÃO ===== */
+.box-secao {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 30px 50px;
+  max-width: 1100px;
+  margin: 0 auto 20px auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
 }
 
-/* Campos Genéricos */
+.box-secao:hover {
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* ===== CAMPOS GENÉRICOS ===== */
 .campo {
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
 }
 
-/* Layout de Formulário */
+/* ===== LAYOUT DE FORMULÁRIO ===== */
 .form-linha {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -136,18 +213,100 @@ button:disabled {
   flex-direction: column;
 }
 
-/* Responsividade Global */
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 1024px) {
+  .criacao-evento-content {
+    padding: 15px;
+  }
+  
+  .box-secao {
+    padding: 25px 35px;
+  }
+}
+
 @media (max-width: 768px) {
+  .criacao-evento-content {
+    margin-top: 70px;
+    padding: 15px;
+  }
+
+  .container-criacao-evento {
+    padding: 10px;
+  }
+
+  .box-secao {
+    padding: 20px;
+    border-radius: 15px;
+  }
+
   .titulo-style {
     font-size: 22px;
   }
 
-  .titulo2-style {
+  .titulo2-style,
+  .subtitulo-secao {
     font-size: 14px;
+  }
+
+  .titulo-principal {
+    font-size: 18px;
   }
 
   .form-linha {
     grid-template-columns: 1fr;
     gap: 20px;
+    margin-bottom: 24px;
   }
+
+  input[type="text"],
+  input[type="date"],
+  input[type="time"],
+  input[type="number"],
+  select,
+  textarea {
+    padding: 14px 16px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .box-secao {
+    padding: 15px;
+  }
+
+  .titulo-style {
+    font-size: 20px;
+  }
+
+  .criacao-evento-content {
+    padding: 10px;
+  }
+}
+
+/* ===== LOADING STATE ===== */
+.loading-overlay {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #d4a5d4;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

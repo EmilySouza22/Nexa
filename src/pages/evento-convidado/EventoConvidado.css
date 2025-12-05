@@ -1,18 +1,33 @@
 .home-organizador {
   min-height: 100vh;
+  padding-top: 70px; /* 👈 ADICIONE ISSO - empurra conteúdo para baixo da navbar */
 }
 
 .home-organizador-layout {
   display: flex;
-  min-height: calc(100vh - 70px); /* altura da navbar */
+  min-height: calc(100vh - 70px);
+  position: relative;
 }
 
 .home-organizador-layout main {
   flex: 1;
-  padding: 32px 0;
-  margin-left: 100px; /* largura da sidebar */
-  overflow-y: auto;
+  padding: 20px 0;
+  margin-left: 100px;
+  overflow-y: scroll;
+  max-height: calc(100vh - 70px);
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .home-organizador {
+    padding-top: 60px; /* 👈 Ajuste para mobile */
+  }
+  
+  .home-organizador-layout main {
+    margin-left: 0;
+    max-height: calc(100vh - 60px);
+  }
 }
