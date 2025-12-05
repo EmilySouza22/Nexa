@@ -17,6 +17,7 @@ function EventoConvidado(){
         <Sidebar userType="organizador" />
         <main>
           <CardEventoOgz/>
+          
         </main>
       </div>
     </div>
