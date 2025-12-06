@@ -517,3 +517,146 @@ textarea.input-field {
     justify-content: center;
   }
 }
+
+/* ===== INGRESSOS CRIADOS ===== */
+.ingressos-criados {
+  margin: 0 0 24px 0;
+  padding: 20px;
+  background: linear-gradient(135deg, #fef5fb 0%, #f9f4fd 100%);
+  border-radius: 15px;
+  border: 2px solid #f0e4f5;
+  transition: all 0.3s ease;
+}
+
+.ingressos-criados:hover {
+  border-color: #e8d4f8;
+  box-shadow: 0 4px 12px rgba(210, 150, 255, 0.1);
+}
+
+.ingressos-criados h4 {
+  margin: 0 0 16px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ingressos-criados h4::before {
+  content: '🎟️';
+  font-size: 18px;
+}
+
+.ingresso-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  background: white;
+  border-radius: 12px;
+  border: 2px solid #f0e4f5;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.ingresso-item:last-child {
+  margin-bottom: 0;
+}
+
+.ingresso-item:hover {
+  border-color: #e8d4f8;
+  box-shadow: 0 4px 12px rgba(210, 150, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+.ingresso-item > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.ingresso-item strong {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.ingresso-item span {
+  font-size: 13px;
+  color: #666;
+  font-weight: 400;
+}
+
+.btn-remover {
+  background: linear-gradient(135deg, #ff6b9d 0%, #ff4444 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(255, 68, 68, 0.2);
+  flex-shrink: 0;
+}
+
+.btn-remover:hover {
+  background: linear-gradient(135deg, #ff4d7a 0%, #cc0000 100%);
+  box-shadow: 0 4px 10px rgba(255, 68, 68, 0.3);
+  transform: scale(1.05);
+}
+
+.btn-remover:active {
+  transform: scale(0.95);
+}
+
+/* Responsividade para ingressos criados */
+@media (max-width: 768px) {
+  .ingressos-criados {
+    padding: 16px;
+  }
+
+  .ingresso-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .ingresso-item > div {
+    width: 100%;
+  }
+
+  .btn-remover {
+    align-self: flex-end;
+    width: 36px;
+    height: 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ingressos-criados h4 {
+    font-size: 14px;
+  }
+
+  .ingresso-item {
+    padding: 10px;
+  }
+
+  .ingresso-item strong {
+    font-size: 14px;
+  }
+
+  .ingresso-item span {
+    font-size: 12px;
+  }
+}
