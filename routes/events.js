@@ -3,6 +3,7 @@ import db from '../src/config/database.js';
 
 const router = express.Router();
 
+// == CRIANDO O EVENTO == // 
 router.post('/create', async (req, res) => {
     const connection = await db.getConnection();
 
@@ -18,7 +19,8 @@ router.post('/create', async (req, res) => {
             data_termino,
             idconta,
             endereco,
-            ingressos
+            ingressos,
+            imagem
         } = req.body;
 
         // Validações básicas do evento
@@ -89,8 +91,8 @@ router.post('/create', async (req, res) => {
         // Inserir evento
         const [resultadoEvento] = await connection.query(
             `INSERT INTO evento (nome, categoria_eventoid, assunto_principal, classificacao, 
-                                data_inicio, data_termino, evento_ativo, conta_id, endereco_eventoid)
-             VALUES (?, ?, ?, ?, ?, ?, TRUE, ?, ?)`,
+                                data_inicio, data_termino, evento_ativo, conta_id, endereco_eventoid, imagem)
+             VALUES (?, ?, ?, ?, ?, ?, TRUE, ?, ?, ?)`,
             [
                 nome,
                 idcategoria_evento,
@@ -99,7 +101,8 @@ router.post('/create', async (req, res) => {
                 data_inicio,
                 data_termino,
                 idconta,
-                idendereco_evento
+                idendereco_evento,
+                imagem || null
             ]
         );
 
@@ -139,7 +142,6 @@ router.post('/create', async (req, res) => {
                     });
                 }
 
-                // CORRIGIDO: Removidos campos taxa_servico e min_qtd_por_compra que não existem no banco
                 await connection.query(
                     `INSERT INTO ingresso (titulo, tipo_ingressoid, quantidade, valor_unitario, 
                                           data_inicio, data_termino, max_qtd_por_compra, evento_id)
@@ -151,7 +153,7 @@ router.post('/create', async (req, res) => {
                         valor_unitario,
                         ingresso_data_inicio || null,
                         ingresso_data_termino || null,
-                        max_qtd_por_compra || quantidade, // Se não informado, permite comprar a quantidade total
+                        max_qtd_por_compra || quantidade,
                         idevento
                     ]
                 );
@@ -177,19 +179,28 @@ router.post('/create', async (req, res) => {
     }
 });
 
-// Rota para buscar eventos de um organizador
+// == BUSCAR EVENTOS DO ORGANIZADOR == // 
 router.get('/organizador/:idconta', async (req, res) => {
     try {
         const { idconta } = req.params;
 
+        if (!idconta || idconta === 'undefined' || idconta === 'null') {
+            return res.status(400).json({
+                error: 'ID da conta inválido'
+            });
+        }
+
         const [eventos] = await db.query(
-            `SELECT e.*, c.nome as nome_categoria, 
-                    end.local, end.cidade, end.estado
+            `SELECT e.idevento, e.nome, e.data_inicio, e.data_termino, 
+                    e.evento_ativo, e.imagem,
+                    c.nome as nome_categoria, 
+                    end.local, end.cidade, end.estado,
+                    DATEDIFF(e.data_inicio, NOW()) as dias_restantes
              FROM evento e
              LEFT JOIN categoria_evento c ON e.categoria_eventoid = c.idcategoria_evento
              LEFT JOIN endereco_evento end ON e.endereco_eventoid = end.idendereco_evento
-             WHERE e.conta_id = ?
-             ORDER BY e.data_inicio DESC`,
+             WHERE e.conta_id = ? AND e.evento_ativo = TRUE AND e.data_inicio >= CURDATE()
+             ORDER BY e.data_inicio ASC`,
             [idconta]
         );
 
