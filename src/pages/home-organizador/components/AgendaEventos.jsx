@@ -81,6 +81,21 @@ function AgendaEventos() {
     fetchEventos();
   }, []);
 
+  // Filtrar apenas eventos ativos (que ainda não passaram)
+  const eventosAtivos = eventos.filter((evento) => {
+    const dataTermino = evento.data_termino || evento.data;
+    // Normaliza as datas para meia-noite para comparação correta
+    const dataTerminoNormalizada = new Date(dataTermino);
+    dataTerminoNormalizada.setHours(0, 0, 0, 0);
+    const hojeNormalizado = new Date(hoje);
+    hojeNormalizado.setHours(0, 0, 0, 0);
+
+    return dataTerminoNormalizada >= hojeNormalizado;
+  });
+
+  // Verifica se deve mostrar o card de criar evento
+  const mostrarCardCriar = eventosAtivos.length < 5;
+
   // Função para tratar erro de carregamento de imagem
   const handleImageError = (eventoId) => {
     setImagensComErro((prev) => new Set([...prev, eventoId]));
@@ -224,7 +239,8 @@ function AgendaEventos() {
 
       <div className="agenda-content">
         <div className="agenda-eventos-grid">
-          {eventos.slice(0, 4).map((evento) => (
+          {/* Mostra os primeiros 5 eventos ativos */}
+          {eventosAtivos.slice(0, 5).map((evento) => (
             <div key={evento.id} className="agenda-evento-card">
               {evento.imagem && !imagensComErro.has(evento.id) ? (
                 <img
@@ -244,26 +260,22 @@ function AgendaEventos() {
             </div>
           ))}
 
-          {eventos.length < 4 &&
-            Array.from({ length: 4 - eventos.length }).map((_, index) => (
-              <div
-                key={`empty-${index}`}
-                className="agenda-evento-card agenda-evento-vazio"
-              >
-                <span>Nenhum evento agendado</span>
-              </div>
-            ))}
-
-          <div className="agenda-criar-evento-card" onClick={handleCriarEvento}>
-            <button className="criar-evento-button">
-              <img
-                src={iconsHO.add2}
-                alt="Adicionar"
-                className="criar-evento-icon"
-              />
-              Criar evento
-            </button>
-          </div>
+          {/* Card de criar evento - só aparece se houver menos de 5 eventos ativos */}
+          {mostrarCardCriar && (
+            <div
+              className="agenda-criar-evento-card"
+              onClick={handleCriarEvento}
+            >
+              <button className="criar-evento-button">
+                <img
+                  src={iconsHO.add2}
+                  alt="Adicionar"
+                  className="criar-evento-icon"
+                />
+                Criar evento
+              </button>
+            </div>
+          )}
 
           <div className="agenda-calendario-wrapper">
             <div className="agenda-calendario">
