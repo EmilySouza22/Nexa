@@ -55,6 +55,22 @@ router.post('/create', async (req, res) => {
             });
         }
 
+        // VALIDAÇÃO: Verificar se já possui 5 eventos ativos
+        const [eventosAtivos] = await connection.query(
+            `SELECT COUNT(*) as total 
+             FROM evento 
+             WHERE conta_id = ? 
+             AND evento_ativo = TRUE 
+             AND data_termino >= CURDATE()`,
+            [idconta]
+        );
+
+        if (eventosAtivos[0].total >= 5) {
+            return res.status(400).json({
+                error: 'Você já possui 5 eventos ativos. Aguarde um evento terminar ou delete um evento existente para criar um novo.'
+            });
+        }
+
         // Verificar se a categoria existe
         const [categoriaExistente] = await connection.query(
             'SELECT idcategoria_evento FROM categoria_evento WHERE idcategoria_evento = ?',
