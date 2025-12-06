@@ -3,7 +3,7 @@ import Sidebar from "../../components/Sidebar";
 import '../home-convidado/HomeConvidado.css'
 import SectionBuscarEvento from "./components/SectionBuscarEvento";
 import SectionMuralEvento from "./components/SectionMuralEvento";
-import SectionFooter from "./components/SectionFooter";
+import Footer from "../../components/Footer.jsx";
 import React from "react";
 
 
@@ -19,8 +19,8 @@ function HomeConvidado() {
             <Sidebar userType='convidado'/>
             <SectionMuralEvento/>
             <SectionBuscarEvento/>
+            <Footer/>
         </div>
-        
     );
 }
 

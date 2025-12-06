@@ -7,27 +7,14 @@ body * {
 }
 
 .footer {
-    background-color: #3A3A3A;
+    background-color: #2C2127;
     padding: 40px 60px 40px 60px;
     width: 100%;
     color: white;
     margin: 0;
     box-sizing: border-box;
     position: relative;
-}
-
-.footer::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 100px;
-    right: 0;
-    height: 24px;
-    background-color: transparent;
     border-radius: 24px 24px 0 0;
-    border-top: 1px solid #3A3A3A;
-    border-left: 1px solid #3A3A3A;
-    border-right: 1px solid #3A3A3A;
 }
 
 .footer-top {
