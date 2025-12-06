@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./SecaoIngresso.css";
-import { iconsCE } from "../../../utils/iconsCriacaoEvento";
+import { iconsCE } from "../../../utils/icons";
+
 
 const SecaoIngressos = ({
   ingressos = [],

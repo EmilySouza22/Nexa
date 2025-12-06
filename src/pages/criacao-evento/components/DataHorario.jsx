@@ -1,6 +1,6 @@
 import React from 'react';
 import './DataHorario.css';
-import { iconsCE } from '../../../utils/iconsCriacaoEvento';
+import { iconsCE } from "../../../utils/icons";
 
 const DataHorario = ({ formData, errors, onChange }) => (
   <div className="box-02">

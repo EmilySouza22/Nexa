@@ -1,6 +1,6 @@
 import React from 'react';
 import "./InformacaoBasicas.css";
-import { iconsCE } from '../../../utils/iconsCriacaoEvento';
+import { iconsCE } from "../../../utils/icons";
 
 const InformacoesBasicas = ({
   formData,
