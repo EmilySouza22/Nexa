@@ -1,10 +1,19 @@
+/* ===== BOX DATA E HORÁRIO ===== */
 .box-02 {
-  background: #ffffff;
+  background: white;
+  border: 2px solid transparent;
   border-radius: 20px;
-  padding: 30px 50px;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(to right, #F8B7D9, #D296FF) border-box;
+  padding: 40px 50px 50px 50px;
   margin: 0 auto 20px auto;
   max-width: 1100px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.box-02:hover {
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
 }
 
 /* Container dos campos de data/hora */
@@ -22,6 +31,8 @@
 .form-linha-datas .campo label {
   margin-bottom: 8px;
   font-size: 14px;
+  color: #d4a5d4;
+  font-weight: 500;
 }
 
 .campo-data-hora {
@@ -34,16 +45,17 @@
   position: relative;
   display: flex;
   align-items: center;
-  border: 2px solid #e8d4f8;
+  border: 3px solid transparent;
   border-radius: 12px;
-  background: #ffffff;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(to right, #F8B7D9, #D296FF) border-box;
   overflow: hidden;
-  transition: border-color 0.3s ease;
+  transition: all 0.3s ease;
   height: 50px;
 }
 
 .input-simples:focus-within {
-  border-color: #c8b5e8;
+  box-shadow: 0 0 0 3px rgba(248, 183, 217, 0.2);
 }
 
 .icon-area {
@@ -82,6 +94,11 @@
   font-family: inherit;
 }
 
+.input-simples input::placeholder {
+  color: #c0c0c0;
+  opacity: 1;
+}
+
 .input-simples input[type="date"],
 .input-simples input[type="time"] {
   cursor: pointer;
@@ -99,6 +116,10 @@
 
 /* Responsividade Box 02 */
 @media (max-width: 1024px) {
+  .box-02 {
+    padding: 35px 35px 40px 35px;
+  }
+
   .form-linha-datas {
     flex-wrap: wrap;
   }
@@ -111,7 +132,8 @@
 
 @media (max-width: 768px) {
   .box-02 {
-    padding: 20px;
+    padding: 25px 20px 30px 20px;
+    border-radius: 15px;
   }
 
   .form-linha-datas {
@@ -120,5 +142,11 @@
 
   .form-linha-datas .campo {
     flex: 1 1 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .box-02 {
+    padding: 20px 15px 25px 15px;
   }
 }

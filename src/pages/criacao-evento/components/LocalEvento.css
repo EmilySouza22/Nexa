@@ -1,10 +1,36 @@
+/* ===== BOX LOCAL DO EVENTO ===== */
 .box-04 {
   background: white;
-  border-radius: 20px;
+  border: 2px solid transparent;
+  border-radius: 22px;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(to right, #F8B7D9, #D296FF) border-box;
   padding: 30px 50px;
   margin: 0 auto 20px auto;
   max-width: 1100px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.box-04:hover {
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* Títulos do Box 04 */
+.box-04 h1 {
+  color: #1a1a1a;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  text-align: left;
+}
+
+.box-04 h2 {
+  color: #1a1a1a;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  text-align: left;
 }
 
 /* Layout de duas colunas */
@@ -32,14 +58,59 @@
   font-weight: 500;
 }
 
+/* Inputs do Local com border 3px */
+.campo-local input[type="text"],
+.campo-local input[type="number"],
+.campo-local select {
+  border: 3px solid transparent;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(to right, #F8B7D9, #D296FF) border-box;
+}
+
+.campo-local select {
+  background: 
+    url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23d4a5d4' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 16px center,
+    linear-gradient(white, white) padding-box,
+    linear-gradient(to right, #F8B7D9, #D296FF) border-box;
+}
+
 /* Responsividade Box 04 */
+@media (max-width: 1024px) {
+  .box-04 {
+    padding: 25px 35px;
+  }
+}
+
 @media (max-width: 768px) {
   .box-04 {
     padding: 20px;
+    border-radius: 15px;
+  }
+
+  .box-04 h1 {
+    font-size: 24px;
+  }
+
+  .box-04 h2 {
+    font-size: 16px;
   }
 
   .form-linha-local {
     grid-template-columns: 1fr;
     gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .box-04 {
+    padding: 15px;
+  }
+
+  .box-04 h1 {
+    font-size: 22px;
+  }
+
+  .box-04 h2 {
+    font-size: 15px;
   }
 }

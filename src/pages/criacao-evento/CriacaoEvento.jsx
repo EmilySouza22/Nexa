@@ -34,16 +34,36 @@ function CriacaoEvento() {
     bairro: "",
     numero: "",
     aceitaTermos: false,
+    ingressos: [],
   });
 
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [buscandoCep, setBuscandoCep] = useState(false);
+  const [erroCep, setErroCep] = useState('');
 
   const handleChange = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
     if (errors[field]) {
       setErrors((prev) => ({ ...prev, [field]: "" }));
     }
+  };
+
+  const handleAddIngresso = (ingresso) => {
+    setFormData((prev) => ({
+      ...prev,
+      ingressos: [...prev.ingressos, ingresso],
+    }));
+    if (errors.ingressos) {
+      setErrors((prev) => ({ ...prev, ingressos: "" }));
+    }
+  };
+
+  const handleRemoveIngresso = (id) => {
+    setFormData((prev) => ({
+      ...prev,
+      ingressos: prev.ingressos.filter((ing) => ing.id !== id),
+    }));
   };
 
   const handleImageChange = (e) => {
@@ -87,8 +107,63 @@ function CriacaoEvento() {
     return `${numbers.slice(0, 5)}-${numbers.slice(5, 8)}`;
   };
 
+  const buscarCep = async (cep) => {
+    const cepLimpo = cep.replace(/\D/g, '');
+    
+    if (cepLimpo.length !== 8) {
+      return;
+    }
+
+    setBuscandoCep(true);
+    setErroCep('');
+
+    try {
+      const response = await fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`);
+      const data = await response.json();
+
+      if (data.erro) {
+        setErroCep('CEP não encontrado');
+        setBuscandoCep(false);
+        return;
+      }
+
+      // Preenche os campos automaticamente
+      setFormData((prev) => ({
+        ...prev,
+        avenidaRua: data.logradouro || prev.avenidaRua,
+        bairro: data.bairro || prev.bairro,
+        cidade: data.localidade || prev.cidade,
+        estado: data.uf || prev.estado,
+        complemento: data.complemento || prev.complemento,
+      }));
+
+      // Limpa erros dos campos preenchidos
+      setErrors((prev) => ({
+        ...prev,
+        avenidaRua: '',
+        bairro: '',
+        cidade: '',
+        estado: '',
+      }));
+
+      setBuscandoCep(false);
+    } catch (error) {
+      setErroCep('Erro ao buscar CEP');
+      setBuscandoCep(false);
+    }
+  };
+
   const handleCEPChange = (field, value) => {
-    handleChange(field, formatCEP(value));
+    const cepFormatado = formatCEP(value);
+    handleChange(field, cepFormatado);
+
+    // Busca automática quando o CEP estiver completo
+    const cepLimpo = cepFormatado.replace(/\D/g, '');
+    if (cepLimpo.length === 8) {
+      buscarCep(cepFormatado);
+    } else {
+      setErroCep('');
+    }
   };
 
   const validateForm = () => {
@@ -119,6 +194,10 @@ function CriacaoEvento() {
     if (!formData.estado) newErrors.estado = "Selecione um estado";
     if (!formData.cidade.trim()) newErrors.cidade = "Cidade é obrigatória";
     if (!formData.bairro.trim()) newErrors.bairro = "Bairro é obrigatório";
+    
+    if (formData.ingressos.length === 0)
+      newErrors.ingressos = "Adicione pelo menos um ingresso";
+    
     if (!formData.aceitaTermos)
       newErrors.aceitaTermos =
         "Você deve aceitar os termos para publicar o evento";
@@ -128,7 +207,10 @@ function CriacaoEvento() {
   };
 
   const handleSubmit = async () => {
-    if (!validateForm()) return;
+    if (!validateForm()) {
+      alert("Por favor, preencha todos os campos obrigatórios");
+      return;
+    }
 
     setIsSubmitting(true);
     try {
@@ -175,7 +257,18 @@ function CriacaoEvento() {
           cep: formData.cep,
           numero: formData.numero || "",
         },
+        ingressos: formData.ingressos.map((ing) => ({
+          titulo: ing.titulo,
+          idtipo_ingresso: ing.idtipo_ingresso,
+          quantidade: ing.quantidade,
+          valor_unitario: ing.valor_unitario,
+          data_inicio: ing.data_inicio,
+          data_termino: ing.data_termino,
+          max_qtd_por_compra: ing.max_qtd_por_compra,
+        })),
       };
+
+      console.log("Enviando dados:", eventoData);
 
       const response = await fetch("http://localhost:3000/api/eventos/create", {
         method: "POST",
@@ -192,7 +285,33 @@ function CriacaoEvento() {
       }
 
       alert("🎉 Evento publicado com sucesso!");
+      
+      // Limpar formulário após sucesso
+      setFormData({
+        nameEvent: "",
+        category: "",
+        image: null,
+        preview: null,
+        classification: "",
+        dateInicio: "",
+        timeInicio: "",
+        dateTermino: "",
+        timeTermino: "",
+        descricao: "",
+        localEvento: "",
+        estado: "",
+        avenidaRua: "",
+        cidade: "",
+        complemento: "",
+        cep: "",
+        bairro: "",
+        numero: "",
+        aceitaTermos: false,
+        ingressos: [],
+      });
+      
     } catch (error) {
+      console.error("Erro completo:", error);
       alert(`❌ Erro ao publicar evento: ${error.message}`);
     } finally {
       setIsSubmitting(false);
@@ -234,9 +353,20 @@ function CriacaoEvento() {
                   ? handleCEPChange(field, value)
                   : handleChange(field, value)
               }
+              buscandoCep={buscandoCep}
+              erroCep={erroCep}
             />
 
-            <SecaoIngressos />
+            <SecaoIngressos
+              ingressos={formData.ingressos}
+              onAddIngresso={handleAddIngresso}
+              onRemoveIngresso={handleRemoveIngresso}
+            />
+            {errors.ingressos && (
+              <span className="error-message" style={{ color: 'red', marginTop: '-15px', marginBottom: '15px', display: 'block' }}>
+                {errors.ingressos}
+              </span>
+            )}
 
             <Responsabilidades
               aceitaTermos={formData.aceitaTermos}

@@ -29,8 +29,9 @@
   margin: 0 auto;
 }
 
-/* ===== TÍTULOS ===== */
-.titulo-style {
+/* ===== TÍTULOS PADRONIZADOS ===== */
+.titulo-style,
+h1 {
   color: #1a1a1a;
   font-size: 28px;
   font-weight: 700;
@@ -38,17 +39,18 @@
   text-align: left;
 }
 
-.titulo2-style {
+.titulo2-style,
+h2 {
   color: #1a1a1a;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 600;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   text-align: left;
 }
 
 .titulo-principal {
   color: #1a1a1a;
-  font-size: 20px;
+  font-size: 28px;
   font-weight: 700;
   margin-bottom: 8px;
   text-align: left;
@@ -56,9 +58,9 @@
 
 .subtitulo-secao {
   color: #1a1a1a;
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 600;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   text-align: left;
 }
 
@@ -71,7 +73,7 @@ label {
   font-weight: 500;
 }
 
-/* ===== INPUTS ===== */
+/* ===== INPUTS COM PLACEHOLDER CINZA CLARO ===== */
 input[type="text"],
 input[type="date"],
 input[type="time"],
@@ -80,12 +82,13 @@ select,
 textarea {
   width: 100%;
   padding: 16px 18px;
-  border: 2px solid #e8d4f8;
+  border: 2px solid transparent;
   border-radius: 10px;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(to right, #F8B7D9, #D296FF) border-box;
   font-size: 15px;
   color: #1a1a1a;
-  background-color: #ffffff;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.3s ease;
   outline: none;
   box-sizing: border-box;
   font-family: inherit;
@@ -97,20 +100,21 @@ input[type="time"]:focus,
 input[type="number"]:focus,
 select:focus,
 textarea:focus {
-  border-color: #c8b5e8;
-  box-shadow: 0 0 0 3px rgba(200, 181, 232, 0.1);
+  box-shadow: 0 0 0 3px rgba(248, 183, 217, 0.2);
 }
 
 input[type="text"]::placeholder,
 textarea::placeholder {
-  color: #b8b8b8;
+  color: #c0c0c0;
+  opacity: 1;
 }
 
 /* Inputs com erro */
 input[aria-invalid="true"],
 select[aria-invalid="true"],
 textarea[aria-invalid="true"] {
-  border-color: #ff4757;
+  border: 2px solid #ff4757;
+  background: white;
 }
 
 input[aria-invalid="true"]:focus,
@@ -143,9 +147,10 @@ textarea[aria-invalid="true"]:focus {
 /* ===== SELECT CUSTOMIZADO ===== */
 select {
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23d4a5d4' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 16px center;
+  background: 
+    url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23d4a5d4' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 16px center,
+    linear-gradient(white, white) padding-box,
+    linear-gradient(to right, #F8B7D9, #D296FF) border-box;
   padding-right: 40px;
   cursor: pointer;
 }
@@ -178,10 +183,13 @@ button:disabled {
   cursor: not-allowed;
 }
 
-/* ===== BOX/SEÇÃO PADRÃO ===== */
+/* ===== BOX/SEÇÃO PADRÃO COM BORDER RADIUS GRADIENTE ===== */
 .box-secao {
-  background: #ffffff;
+  background: white;
+  border: 2px solid transparent;
   border-radius: 20px;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(to right, #F8B7D9, #D296FF) border-box;
   padding: 30px 50px;
   max-width: 1100px;
   margin: 0 auto 20px auto;
@@ -239,17 +247,16 @@ button:disabled {
     border-radius: 15px;
   }
 
-  .titulo-style {
-    font-size: 22px;
+  .titulo-style,
+  h1,
+  .titulo-principal {
+    font-size: 24px;
   }
 
   .titulo2-style,
+  h2,
   .subtitulo-secao {
-    font-size: 14px;
-  }
-
-  .titulo-principal {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .form-linha {
@@ -274,8 +281,16 @@ button:disabled {
     padding: 15px;
   }
 
-  .titulo-style {
-    font-size: 20px;
+  .titulo-style,
+  h1,
+  .titulo-principal {
+    font-size: 22px;
+  }
+
+  .titulo2-style,
+  h2,
+  .subtitulo-secao {
+    font-size: 15px;
   }
 
   .criacao-evento-content {
