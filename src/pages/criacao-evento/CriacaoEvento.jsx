@@ -40,7 +40,7 @@ function CriacaoEvento() {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [buscandoCep, setBuscandoCep] = useState(false);
-  const [erroCep, setErroCep] = useState('');
+  const [erroCep, setErroCep] = useState("");
 
   const handleChange = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -108,21 +108,23 @@ function CriacaoEvento() {
   };
 
   const buscarCep = async (cep) => {
-    const cepLimpo = cep.replace(/\D/g, '');
-    
+    const cepLimpo = cep.replace(/\D/g, "");
+
     if (cepLimpo.length !== 8) {
       return;
     }
 
     setBuscandoCep(true);
-    setErroCep('');
+    setErroCep("");
 
     try {
-      const response = await fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`);
+      const response = await fetch(
+        `https://viacep.com.br/ws/${cepLimpo}/json/`
+      );
       const data = await response.json();
 
       if (data.erro) {
-        setErroCep('CEP não encontrado');
+        setErroCep("CEP não encontrado");
         setBuscandoCep(false);
         return;
       }
@@ -140,15 +142,15 @@ function CriacaoEvento() {
       // Limpa erros dos campos preenchidos
       setErrors((prev) => ({
         ...prev,
-        avenidaRua: '',
-        bairro: '',
-        cidade: '',
-        estado: '',
+        avenidaRua: "",
+        bairro: "",
+        cidade: "",
+        estado: "",
       }));
 
       setBuscandoCep(false);
     } catch (error) {
-      setErroCep('Erro ao buscar CEP');
+      setErroCep("Erro ao buscar CEP");
       setBuscandoCep(false);
     }
   };
@@ -157,12 +159,11 @@ function CriacaoEvento() {
     const cepFormatado = formatCEP(value);
     handleChange(field, cepFormatado);
 
-    // Busca automática quando o CEP estiver completo
-    const cepLimpo = cepFormatado.replace(/\D/g, '');
+    const cepLimpo = cepFormatado.replace(/\D/g, "");
     if (cepLimpo.length === 8) {
       buscarCep(cepFormatado);
     } else {
-      setErroCep('');
+      setErroCep("");
     }
   };
 
@@ -194,10 +195,10 @@ function CriacaoEvento() {
     if (!formData.estado) newErrors.estado = "Selecione um estado";
     if (!formData.cidade.trim()) newErrors.cidade = "Cidade é obrigatória";
     if (!formData.bairro.trim()) newErrors.bairro = "Bairro é obrigatório";
-    
+
     if (formData.ingressos.length === 0)
       newErrors.ingressos = "Adicione pelo menos um ingresso";
-    
+
     if (!formData.aceitaTermos)
       newErrors.aceitaTermos =
         "Você deve aceitar os termos para publicar o evento";
@@ -239,6 +240,14 @@ function CriacaoEvento() {
         return;
       }
 
+      if (!formData.preview) {
+        alert(
+          "❌ Erro: Imagem não foi carregada corretamente. Por favor, selecione a imagem novamente."
+        );
+        setIsSubmitting(false);
+        return;
+      }
+
       const eventoData = {
         nome: formData.nameEvent,
         idcategoria_evento: parseInt(formData.category),
@@ -247,6 +256,7 @@ function CriacaoEvento() {
         data_inicio: `${formData.dateInicio} ${formData.timeInicio}:00`,
         data_termino: `${formData.dateTermino} ${formData.timeTermino}:00`,
         idconta: idcontaInt,
+        imagem: formData.preview,
         endereco: {
           local: formData.localEvento,
           rua: formData.avenidaRua,
@@ -268,8 +278,6 @@ function CriacaoEvento() {
         })),
       };
 
-      console.log("Enviando dados:", eventoData);
-
       const response = await fetch("http://localhost:3000/api/eventos/create", {
         method: "POST",
         headers: {
@@ -285,7 +293,7 @@ function CriacaoEvento() {
       }
 
       alert("🎉 Evento publicado com sucesso!");
-      
+
       // Limpar formulário após sucesso
       setFormData({
         nameEvent: "",
@@ -309,7 +317,6 @@ function CriacaoEvento() {
         aceitaTermos: false,
         ingressos: [],
       });
-      
     } catch (error) {
       console.error("Erro completo:", error);
       alert(`❌ Erro ao publicar evento: ${error.message}`);
@@ -363,7 +370,15 @@ function CriacaoEvento() {
               onRemoveIngresso={handleRemoveIngresso}
             />
             {errors.ingressos && (
-              <span className="error-message" style={{ color: 'red', marginTop: '-15px', marginBottom: '15px', display: 'block' }}>
+              <span
+                className="error-message"
+                style={{
+                  color: "red",
+                  marginTop: "-15px",
+                  marginBottom: "15px",
+                  display: "block",
+                }}
+              >
                 {errors.ingressos}
               </span>
             )}

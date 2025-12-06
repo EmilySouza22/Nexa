@@ -1,6 +1,6 @@
 import React from 'react';
 import './BotaoPublicar.css';
-import { iconsCE } from '../../../utils/iconsCriacaoEvento'
+import { iconsCE } from "../../../utils/icons";
 
 const BotaoPublicar = ({ isSubmitting, onSubmit }) => (
   <div className="box-08">

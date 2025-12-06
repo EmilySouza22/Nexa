@@ -3,6 +3,7 @@ import db from '../src/config/database.js';
 
 const router = express.Router();
 
+// == CRIANDO O EVENTO == // 
 router.post('/create', async (req, res) => {
     const connection = await db.getConnection();
 
@@ -18,7 +19,8 @@ router.post('/create', async (req, res) => {
             data_termino,
             idconta,
             endereco,
-            ingressos
+            ingressos,
+            imagem
         } = req.body;
 
         // Validações básicas do evento
@@ -50,6 +52,22 @@ router.post('/create', async (req, res) => {
         if (contaExistente[0].tipo_contaid !== 2) {
             return res.status(403).json({
                 error: 'Apenas organizadores podem criar eventos'
+            });
+        }
+
+        // VALIDAÇÃO: Verificar se já possui 5 eventos ativos
+        const [eventosAtivos] = await connection.query(
+            `SELECT COUNT(*) as total 
+             FROM evento 
+             WHERE conta_id = ? 
+             AND evento_ativo = TRUE 
+             AND data_termino >= CURDATE()`,
+            [idconta]
+        );
+
+        if (eventosAtivos[0].total >= 5) {
+            return res.status(400).json({
+                error: 'Você já possui 5 eventos ativos. Aguarde um evento terminar ou delete um evento existente para criar um novo.'
             });
         }
 
@@ -89,8 +107,8 @@ router.post('/create', async (req, res) => {
         // Inserir evento
         const [resultadoEvento] = await connection.query(
             `INSERT INTO evento (nome, categoria_eventoid, assunto_principal, classificacao, 
-                                data_inicio, data_termino, evento_ativo, conta_id, endereco_eventoid)
-             VALUES (?, ?, ?, ?, ?, ?, TRUE, ?, ?)`,
+                                data_inicio, data_termino, evento_ativo, conta_id, endereco_eventoid, imagem)
+             VALUES (?, ?, ?, ?, ?, ?, TRUE, ?, ?, ?)`,
             [
                 nome,
                 idcategoria_evento,
@@ -99,7 +117,8 @@ router.post('/create', async (req, res) => {
                 data_inicio,
                 data_termino,
                 idconta,
-                idendereco_evento
+                idendereco_evento,
+                imagem || null
             ]
         );
 
@@ -139,7 +158,6 @@ router.post('/create', async (req, res) => {
                     });
                 }
 
-                // CORRIGIDO: Removidos campos taxa_servico e min_qtd_por_compra que não existem no banco
                 await connection.query(
                     `INSERT INTO ingresso (titulo, tipo_ingressoid, quantidade, valor_unitario, 
                                           data_inicio, data_termino, max_qtd_por_compra, evento_id)
@@ -151,7 +169,7 @@ router.post('/create', async (req, res) => {
                         valor_unitario,
                         ingresso_data_inicio || null,
                         ingresso_data_termino || null,
-                        max_qtd_por_compra || quantidade, // Se não informado, permite comprar a quantidade total
+                        max_qtd_por_compra || quantidade,
                         idevento
                     ]
                 );
@@ -177,19 +195,83 @@ router.post('/create', async (req, res) => {
     }
 });
 
-// Rota para buscar eventos de um organizador
+// == BUSCAR RESUMO DO DASHBOARD DO ORGANIZADOR == //
+router.get('/organizador/:idconta/dashboard', async (req, res) => {
+    try {
+        const { idconta } = req.params;
+
+        if (!idconta || idconta === 'undefined' || idconta === 'null') {
+            return res.status(400).json({
+                error: 'ID da conta inválido'
+            });
+        }
+
+        // Buscar próximo evento
+        const [proximoEvento] = await db.query(
+            `SELECT e.idevento, e.nome, e.data_inicio, e.data_termino,
+                    DATEDIFF(e.data_inicio, NOW()) as dias_restantes
+             FROM evento e
+             WHERE e.conta_id = ? AND e.evento_ativo = 1 AND e.data_inicio >= CURDATE()
+             ORDER BY e.data_inicio ASC
+             LIMIT 1`,
+            [idconta]
+        );
+
+        // Buscar total de ingressos
+        const [ingressosTotal] = await db.query(
+            `SELECT 
+                COALESCE(SUM(i.quantidade), 0) as total_ingressos,
+                COALESCE(SUM(i.vendidos), 0) as total_vendidos
+             FROM evento e
+             LEFT JOIN ingresso i ON e.idevento = i.evento_id
+             WHERE e.conta_id = ? AND e.evento_ativo = 1 AND e.data_termino >= CURDATE()`,
+            [idconta]
+        );
+
+        const totalIngressos = Number(ingressosTotal[0]?.total_ingressos) || 0;
+        const totalVendidos = Number(ingressosTotal[0]?.total_vendidos) || 0;
+        const totalRestantes = totalIngressos - totalVendidos;
+
+        res.json({
+            proximo_evento: proximoEvento[0] || null,
+            ingressos: {
+                total_vendidos: totalVendidos,
+                total_restantes: totalRestantes,
+                total_ingressos: totalIngressos
+            }
+        });
+    } catch (error) {
+        console.error('Erro ao buscar dashboard:', error);
+        res.status(500).json({
+            error: 'Erro ao buscar dados do dashboard',
+            details: error.message
+        });
+    }
+});
+
+// == BUSCAR EVENTOS DO ORGANIZADOR == // 
 router.get('/organizador/:idconta', async (req, res) => {
     try {
         const { idconta } = req.params;
 
+        if (!idconta || idconta === 'undefined' || idconta === 'null') {
+            return res.status(400).json({
+                error: 'ID da conta inválido'
+            });
+        }
+
         const [eventos] = await db.query(
-            `SELECT e.*, c.nome as nome_categoria, 
-                    end.local, end.cidade, end.estado
+            `SELECT e.idevento, e.nome, e.data_inicio, e.data_termino, 
+                    e.evento_ativo, e.imagem, e.assunto_principal,
+                    c.nome as nome_categoria, 
+                    end.local, end.rua, end.numero, end.complemento, 
+                    end.bairro, end.cidade, end.estado, end.cep,
+                    DATEDIFF(e.data_inicio, NOW()) as dias_restantes
              FROM evento e
              LEFT JOIN categoria_evento c ON e.categoria_eventoid = c.idcategoria_evento
              LEFT JOIN endereco_evento end ON e.endereco_eventoid = end.idendereco_evento
-             WHERE e.conta_id = ?
-             ORDER BY e.data_inicio DESC`,
+             WHERE e.conta_id = ? AND e.evento_ativo = TRUE AND e.data_termino >= CURDATE()
+             ORDER BY e.data_inicio ASC`,
             [idconta]
         );
 
@@ -198,6 +280,88 @@ router.get('/organizador/:idconta', async (req, res) => {
         console.error('Erro ao buscar eventos:', error);
         res.status(500).json({
             error: 'Erro ao buscar eventos',
+            details: error.message
+        });
+    }
+});
+
+// == BUSCAR DETALHES DE UM EVENTO ESPECÍFICO == //
+router.get('/:idevento', async (req, res) => {
+    try {
+        const { idevento } = req.params;
+
+        const [eventos] = await db.query(
+            `SELECT e.idevento, e.nome, e.data_inicio, e.data_termino, 
+                    e.evento_ativo, e.imagem, e.assunto_principal, e.classificacao,
+                    c.nome as nome_categoria, 
+                    end.local, end.rua, end.numero, end.complemento, 
+                    end.bairro, end.cidade, end.estado, end.cep,
+                    DATEDIFF(e.data_inicio, NOW()) as dias_restantes
+             FROM evento e
+             LEFT JOIN categoria_evento c ON e.categoria_eventoid = c.idcategoria_evento
+             LEFT JOIN endereco_evento end ON e.endereco_eventoid = end.idendereco_evento
+             WHERE e.idevento = ?`,
+            [idevento]
+        );
+
+        if (eventos.length === 0) {
+            return res.status(404).json({
+                error: 'Evento não encontrado'
+            });
+        }
+
+        res.json(eventos[0]);
+    } catch (error) {
+        console.error('Erro ao buscar evento:', error);
+        res.status(500).json({
+            error: 'Erro ao buscar evento',
+            details: error.message
+        });
+    }
+});
+
+// == BUSCAR INGRESSOS DE UM EVENTO == //
+router.get('/:idevento/ingressos', async (req, res) => {
+    try {
+        const { idevento } = req.params;
+
+        const [ingressos] = await db.query(
+            `SELECT 
+                i.idingresso,
+                i.titulo,
+                i.quantidade,
+                i.vendidos as quantidade_vendida,
+                i.valor_unitario,
+                i.data_inicio,
+                i.data_termino,
+                i.max_qtd_por_compra,
+                ti.nome as tipo_ingresso,
+                ti.idtipo_ingresso
+             FROM ingresso i
+             LEFT JOIN tipo_ingresso ti ON i.tipo_ingressoid = ti.idtipo_ingresso
+             WHERE i.evento_id = ?`,
+            [idevento]
+        );
+
+        const totalIngressos = ingressos.reduce((acc, ing) => acc + ing.quantidade, 0);
+        const totalVendidos = ingressos.reduce((acc, ing) => acc + (ing.quantidade_vendida || 0), 0);
+        const totalRestantes = totalIngressos - totalVendidos;
+
+        res.json({
+            ingressos: ingressos.map(ing => ({
+                ...ing,
+                quantidade_restante: ing.quantidade - (ing.quantidade_vendida || 0)
+            })),
+            resumo: {
+                total_ingressos: totalIngressos,
+                total_vendidos: totalVendidos,
+                total_restantes: totalRestantes
+            }
+        });
+    } catch (error) {
+        console.error('Erro ao buscar ingressos:', error);
+        res.status(500).json({
+            error: 'Erro ao buscar ingressos',
             details: error.message
         });
     }
