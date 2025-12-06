@@ -1,29 +1,33 @@
 import React, { useState } from 'react';
 import './SecaoIngresso.css';
+import { iconsCE } from '../../../utils/iconsCriacaoEvento';
 
 const SecaoIngressos = () => {
   const [modalAberto, setModalAberto] = useState(false);
   const [tipoIngresso, setTipoIngresso] = useState(null);
   const [formData, setFormData] = useState({
-    nomeIngresso: '',
+    tituloIngresso: '',
     quantidade: '',
-    preco: '',
-    dataInicio: '',
-    dataFim: '',
-    descricao: ''
+    dataInicioVendas: '',
+    horaInicio: '',
+    dataTerminoVendas: '',
+    horaTermino: '',
+    quantidadeMaxima: '',
+    valorReceber: ''
   });
 
   const abrirModal = (tipo) => {
     setTipoIngresso(tipo);
     setModalAberto(true);
-    // Limpa o formulário ao abrir
     setFormData({
-      nomeIngresso: '',
+      tituloIngresso: '',
       quantidade: '',
-      preco: '',
-      dataInicio: '',
-      dataFim: '',
-      descricao: ''
+      dataInicioVendas: '',
+      horaInicio: '',
+      dataTerminoVendas: '',
+      horaTermino: '',
+      quantidadeMaxima: '',
+      valorReceber: ''
     });
   };
 
@@ -38,7 +42,6 @@ const SecaoIngressos = () => {
 
   const handleSubmit = () => {
     console.log('Dados do ingresso:', { tipo: tipoIngresso, ...formData });
-    // Aqui você pode adicionar a lógica para salvar o ingresso
     fecharModal();
   };
 
@@ -55,7 +58,7 @@ const SecaoIngressos = () => {
             onClick={() => abrirModal('pago')}
             aria-label="Adicionar ingresso pago"
           >
-            <span className="icon">+</span>
+            <img src={iconsCE.adicionar} alt="Adicionar" className="icon" />
             Ingresso pago
           </button>
 
@@ -65,7 +68,7 @@ const SecaoIngressos = () => {
             onClick={() => abrirModal('gratuito')}
             aria-label="Adicionar ingresso gratuito"
           >
-            <span className="icon">+</span>
+            <img src={iconsCE.adicionar} alt="Adicionar" className="icon" />
             Ingresso gratuito
           </button>
         </div>
@@ -74,111 +77,147 @@ const SecaoIngressos = () => {
       {modalAberto && (
         <div className="modal-overlay" onClick={fecharModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            {/* Header */}
             <div className="modal-header">
               <h2 className="modal-title">
-                <span className="chevron-icon">›</span>
+                <img src={iconsCE.criar} alt="" className="chevron-icon" />
+                Criando ingresso{' '}
                 <span className={tipoIngresso === 'pago' ? 'tipo-pago' : 'tipo-gratuito'}>
-                  Ingresso {tipoIngresso === 'pago' ? 'Pago' : 'Gratuito'}
+                  {tipoIngresso}
                 </span>
               </h2>
             </div>
 
-            {/* Body */}
             <div className="modal-body">
+              {/* Título e Quantidade */}
               <div className="form-row">
                 <div className="form-field">
-                  <label htmlFor="nomeIngresso">Nome do ingresso*</label>
+                  <label htmlFor="tituloIngresso">Título do ingresso</label>
                   <input
-                    id="nomeIngresso"
+                    id="tituloIngresso"
                     type="text"
                     className="input-field"
-                    placeholder="Ex: Pista, VIP, Camarote..."
-                    value={formData.nomeIngresso}
-                    onChange={(e) => handleChange('nomeIngresso', e.target.value)}
+                    value={formData.tituloIngresso}
+                    onChange={(e) => handleChange('tituloIngresso', e.target.value)}
                   />
                 </div>
 
                 <div className="form-field">
-                  <label htmlFor="quantidade">Quantidade disponível*</label>
+                  <label htmlFor="quantidade">Quantidade</label>
                   <input
                     id="quantidade"
                     type="number"
                     className="input-field"
-                    placeholder="Ex: 100"
                     value={formData.quantidade}
                     onChange={(e) => handleChange('quantidade', e.target.value)}
                   />
                 </div>
               </div>
 
+              {/* Data e Hora de Início */}
+              <div className="form-row">
+                <div className="form-field">
+                  <label htmlFor="dataInicioVendas">Data de início das vendas</label>
+                  <div className="input-simples">
+                    <div className="icon-area" onClick={() => document.getElementById('dataInicioVendas').showPicker()}>
+                      <img src={iconsCE.checkCalendario} alt="Ícone de calendário" />
+                    </div>
+                    <input
+                      id="dataInicioVendas"
+                      type="date"
+                      value={formData.dataInicioVendas}
+                      onChange={(e) => handleChange('dataInicioVendas', e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                <div className="form-field">
+                  <label htmlFor="horaInicio">Hora de início</label>
+                  <div className="input-simples">
+                    <div className="icon-area" onClick={() => document.getElementById('horaInicio').showPicker()}>
+                      <img src={iconsCE.hora} alt="Ícone de relógio" />
+                    </div>
+                    <input
+                      id="horaInicio"
+                      type="time"
+                      value={formData.horaInicio}
+                      onChange={(e) => handleChange('horaInicio', e.target.value)}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Data e Hora de Término */}
+              <div className="form-row">
+                <div className="form-field">
+                  <label htmlFor="dataTerminoVendas">Data de término das vendas</label>
+                  <div className="input-simples">
+                    <div className="icon-area" onClick={() => document.getElementById('dataTerminoVendas').showPicker()}>
+                      <img src={iconsCE.checkCalendario} alt="Ícone de calendário" />
+                    </div>
+                    <input
+                      id="dataTerminoVendas"
+                      type="date"
+                      value={formData.dataTerminoVendas}
+                      onChange={(e) => handleChange('dataTerminoVendas', e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                <div className="form-field">
+                  <label htmlFor="horaTermino">Hora de término</label>
+                  <div className="input-simples">
+                    <div className="icon-area" onClick={() => document.getElementById('horaTermino').showPicker()}>
+                      <img src={iconsCE.hora} alt="Ícone de relógio" />
+                    </div>
+                    <input
+                      id="horaTermino"
+                      type="time"
+                      value={formData.horaTermino}
+                      onChange={(e) => handleChange('horaTermino', e.target.value)}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Quantidade Máxima */}
+              <div className="form-row single">
+                <div className="form-field">
+                  <label htmlFor="quantidadeMaxima">Quantidade máxima permitida por compra</label>
+                  <input
+                    id="quantidadeMaxima"
+                    type="number"
+                    className="input-field"
+                    value={formData.quantidadeMaxima}
+                    onChange={(e) => handleChange('quantidadeMaxima', e.target.value)}
+                  />
+                </div>
+              </div>
+
+              {/* Valor a receber (apenas para pago) */}
               {tipoIngresso === 'pago' && (
                 <div className="form-row single">
                   <div className="form-field">
-                    <label htmlFor="preco">Preço*</label>
-                    <div className="input-with-icon">
-                      <div className="input-icon">R$</div>
-                      <input
-                        id="preco"
-                        type="number"
-                        step="0.01"
-                        className="input-field with-icon"
-                        placeholder="0,00"
-                        value={formData.preco}
-                        onChange={(e) => handleChange('preco', e.target.value)}
-                      />
-                    </div>
+                    <label htmlFor="valorReceber">Valor a receber</label>
+                    <input
+                      id="valorReceber"
+                      type="number"
+                      step="0.01"
+                      className="input-field"
+                      value={formData.valorReceber}
+                      onChange={(e) => handleChange('valorReceber', e.target.value)}
+                    />
                   </div>
                 </div>
               )}
-
-              <div className="form-row">
-                <div className="form-field">
-                  <label htmlFor="dataInicio">Data de início das vendas*</label>
-                  <input
-                    id="dataInicio"
-                    type="date"
-                    className="input-field"
-                    value={formData.dataInicio}
-                    onChange={(e) => handleChange('dataInicio', e.target.value)}
-                  />
-                </div>
-
-                <div className="form-field">
-                  <label htmlFor="dataFim">Data de término das vendas*</label>
-                  <input
-                    id="dataFim"
-                    type="date"
-                    className="input-field"
-                    value={formData.dataFim}
-                    onChange={(e) => handleChange('dataFim', e.target.value)}
-                  />
-                </div>
-              </div>
-
-              <div className="form-row single">
-                <div className="form-field">
-                  <label htmlFor="descricao">Descrição do ingresso</label>
-                  <input
-                    id="descricao"
-                    type="text"
-                    className="input-field"
-                    placeholder="Informações adicionais sobre o ingresso"
-                    value={formData.descricao}
-                    onChange={(e) => handleChange('descricao', e.target.value)}
-                  />
-                </div>
-              </div>
             </div>
 
-            {/* Footer */}
             <div className="modal-footer">
               <button
                 type="button"
                 className="btn-cancelar"
                 onClick={fecharModal}
               >
-                <span className="btn-icon">✕</span>
+                <img src={iconsCE.seta} alt="Voltar" className="btn-icon" />
                 Cancelar
               </button>
 
@@ -187,7 +226,7 @@ const SecaoIngressos = () => {
                 className="btn-criar"
                 onClick={handleSubmit}
               >
-                <span className="btn-icon">✓</span>
+                <img src={iconsCE.ingresso} alt="Criar" className="btn-icon" />
                 Criar ingresso
               </button>
             </div>

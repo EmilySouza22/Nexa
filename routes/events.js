@@ -35,7 +35,7 @@ router.post('/create', async (req, res) => {
             });
         }
 
-    
+        // Verificar se a conta existe e é organizador
         const [contaExistente] = await connection.query(
             'SELECT idconta, tipo_contaid FROM conta WHERE idconta = ?',
             [idconta]
@@ -86,6 +86,7 @@ router.post('/create', async (req, res) => {
             idendereco_evento = resultadoEndereco.insertId;
         }
 
+        // Inserir evento
         const [resultadoEvento] = await connection.query(
             `INSERT INTO evento (nome, categoria_eventoid, assunto_principal, classificacao, 
                                 data_inicio, data_termino, evento_ativo, conta_id, endereco_eventoid)
@@ -114,8 +115,6 @@ router.post('/create', async (req, res) => {
                     valor_unitario,
                     data_inicio: ingresso_data_inicio,
                     data_termino: ingresso_data_termino,
-                    taxa_servico,
-                    min_qtd_por_compra,
                     max_qtd_por_compra
                 } = ingresso;
 
@@ -127,7 +126,7 @@ router.post('/create', async (req, res) => {
                     });
                 }
 
-                // Verificar se o tipo de ingresso existe
+                // Verificar se o tipo de ingresso existe (1=Pago, 2=Gratuito)
                 const [tipoExistente] = await connection.query(
                     'SELECT idtipo_ingresso FROM tipo_ingresso WHERE idtipo_ingresso = ?',
                     [idtipo_ingresso]
@@ -136,15 +135,15 @@ router.post('/create', async (req, res) => {
                 if (tipoExistente.length === 0) {
                     await connection.rollback();
                     return res.status(404).json({
-                        error: `Tipo de ingresso ${idtipo_ingresso} não encontrado`
+                        error: `Tipo de ingresso ${idtipo_ingresso} não encontrado. Use 1 para Pago ou 2 para Gratuito`
                     });
                 }
 
+                // CORRIGIDO: Removidos campos taxa_servico e min_qtd_por_compra que não existem no banco
                 await connection.query(
                     `INSERT INTO ingresso (titulo, tipo_ingressoid, quantidade, valor_unitario, 
-                                          data_inicio, data_termino, taxa_servico, 
-                                          min_qtd_por_compra, max_qtd_por_compra, evento_id)
-                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                                          data_inicio, data_termino, max_qtd_por_compra, evento_id)
+                     VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
                     [
                         titulo,
                         idtipo_ingresso,
@@ -152,9 +151,7 @@ router.post('/create', async (req, res) => {
                         valor_unitario,
                         ingresso_data_inicio || null,
                         ingresso_data_termino || null,
-                        taxa_servico || 0,
-                        min_qtd_por_compra || 1,
-                        max_qtd_por_compra || quantidade,
+                        max_qtd_por_compra || quantidade, // Se não informado, permite comprar a quantidade total
                         idevento
                     ]
                 );
@@ -177,6 +174,32 @@ router.post('/create', async (req, res) => {
         });
     } finally {
         connection.release();
+    }
+});
+
+// Rota para buscar eventos de um organizador
+router.get('/organizador/:idconta', async (req, res) => {
+    try {
+        const { idconta } = req.params;
+
+        const [eventos] = await db.query(
+            `SELECT e.*, c.nome as nome_categoria, 
+                    end.local, end.cidade, end.estado
+             FROM evento e
+             LEFT JOIN categoria_evento c ON e.categoria_eventoid = c.idcategoria_evento
+             LEFT JOIN endereco_evento end ON e.endereco_eventoid = end.idendereco_evento
+             WHERE e.conta_id = ?
+             ORDER BY e.data_inicio DESC`,
+            [idconta]
+        );
+
+        res.json(eventos);
+    } catch (error) {
+        console.error('Erro ao buscar eventos:', error);
+        res.status(500).json({
+            error: 'Erro ao buscar eventos',
+            details: error.message
+        });
     }
 });
 

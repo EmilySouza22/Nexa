@@ -1,5 +1,6 @@
 import React from 'react';
-import './DataHorario.css'
+import './DataHorario.css';
+import { iconsCE } from '../../../utils/iconsCriacaoEvento';
 
 const DataHorario = ({ formData, errors, onChange }) => (
   <div className="box-02">
@@ -11,7 +12,7 @@ const DataHorario = ({ formData, errors, onChange }) => (
         <label htmlFor="dateInicio">Data de início*</label>
         <div className="input-simples">
           <div className="icon-area" onClick={() => document.getElementById('dateInicio').showPicker()}>
-            <img src="/assets/criacao-evento/icon-data.svg" alt="" />
+            <img src={iconsCE.checkCalendario} alt="Ícone de calendário" />
           </div>
           <input
             id="dateInicio"
@@ -31,7 +32,7 @@ const DataHorario = ({ formData, errors, onChange }) => (
         <label htmlFor="timeInicio">Hora de início*</label>
         <div className="input-simples">
           <div className="icon-area" onClick={() => document.getElementById('timeInicio').showPicker()}>
-            <img src="/assets/criacao-evento/icon-hora.svg" alt="" />
+            <img src={iconsCE.hora} alt="Ícone de relógio" />
           </div>
           <input
             id="timeInicio"
@@ -51,7 +52,7 @@ const DataHorario = ({ formData, errors, onChange }) => (
         <label htmlFor="dateTermino">Data de término*</label>
         <div className="input-simples">
           <div className="icon-area" onClick={() => document.getElementById('dateTermino').showPicker()}>
-            <img src="/assets/criacao-evento/icon-data.svg" alt="" />
+            <img src={iconsCE.checkCalendario} alt="Ícone de calendário" />
           </div>
           <input
             id="dateTermino"
@@ -71,7 +72,7 @@ const DataHorario = ({ formData, errors, onChange }) => (
         <label htmlFor="timeTermino">Hora de término*</label>
         <div className="input-simples">
           <div className="icon-area" onClick={() => document.getElementById('timeTermino').showPicker()}>
-            <img src="/assets/criacao-evento/icon-hora.svg" alt="" />
+            <img src={iconsCE.hora} alt="Ícone de relógio" />
           </div>
           <input
             id="timeTermino"

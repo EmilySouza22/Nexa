@@ -1,5 +1,5 @@
 import React from 'react';
-import './Responsabilidades.css'
+import './Responsabilidades.css';
 
 const Responsabilidades = ({ aceitaTermos, onChange, error }) => (
   <div className="box-07">
