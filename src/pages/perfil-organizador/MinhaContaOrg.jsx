@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import "./MinhaContaOrg.css";
 import { iconsPE2 } from "../../utils/icons";
@@ -11,6 +11,7 @@ function MinhaConta() {
   const userName = sessionStorage.getItem("userName") || "Organizador";
   const userInitials = sessionStorage.getItem("userInitials") || "OR";
   const userCpf = sessionStorage.getItem("userCpf");
+  const userId = sessionStorage.getItem("userId"); // ID do usuário logado
 
   // ========== ESTADOS (variáveis que guardam dados) ==========
 
@@ -26,6 +27,38 @@ function MinhaConta() {
   // Estados auxiliares
   const [mensagem, setMensagem] = useState("");
   const [carregando, setCarregando] = useState(false);
+
+  // ========== BUSCAR DADOS DO USUÁRIO QUANDO A PÁGINA CARREGAR ==========
+  useEffect(() => {
+    const buscarDados = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:3000/api/auth/usuario/${userId}`
+        );
+        const data = await response.json();
+
+        if (response.ok) {
+          // Preenche os campos com os dados vindos do banco
+          setDadosMinhaContaOrg({
+            nomeCompleto: data.usuario.nome || "",
+            email: data.usuario.email || "",
+            telefone: data.usuario.telefone || "",
+            dataNascimento: "",
+            cpf_cnpj: "",
+            senha: "", // Senha sempre vazia por segurança
+          });
+        }
+      } catch (error) {
+        console.error("Erro ao buscar dados:", error);
+        setMensagem("Erro ao carregar dados do usuário");
+      }
+    };
+
+    // Só busca se tiver userId
+    if (userId) {
+      buscarDados();
+    }
+  }, [userId]); // Executa quando userId mudar
 
   // ========== FUNÇÕES QUE ATUALIZAM OS DADOS ==========
 
@@ -45,12 +78,30 @@ function MinhaConta() {
     setCarregando(true);
 
     try {
-      // Aqui você faz a chamada para a API
-      // const response = await fetch('sua-api-aqui', { ... });
-      // const data = await response.json();
+      // Faz a chamada para a API de atualização
+      const response = await fetch(
+        `http://localhost:3000/api/auth/usuario/${userId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(dadosMinhaContaOrg),
+        }
+      );
 
-      console.log("Dados enviados:", dadosMinhaContaOrg);
-      setMensagem("Dados atualizados com sucesso!");
+      const data = await response.json();
+
+      if (response.ok) {
+        setMensagem("Dados atualizados com sucesso!");
+
+        // Atualiza o sessionStorage se mudou o nome
+        if (dadosMinhaContaOrg.nomeCompleto) {
+          sessionStorage.setItem("userName", dadosMinhaContaOrg.nomeCompleto);
+        }
+      } else {
+        setMensagem(data.error || "Erro ao atualizar dados");
+      }
     } catch (error) {
       setMensagem("Erro ao atualizar dados. Tente novamente.");
       console.error("Erro:", error);
@@ -173,7 +224,7 @@ function MinhaConta() {
                   name="senha"
                   value={dadosMinhaContaOrg.senha}
                   onChange={atualizarDadosOrg}
-                  required
+                  placeholder="Deixe em branco para manter a atual"
                 />
               </div>
 

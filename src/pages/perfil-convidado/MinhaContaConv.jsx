@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./MinhaContaConv.css";
 import { iconsPE1 } from "../../utils/icons";
 import Navbar from "../../components/Navbar";
@@ -15,6 +15,7 @@ function PerfilConvidado() {
   const userName = sessionStorage.getItem("userName") || "Convidado";
   const userInitials = sessionStorage.getItem("userInitials") || "CO";
   const userCpf = sessionStorage.getItem("userCpf");
+  const userId = sessionStorage.getItem("userId"); // ID do usuário logado
 
   // ========== ESTADOS ==========
   const [dadosPerfilConvidado, setDadosPerfilConvidado] = useState({
@@ -29,6 +30,38 @@ function PerfilConvidado() {
   const [mensagem, setMensagem] = useState("");
   const [carregando, setCarregando] = useState(false);
   const [abaAtiva, setAbaAtiva] = useState("minha-conta");
+
+  // ========== BUSCAR DADOS DO USUÁRIO QUANDO A PÁGINA CARREGAR ==========
+  useEffect(() => {
+    const buscarDados = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:3000/api/auth/usuario/${userId}`
+        );
+        const data = await response.json();
+
+        if (response.ok) {
+          // Preenche os campos com os dados vindos do banco
+          setDadosPerfilConvidado({
+            nomeCompleto: data.usuario.nome || "",
+            email: data.usuario.email || "",
+            telefone: data.usuario.telefone || "",
+            dataNascimento: "",
+            cpf_cnpj: "",
+            senha: "", // Senha sempre vazia por segurança
+          });
+        }
+      } catch (error) {
+        console.error("Erro ao buscar dados:", error);
+        setMensagem("Erro ao carregar dados do usuário");
+      }
+    };
+
+    // Só busca se tiver userId
+    if (userId) {
+      buscarDados();
+    }
+  }, [userId]); // Executa quando userId mudar
 
   // ========== FUNÇÃO DE ATUALIZAÇÃO ==========
   const atualizarDados = (e) => {
@@ -46,8 +79,35 @@ function PerfilConvidado() {
     setCarregando(true);
 
     try {
-      console.log("Dados enviados:", dadosPerfilConvidado);
-      setMensagem("Dados atualizados com sucesso!");
+      // Faz a chamada para a API de atualização
+      const response = await fetch(
+        `http://localhost:3000/api/auth/usuario/${userId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(dadosPerfilConvidado),
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setMensagem("Dados atualizados com sucesso!");
+
+        // Atualiza o sessionStorage se mudou o nome
+        if (dadosPerfilConvidado.nomeCompleto) {
+          sessionStorage.setItem("userName", dadosPerfilConvidado.nomeCompleto);
+        }
+
+        // Atualiza o sessionStorage se cadastrou CPF
+        if (dadosPerfilConvidado.cpf_cnpj) {
+          sessionStorage.setItem("userCpf", dadosPerfilConvidado.cpf_cnpj);
+        }
+      } else {
+        setMensagem(data.error || "Erro ao atualizar dados");
+      }
     } catch (error) {
       setMensagem("Erro ao atualizar dados. Tente novamente.");
       console.error("Erro:", error);
@@ -151,7 +211,7 @@ function PerfilConvidado() {
                     name="senha"
                     value={dadosPerfilConvidado.senha}
                     onChange={atualizarDados}
-                    required
+                    placeholder="Deixe em branco para manter a atual"
                   />
                 </div>
 
