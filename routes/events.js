@@ -217,20 +217,25 @@ router.get('/organizador/:idconta/dashboard', async (req, res) => {
             [idconta]
         );
 
-        // Buscar total de ingressos
-        const [ingressosTotal] = await db.query(
-            `SELECT 
-                COALESCE(SUM(i.quantidade), 0) as total_ingressos,
-                COALESCE(SUM(i.vendidos), 0) as total_vendidos
-             FROM evento e
-             LEFT JOIN ingresso i ON e.idevento = i.evento_id
-             WHERE e.conta_id = ? AND e.evento_ativo = 1 AND e.data_termino >= CURDATE()`,
-            [idconta]
-        );
+        let totalIngressos = 0;
+        let totalVendidos = 0;
+        let totalRestantes = 0;
 
-        const totalIngressos = Number(ingressosTotal[0]?.total_ingressos) || 0;
-        const totalVendidos = Number(ingressosTotal[0]?.total_vendidos) || 0;
-        const totalRestantes = totalIngressos - totalVendidos;
+        // Se existe um próximo evento, buscar os ingressos SOMENTE desse evento
+        if (proximoEvento.length > 0) {
+            const [ingressosEvento] = await db.query(
+                `SELECT 
+                    COALESCE(SUM(i.quantidade), 0) as total_ingressos,
+                    COALESCE(SUM(i.vendidos), 0) as total_vendidos
+                 FROM ingresso i
+                 WHERE i.evento_id = ?`,
+                [proximoEvento[0].idevento]
+            );
+
+            totalIngressos = Number(ingressosEvento[0]?.total_ingressos) || 0;
+            totalVendidos = Number(ingressosEvento[0]?.total_vendidos) || 0;
+            totalRestantes = totalIngressos - totalVendidos;
+        }
 
         res.json({
             proximo_evento: proximoEvento[0] || null,
