@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import "./SecaoIngresso.css";
 import { iconsCE } from "../../../utils/icons";
 
-
 const SecaoIngressos = ({
   ingressos = [],
   onAddIngresso,
   onRemoveIngresso,
+  onEditIngresso,
 }) => {
   const [modalAberto, setModalAberto] = useState(false);
   const [tipoIngresso, setTipoIngresso] = useState(null);
+  const [ingressoEditando, setIngressoEditando] = useState(null);
   const [formData, setFormData] = useState({
     tituloIngresso: "",
     quantidade: "",
@@ -21,24 +22,45 @@ const SecaoIngressos = ({
     valorReceber: "",
   });
 
-  const abrirModal = (tipo) => {
+  const abrirModal = (tipo, ingresso = null) => {
     setTipoIngresso(tipo);
+    setIngressoEditando(ingresso);
     setModalAberto(true);
-    setFormData({
-      tituloIngresso: "",
-      quantidade: "",
-      dataInicioVendas: "",
-      horaInicio: "",
-      dataTerminoVendas: "",
-      horaTermino: "",
-      quantidadeMaxima: "",
-      valorReceber: "",
-    });
+
+    if (ingresso) {
+      // Preenche o formulário com dados do ingresso existente
+      const [dataTermino, horaTermino] = ingresso.data_termino
+        ? ingresso.data_termino.split(" ")
+        : ["", ""];
+      
+      setFormData({
+        tituloIngresso: ingresso.titulo,
+        quantidade: ingresso.quantidade.toString(),
+        dataInicioVendas: "",
+        horaInicio: "",
+        dataTerminoVendas: dataTermino,
+        horaTermino: horaTermino.substring(0, 5), // Remove os segundos
+        quantidadeMaxima: ingresso.max_qtd_por_compra?.toString() || "",
+        valorReceber: ingresso.valor_unitario?.toString() || "",
+      });
+    } else {
+      setFormData({
+        tituloIngresso: "",
+        quantidade: "",
+        dataInicioVendas: "",
+        horaInicio: "",
+        dataTerminoVendas: "",
+        horaTermino: "",
+        quantidadeMaxima: "",
+        valorReceber: "",
+      });
+    }
   };
 
   const fecharModal = () => {
     setModalAberto(false);
     setTipoIngresso(null);
+    setIngressoEditando(null);
   };
 
   const handleChange = (field, value) => {
@@ -46,7 +68,6 @@ const SecaoIngressos = ({
   };
 
   const handleSubmit = () => {
-    // Validações básicas
     if (!formData.tituloIngresso || !formData.quantidade) {
       alert("Preencha o título e a quantidade do ingresso");
       return;
@@ -57,7 +78,6 @@ const SecaoIngressos = ({
       return;
     }
 
-    // Combina data e hora para criar datetime completo
     const dataInicio =
       formData.dataInicioVendas && formData.horaInicio
         ? `${formData.dataInicioVendas} ${formData.horaInicio}:00`
@@ -68,11 +88,10 @@ const SecaoIngressos = ({
         ? `${formData.dataTerminoVendas} ${formData.horaTermino}:00`
         : null;
 
-    // Monta o objeto do ingresso no formato que o backend espera
-    const novoIngresso = {
-      id: Date.now(), // ID único para controle no frontend
+    const ingressoData = {
+      id: ingressoEditando ? ingressoEditando.id : Date.now(),
       titulo: formData.tituloIngresso,
-      idtipo_ingresso: tipoIngresso === "pago" ? 1 : 2, // 1=Pago, 2=Gratuito
+      idtipo_ingresso: tipoIngresso === "pago" ? 1 : 2,
       quantidade: parseInt(formData.quantidade),
       valor_unitario:
         tipoIngresso === "pago" ? parseFloat(formData.valorReceber) : 0,
@@ -81,13 +100,13 @@ const SecaoIngressos = ({
       max_qtd_por_compra: formData.quantidadeMaxima
         ? parseInt(formData.quantidadeMaxima)
         : parseInt(formData.quantidade),
+      vendidos: ingressoEditando ? ingressoEditando.vendidos : 0,
     };
 
-    console.log("Ingresso criado:", novoIngresso);
-
-    // Notifica o componente pai
-    if (onAddIngresso) {
-      onAddIngresso(novoIngresso);
+    if (ingressoEditando && onEditIngresso) {
+      onEditIngresso(ingressoData);
+    } else if (onAddIngresso) {
+      onAddIngresso(ingressoData);
     }
 
     fecharModal();
@@ -99,40 +118,18 @@ const SecaoIngressos = ({
     }
   };
 
+  const formatarData = (dataCompleta) => {
+    if (!dataCompleta) return "-";
+    const [data] = dataCompleta.split(" ");
+    const [ano, mes, dia] = data.split("-");
+    return `${dia}/${mes}/${ano}`;
+  };
+
   return (
     <>
       <div className="box-05">
         <h3>5. Ingressos</h3>
         <p>Crie o ingresso ideal para o seu evento!</p>
-
-        {/* Lista de ingressos criados */}
-        {ingressos.length > 0 && (
-          <div className="ingressos-criados">
-            <h4>Ingressos criados ({ingressos.length})</h4>
-            {ingressos.map((ingresso) => (
-              <div key={ingresso.id} className="ingresso-item">
-                <div>
-                  <strong>{ingresso.titulo}</strong>
-                  <span>
-                    {" "}
-                    - {ingresso.idtipo_ingresso === 1 ? "Pago" : "Gratuito"}
-                  </span>
-                  <span> - Qtd: {ingresso.quantidade}</span>
-                  {ingresso.idtipo_ingresso === 1 && (
-                    <span> - R$ {ingresso.valor_unitario.toFixed(2)}</span>
-                  )}
-                </div>
-                <button
-                  type="button"
-                  onClick={() => removerIngresso(ingresso.id)}
-                  className="btn-remover"
-                >
-                  ✕
-                </button>
-              </div>
-            ))}
-          </div>
-        )}
 
         <div className="buttons-wrapper">
           <button
@@ -155,6 +152,73 @@ const SecaoIngressos = ({
             Ingresso gratuito
           </button>
         </div>
+
+        {/* Tabela de ingressos criados */}
+        {ingressos.length > 0 && (
+          <div className="ingressos-criados-tabela">
+            <h4>Ingressos criados:</h4>
+            <table className="tabela-ingressos">
+              <thead>
+                <tr>
+                  <th>Título</th>
+                  <th>Vendidos/Total</th>
+                  <th>Data de término da venda</th>
+                  <th>Valor a receber</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {ingressos.map((ingresso) => (
+                  <tr key={ingresso.id}>
+                    <td>{ingresso.titulo}</td>
+                    <td>
+                      <div className="vendidos-total">
+                        <span className="vendidos">
+                          {ingresso.vendidos || 0}
+                        </span>
+                        <span className="separador">/</span>
+                        <span className="total">{ingresso.quantidade}</span>
+                      </div>
+                    </td>
+                    <td>{formatarData(ingresso.data_termino)}</td>
+                    <td>
+                      {ingresso.idtipo_ingresso === 1
+                        ? `R$${ingresso.valor_unitario.toFixed(2)}`
+                        : "-"}
+                    </td>
+                    <td>
+                      <div className="acoes-tabela">
+                        <button
+                          type="button"
+                          className="btn-editar"
+                          onClick={() =>
+                            abrirModal(
+                              ingresso.idtipo_ingresso === 1
+                                ? "pago"
+                                : "gratuito",
+                              ingresso
+                            )
+                          }
+                          title="Editar ingresso"
+                        >
+                          <img src={iconsCE.editar} alt="Editar" />
+                        </button>
+                        <button
+                          type="button"
+                          className="btn-excluir-tabela"
+                          onClick={() => removerIngresso(ingresso.id)}
+                          title="Excluir ingresso"
+                        >
+                          <img src={iconsCE.deletar} alt="Excluir" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
 
       {modalAberto && (
@@ -163,7 +227,7 @@ const SecaoIngressos = ({
             <div className="modal-header">
               <h2 className="modal-title">
                 <img src={iconsCE.criar} alt="" className="chevron-icon" />
-                Criando ingresso{" "}
+                {ingressoEditando ? "Editando" : "Criando"} ingresso{" "}
                 <span
                   className={
                     tipoIngresso === "pago" ? "tipo-pago" : "tipo-gratuito"
@@ -175,7 +239,6 @@ const SecaoIngressos = ({
             </div>
 
             <div className="modal-body">
-              {/* Título e Quantidade */}
               <div className="form-row">
                 <div className="form-field">
                   <label htmlFor="tituloIngresso">Título do ingresso *</label>
@@ -205,7 +268,6 @@ const SecaoIngressos = ({
                 </div>
               </div>
 
-              {/* Data e Hora de Início */}
               <div className="form-row">
                 <div className="form-field">
                   <label htmlFor="dataInicioVendas">
@@ -257,7 +319,6 @@ const SecaoIngressos = ({
                 </div>
               </div>
 
-              {/* Data e Hora de Término */}
               <div className="form-row">
                 <div className="form-field">
                   <label htmlFor="dataTerminoVendas">
@@ -311,7 +372,6 @@ const SecaoIngressos = ({
                 </div>
               </div>
 
-              {/* Quantidade Máxima */}
               <div className="form-row single">
                 <div className="form-field">
                   <label htmlFor="quantidadeMaxima">
@@ -330,7 +390,6 @@ const SecaoIngressos = ({
                 </div>
               </div>
 
-              {/* Valor a receber (apenas para pago) */}
               {tipoIngresso === "pago" && (
                 <div className="form-row single">
                   <div className="form-field">
@@ -368,7 +427,7 @@ const SecaoIngressos = ({
                 onClick={handleSubmit}
               >
                 <img src={iconsCE.ingresso} alt="Criar" className="btn-icon" />
-                Criar ingresso
+                {ingressoEditando ? "Salvar alterações" : "Criar ingresso"}
               </button>
             </div>
           </div>

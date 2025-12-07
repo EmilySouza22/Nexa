@@ -9,6 +9,7 @@ import LocalEvento from "./components/LocalEvento";
 import SecaoIngressos from "./components/SecaoIngresso";
 import Responsabilidades from "./components/Responsabilidades";
 import BotaoPublicar from "./components/BotaoPublicar";
+import Footer from "../../components/Footer";
 
 function CriacaoEvento() {
   const userName = sessionStorage.getItem("userName") || "Organizador";
@@ -226,7 +227,7 @@ function CriacaoEvento() {
 
       if (!validId) {
         alert(
-          "❌ Você precisa estar logado para criar um evento!\n\nPor favor, faça login novamente."
+          "Você precisa estar logado para criar um evento!\n\nPor favor, faça login novamente."
         );
         setIsSubmitting(false);
         return;
@@ -235,14 +236,14 @@ function CriacaoEvento() {
       const idcontaInt = parseInt(validId);
 
       if (isNaN(idcontaInt)) {
-        alert("❌ ID de usuário inválido! Por favor, faça login novamente.");
+        alert("ID de usuário inválido! Por favor, faça login novamente.");
         setIsSubmitting(false);
         return;
       }
 
       if (!formData.preview) {
         alert(
-          "❌ Erro: Imagem não foi carregada corretamente. Por favor, selecione a imagem novamente."
+          "Erro: Imagem não foi carregada corretamente. Por favor, selecione a imagem novamente."
         );
         setIsSubmitting(false);
         return;
@@ -292,7 +293,7 @@ function CriacaoEvento() {
         throw new Error(data.error || "Erro ao criar evento");
       }
 
-      alert("🎉 Evento publicado com sucesso!");
+      alert("Evento publicado com sucesso!");
 
       // Limpar formulário após sucesso
       setFormData({
@@ -319,7 +320,7 @@ function CriacaoEvento() {
       });
     } catch (error) {
       console.error("Erro completo:", error);
-      alert(`❌ Erro ao publicar evento: ${error.message}`);
+      alert(`Erro ao publicar evento: ${error.message}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -396,6 +397,7 @@ function CriacaoEvento() {
           </div>
         </main>
       </div>
+      <Footer />
     </div>
   );
 }
