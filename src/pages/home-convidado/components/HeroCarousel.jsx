@@ -15,17 +15,17 @@ export function HeroCarousel() {
   ];
 
   return (
-    <div className="carousel-container">
-      <button className="embla__prev" onClick={scrollPrev}>
+    <div className="carouselContainer">
+      <button className="eventoAnterior" onClick={scrollPrev}>
         <img src={iconsHomeConv.setadaEsquerda} className="HomeConv-iconSeta" alt="Seta-Voltar" />
       </button>
 
       { /* VIEWPORT */}
       <div className="embla" ref={emblaRef}>
-        <div className="embla__container">
+        <div className="eventoContainer">
           {slides.map((slide) => (
-            <div className="embla__slide" key={slide.id}>
-              <div className="slide-card">
+            <div className="eventoSlide" key={slide.id}>
+              <div className="eventoCard">
                 <h3>{slide.title}</h3>
               </div>
             </div>
@@ -33,7 +33,7 @@ export function HeroCarousel() {
         </div>
       </div>
 
-      <button className="embla__next" onClick={scrollNext}>
+      <button className="eventoProximo" onClick={scrollNext}>
         <img src={iconsHomeConv.setadaDireita} className="HomeConv-iconSeta" alt="Seta-Proximo" />
       </button>
     </div>

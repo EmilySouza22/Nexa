@@ -95,14 +95,21 @@ function SectionBuscarEvento() {
                         <img src={iconsHomeConv.gastronomiaIcon} alt="Icon-Garfo-Faca" />
                     </div>
                     <div>
-                        <p className='HomeConv-NomeCategoriaFiltro'>Gastronomia</p>
+                        <p className='HomeConv-NomeCategoriaGastronomia'>Gastronomia</p>
                     </div>
                 </div>
 
             </div>
         </div>
         <div className='HomeConv-CarrosselEventos'>
-            <EventsCarousel/>
+            <div className='HomeConv-CarouselParaHoje'>
+                <p className='HomeConv-TitleEventsCarousel'>O que fazer hoje?</p>
+                <EventsCarousel/>
+            </div>
+            <div className='HomeConv-CarouselEmAltaNaRegiao'>
+                <p className='HomeConv-TitleEventsCarousel'>Em alta na sua região</p>
+                <EventsCarousel/>
+            </div>
         </div>
     </div>
   )

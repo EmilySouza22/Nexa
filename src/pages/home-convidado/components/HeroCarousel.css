@@ -1,24 +1,24 @@
-.carousel-container {
+.carouselContainer {
   position: relative;
   width: 100%;
   max-width: 900px;
   margin: auto;
 }
 
-.embla {
+.embla{
   overflow: hidden;
 }
 
-.embla__container {
+.eventoContainer{
   display: flex;
 }
 
-.embla__slide {
-  flex: 0 0 100%; /* Slide ocupa 100% da largura */
+.eventoSlide{
+  flex: 0 0 100%;
   padding: 20px;
 }
 
-.slide-card {
+.eventoCard{
   background: #0b0f2b;
   color: white;
   border-radius: 20px;
@@ -30,8 +30,8 @@
 }
 
 /* seta */
-.embla__prev,
-.embla__next {
+.eventoAnterior,
+.eventoProximo{
   position: absolute;
   top: 50%;
   background: rgb(255, 255, 255);
@@ -47,14 +47,14 @@
   justify-content: center;
 }
 
-.embla__prev {
+.eventoAnterior{
   left: 1px;
   align-items: center;
   justify-content: center;
   outline: none;
 }
 
-.embla__next {
+.eventoProximo{
   right: 1px;
   align-items: center;
   justify-content: center;
