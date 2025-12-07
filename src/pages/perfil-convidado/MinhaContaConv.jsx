@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import "./PerfilConvidado.css";
+import "./MinhaConntaConv.css";
 
 // ========== COMPONENTE PRINCIPAL ==========
 /**
