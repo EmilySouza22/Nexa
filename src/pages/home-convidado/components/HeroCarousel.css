@@ -48,14 +48,20 @@
 }
 
 .embla__prev {
-  left: -20px;
+  left: 1px;
+  align-items: center;
+  justify-content: center;
+  outline: none;
 }
 
 .embla__next {
-  right: -20px;
+  right: 1px;
+  align-items: center;
+  justify-content: center;
+  outline: none;
 }
 
-.HomeConv-iconSeta{
-    height: 25px;
-    width: 25px;
+.HomeConv-iconSeta{ 
+  height: 20px;
+  width: 20px;
 }

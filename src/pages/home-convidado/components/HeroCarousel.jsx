@@ -1,8 +1,8 @@
 import useEmblaCarousel from "embla-carousel-react";
 import { iconsHomeConv } from "../../../utils/iconsHomeConv.js";
-import "./EventCarousel.css"; 
+import "./HeroCarousel.css"; 
 
-export function EventCarousel() {
+export function HeroCarousel() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
 
   const scrollPrev = () => emblaApi && emblaApi.scrollPrev();

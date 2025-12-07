@@ -8,13 +8,15 @@ body * {
 
 .footer {
     background-color: #2C2127;
-    padding: 40px 60px 40px 60px;
-    width: 100%;
+    padding: 40px 60px;
+    width: calc(100% - 70px);
     color: white;
     margin: 0;
     box-sizing: border-box;
     position: relative;
     border-radius: 24px 24px 0 0;
+    margin-left: 70px;
+    overflow-x: hidden;
 }
 
 .footer-top {

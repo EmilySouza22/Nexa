@@ -1,12 +1,12 @@
 import React from 'react'
 import "./SectionMuralEvento.css"
 import { iconsHomeConv } from "../../../utils/iconsHomeConv.js";
-import { EventCarousel } from './EventCarousel.jsx';
+import { HeroCarousel } from './HeroCarousel.jsx';
 
 function SectionMuralEvento() {
   return (
     <div className='HomeConv-MuralEvento'>
-        <EventCarousel/>
+        <HeroCarousel/>
         <div className='HomeConv-Paginacao'></div>
         <h3 className='HomeConv-TitleEvento'>7º Fórum de Inteligência e Compras Estratégicas do Sul do Brasil</h3>
         <div className='HomeConv-InfoEvento'>

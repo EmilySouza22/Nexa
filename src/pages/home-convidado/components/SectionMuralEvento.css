@@ -1,15 +1,15 @@
-.HomeConv-MuralEvento{
-    background-color: #FFFFFF;
-    width: 95.6%;
-    height: 92vh;
-    position:absolute;
-    /* z-index:0; */
-    left: 70px;
-    top: 70px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.HomeConv-MuralEvento {
+  background-color: #FFFFFF;
+  width: calc(100% - 70px);
+  height: 92vh;
+  position: absolute;
+  left: 70px;
+  top: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
 }
 
 .HomeConv-Carrossel{
