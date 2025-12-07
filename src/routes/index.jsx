@@ -4,6 +4,8 @@ import HomeOrganizador from "../pages/home-organizador/HomeOrganizador";
 import EventoConvidado from "../pages/evento-convidado/EventoConvidado";
 import authRoutes from "./authRoutes";
 import organizadorRoutes from "./organizadorRoutes";
+import perfilOrgRoutes from "./perfilRoutes";
+import perfilConvidadoRoutes from "./perfilConvidadoRoutes";
 
 const router = createBrowserRouter([
   { path: "/", element: <HomeConvidado /> },
@@ -11,6 +13,8 @@ const router = createBrowserRouter([
   { path: "/evento-convidado", element: <EventoConvidado /> },
   ...authRoutes,
   ...organizadorRoutes,
+  ...perfilOrgRoutes,
+  ...perfilConvidadoRoutes
 ]);
 
 export default router;
