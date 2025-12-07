@@ -1,10 +1,12 @@
-// routes/events2.js - Rotas de VISUALIZAÇÃO de eventos
+// routes/eventsView.js - Rotas de VISUALIZAÇÃO de eventos
 import express from 'express';
 import db from '../src/config/database.js';
 
 const router = express.Router();
 
-// BUSCAR TODOS OS EVENTOS ATIVOS
+// =========================================================
+// BUSCAR TODOS OS EVENTOS ATIVOS (PARA LISTAGEM)
+// =========================================================
 router.get('/', async (req, res) => {
     try {
         console.log('📋 Buscando todos os eventos ativos...');
@@ -48,7 +50,10 @@ router.get('/', async (req, res) => {
     }
 });
 
+// =========================================================
 // BUSCAR EVENTO COMPLETO POR ID
+// ⚠️ Esta rota DEVE ficar por ÚLTIMO!
+// =========================================================
 router.get('/:id', async (req, res) => {
     const connection = await db.getConnection();
     
