@@ -146,13 +146,9 @@ function Sidebar({ userType, userHasCpf }) {
           </span>
         </button>
 
-        <Link to="/configuracoes" className="sidebar-link">
-          <img
-            src={iconsSidebar.configuracoes}
-            alt="Configurações"
-            className="icon"
-          />
-          <span>Configurações</span>
+        <Link to="/login" className="sidebar-link">
+          <img src={iconsSidebar.exit} alt="Sair" className="icon" />
+          <span>Sair</span>
         </Link>
       </div>
     </aside>
