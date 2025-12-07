@@ -289,6 +289,13 @@ function CriacaoEvento() {
         body: JSON.stringify(eventoData),
       });
 
+      // Verifica se o erro é 413 (Payload Too Large)
+      if (response.status === 413) {
+        throw new Error(
+          "A imagem é muito pesada! Por favor, escolha uma imagem menor"
+        );
+      }
+
       const data = await response.json();
 
       if (!response.ok) {
