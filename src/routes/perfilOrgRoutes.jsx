@@ -1,7 +1,7 @@
 import PerfilOrganizador from "../pages/perfil-organizador/PerfilOrganizador";
 import MinhaContaOrg from "../pages/perfil-organizador/MinhaContaOrg";
 
-const perfilRoutes = [
+const perfilOrgRoutes = [
   {
     path: "/organizador/perfil",
     element: <PerfilOrganizador />,
@@ -12,4 +12,4 @@ const perfilRoutes = [
   },
 ];
 
-export default perfilRoutes;
+export default perfilOrgRoutes;

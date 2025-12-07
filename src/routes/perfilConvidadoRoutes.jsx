@@ -1,18 +1,10 @@
-// Importa o componente de perfil do convidado
-import PerfilConvidado from "../pages/perfil-convidado/PerfilConvidado";
-
-// ========== ROTAS DO PERFIL DO CONVIDADO ==========
-/**
- * Aqui ficam todas as rotas pertencentes ao convidado.
- * No caso, apenas a rota de "minha conta" (perfil).
- */
+import MinhaContaConv from "../pages/perfil-convidado/MinhaContaConv";
 
 const perfilConvidadoRoutes = [
   {
-    path: "/convidado/minha-conta",
-    element: <PerfilConvidado />, // Renderiza o componente completo do perfil
+    path: "/perfil-convidado",
+    element: <MinhaContaConv />,
   },
 ];
-
 
 export default perfilConvidadoRoutes;
