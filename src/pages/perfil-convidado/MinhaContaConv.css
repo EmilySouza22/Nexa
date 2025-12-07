@@ -1,3 +1,28 @@
+/* ========== LAYOUT PRINCIPAL (NOVO) ========== */
+.perfil-convidado {
+  min-height: 100vh;
+}
+
+.perfil-convidado-layout {
+  display: flex;
+  min-height: calc(100vh - 70px); /* altura da navbar */
+}
+
+.perfil-convidado-content {
+  flex: 1;
+  padding: 102px 0 32px 0;
+  margin-left: 100px; /* largura da sidebar */
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* CENTRALIZADO */
+}
+
+/* Quando a sidebar estiver fechada */
+/* .perfil-convidado-content.sidebar-closed {
+  margin-left: 90px; /* DIMINUI: largura da sidebar fechada + pequeno espaço
+} */
+
 /* ========== CONTAINER PRINCIPAL ========== */
 /* Caixa branca que envolve todo o formulário */
 .minha-conta-container {

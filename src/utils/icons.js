@@ -110,3 +110,11 @@ export const iconsCE = {
     criar: criarIngressoCE,
     voltar: voltarCE,
 };
+
+// REFERENTES A TELA DE PERFIL (CONVIDADO) (PE1)
+
+import savePE1 from "../assets/perfil-organizador&convidado/icon-save.svg"
+
+export const iconsPE1 = {
+    save1: savePE1,
+};
