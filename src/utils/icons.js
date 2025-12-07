@@ -11,6 +11,7 @@ import setaIcon from "../assets/sidebar/icon-seta.svg";
 import setaIcon2 from "../assets/sidebar/icon-seta2.svg";
 import perfilIcon from "../assets/sidebar/icon-perfil.svg";
 import configuracoesIcon from "../assets/sidebar/icon-configuracoes.svg";
+import changeIcon from "../assets/sidebar/icon-change.svg";
 
 export const iconsSidebar = {
     home: homeIcon,
@@ -25,6 +26,7 @@ export const iconsSidebar = {
     seta2: setaIcon2,
     perfil: perfilIcon,
     configuracoes: configuracoesIcon,
+    change: changeIcon
 };
 
 // REFERENTES A TELA HOME-ORGANIZADOR (HO)
