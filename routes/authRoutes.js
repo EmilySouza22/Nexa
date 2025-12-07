@@ -140,4 +140,90 @@ router.post('/verificar-email', async (req, res) => {
     }
 });
 
+// ROTA PARA BUSCAR DADOS DO USUÁRIO LOGADO
+router.get('/usuario/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const [rows] = await db.query(
+            'SELECT idconta, nome, email, telefone FROM conta WHERE idconta = ?',
+            [id]
+        );
+
+        if (rows.length === 0) {
+            return res.status(404).json({
+                error: 'Usuário não encontrado'
+            });
+        }
+
+        res.status(200).json({
+            usuario: rows[0]
+        });
+
+    } catch (error) {
+        console.error('Erro ao buscar usuário:', error);
+        res.status(500).json({
+            error: 'Erro ao buscar dados do usuário'
+        });
+    }
+});
+
+// ROTA PARA ATUALIZAR DADOS DO USUÁRIO
+router.put('/usuario/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { nomeCompleto, email, telefone, senha } = req.body;
+
+        // Se tiver senha nova, criptografa
+        let senhaHash;
+        if (senha) {
+            senhaHash = await bcrypt.hash(senha, 10);
+        }
+
+        // Monta a query dinamicamente (só atualiza o que foi enviado)
+        let campos = [];
+        let valores = [];
+
+        if (nomeCompleto) {
+            campos.push('nome = ?');
+            valores.push(nomeCompleto);
+        }
+        if (email) {
+            campos.push('email = ?');
+            valores.push(email);
+        }
+        if (telefone) {
+            campos.push('telefone = ?');
+            valores.push(telefone);
+        }
+        if (senhaHash) {
+            campos.push('senha = ?');
+            valores.push(senhaHash);
+        }
+
+        if (campos.length === 0) {
+            return res.status(400).json({
+                error: 'Nenhum dado para atualizar'
+            });
+        }
+
+        valores.push(id); // Adiciona o ID no final
+
+        await db.query(
+            `UPDATE conta SET ${campos.join(', ')} WHERE idconta = ?`,
+            valores
+        );
+
+        res.status(200).json({
+            message: 'Dados atualizados com sucesso!'
+        });
+
+    } catch (error) {
+        console.error('Erro ao atualizar usuário:', error);
+        res.status(500).json({
+            error: 'Erro ao atualizar dados'
+        });
+    }
+});
+
 export default router;

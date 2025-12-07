@@ -33,7 +33,7 @@ function Sidebar({ userType, userHasCpf }) {
         alert(
           "Você precisa cadastrar seu CPF no perfil para acessar a área de organizador!"
         );
-        navigate("/perfil");
+        navigate("/perfil-convidado");
       }
     }
   };
@@ -126,29 +126,29 @@ function Sidebar({ userType, userHasCpf }) {
         )}
       </nav>
       <div className="sidebar-footer">
-        <Link to="/perfil" className="sidebar-link">
+        <Link
+          to={
+            userType === "organizador"
+              ? "/organizador/perfil"
+              : "/perfil-convidado"
+          }
+          className="sidebar-link"
+        >
           <img src={iconsSidebar.perfil} alt="Perfil" className="icon" />
           <span>Meu perfil</span>
         </Link>
 
         {/* Botão de troca entre convidado e organizador */}
-        <button
-          onClick={handleTrocaTipo}
-          className="sidebar-link"
-        >
+        <button onClick={handleTrocaTipo} className="sidebar-link">
           <img src={iconsSidebar.change} alt="Trocar tipo" className="icon" />
           <span>
             {userType === "organizador" ? "Convidado" : "Organizador"}
           </span>
         </button>
 
-        <Link to="/configuracoes" className="sidebar-link">
-          <img
-            src={iconsSidebar.configuracoes}
-            alt="Configurações"
-            className="icon"
-          />
-          <span>Configurações</span>
+        <Link to="/login" className="sidebar-link">
+          <img src={iconsSidebar.exit} alt="Sair" className="icon" />
+          <span>Sair</span>
         </Link>
       </div>
     </aside>

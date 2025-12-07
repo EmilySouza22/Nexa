@@ -1,3 +1,28 @@
+/* ========== LAYOUT PRINCIPAL ========== */
+.perfil-organizador {
+  min-height: 100vh;
+}
+
+.perfil-organizador-layout {
+  display: flex;
+  min-height: calc(100vh - 70px); /* altura da navbar */
+}
+
+.perfil-organizador-content {
+  flex: 1;
+  padding: 102px 0 32px 0;
+  margin-left: 100px; /* largura da sidebar */
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* CENTRALIZADO */
+}
+
+/* Quando a sidebar estiver fechada */
+/* .perfil-organizador-content.sidebar-closed {
+  margin-left: 90px; /* DIMINUI: largura da sidebar fechada + pequeno espaço
+} */
+
 /* ========== CONTAINER PRINCIPAL ========== */
 /* Caixa branca que envolve todo o formulário */
 .organizador-container {
@@ -17,49 +42,49 @@
   margin-bottom: 25px;
 }
 
+/* Estilo básico de cada aba */
 .aba {
   padding: 10px 20px;
   text-decoration: none;
   font-weight: 600;
   color: #000;
-  border-radius: 10px;
   transition: 0.2s;
+  position: relative;  /* Necessário pro risco embaixo */
 }
 
+/* Hover */
 .aba:hover {
   color: #333;
 }
 
-/* Aba ativa */
+/* Aba ativa (gradiente no texto) */
 .ativa {
   background-image: linear-gradient(90deg, #F2B2DF 0%, #D397FD 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  color: transparent;
-  position: relative;
 }
 
-/* Linha gradiente embaixo da aba ativa */
+/* Linha colorida embaixo da aba ativa */
 .ativa::after {
   content: '';
   position: absolute;
-  bottom: 0;
+  bottom: -5px;
   left: 0;
   right: 0;
   height: 3px;
   background: linear-gradient(90deg, #F2B2DF 0%, #D397FD 100%);
 }
 
-/* Aba com risco */
+/* Aba NÃO ativa → mantém risco preto e cor cinza */
 .aba-com-risco {
-  position: relative;
+  color: #999;
 }
 
 .aba-com-risco::after {
   content: '';
   position: absolute;
-  bottom: 0;
+  bottom: -5px;
   left: 0;
   right: 0;
   height: 2px;
@@ -283,6 +308,9 @@
   transition: 0.2s;
   margin-top: 10px;
   width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .btn-salvar:hover {
@@ -293,6 +321,11 @@
 
 .btn-salvar:active {
   transform: translateY(0);
+}
+
+.icon-save {
+  width: 18px;
+  height: 18px;
 }
 
 /* ========== RESPONSIVO ========== */
