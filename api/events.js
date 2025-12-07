@@ -181,7 +181,9 @@ router.post('/create', async (req, res) => {
 });
 
 router.get('/search', async(req, res) => {
-    //faze
+    //buscar evento no debounce
 });
+
+
 
 export default router;
