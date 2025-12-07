@@ -116,5 +116,13 @@ export const iconsCE = {
 import savePE1 from "../assets/perfil-organizador&convidado/icon-save.svg"
 
 export const iconsPE1 = {
-    save1: savePE1,
+    save: savePE1,
+};
+
+// REFERENTES A TELA DE PERFIL (ORGANIZADOR) (PE2)
+
+import savePE2 from "../assets/perfil-organizador&convidado/icon-save.svg"
+
+export const iconsPE2 = {
+    save: savePE2,
 };

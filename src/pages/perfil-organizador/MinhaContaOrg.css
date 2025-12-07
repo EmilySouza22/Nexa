@@ -1,3 +1,28 @@
+/* ========== LAYOUT PRINCIPAL ========== */
+.perfil-organizador {
+  min-height: 100vh;
+}
+
+.perfil-organizador-layout {
+  display: flex;
+  min-height: calc(100vh - 70px); /* altura da navbar */
+}
+
+.perfil-organizador-content {
+  flex: 1;
+  padding: 102px 0 32px 0;
+  margin-left: 100px; /* largura da sidebar */
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* CENTRALIZADO */
+}
+
+/* Quando a sidebar estiver fechada */
+/* .perfil-organizador-content.sidebar-closed {
+  margin-left: 90px; /* DIMINUI: largura da sidebar fechada + pequeno espaço
+} */
+
 /* ========== CONTAINER PRINCIPAL ========== */
 /* Caixa branca que envolve todo o formulário */
 .minha-conta-container {
@@ -23,7 +48,6 @@
   text-decoration: none;
   font-weight: 600;
   color: #000;
-  border-radius: 10px;
   transition: 0.2s;
   position: relative;  /* Necessário pro risco embaixo */
 }
@@ -45,23 +69,22 @@
 .ativa::after {
   content: '';
   position: absolute;
-  bottom: 0;
+  bottom: -5px;
   left: 0;
   right: 0;
   height: 3px;
   background: linear-gradient(90deg, #F2B2DF 0%, #D397FD 100%);
 }
 
-/* Aba NÃO ativa → mantém risco preto */
+/* Aba NÃO ativa → mantém risco preto e cor cinza */
 .aba-com-risco {
-  position: relative;
+  color: #999;
 }
 
-/* Linha preta padrão */
 .aba-com-risco::after {
   content: '';
   position: absolute;
-  bottom: 0;
+  bottom: -5px;
   left: 0;
   right: 0;
   height: 2px;

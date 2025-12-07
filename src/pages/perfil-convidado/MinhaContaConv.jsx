@@ -178,7 +178,7 @@ function PerfilConvidado() {
                   className="btn-salvar"
                   disabled={carregando}
                 >
-                  <img src={iconsPE1.save1} alt="Salvar" className="icon-save" />
+                  <img src={iconsPE1.save} alt="Salvar" className="icon-save" />
                   {carregando ? "Enviando..." : "Salvar Alterações"}
                 </button>
               </form>
