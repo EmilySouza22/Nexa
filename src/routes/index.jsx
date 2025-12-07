@@ -8,7 +8,7 @@ import organizadorRoutes from "./organizadorRoutes";
 const router = createBrowserRouter([
   { path: "/", element: <HomeConvidado /> },
   { path: "/organizador", element: <HomeOrganizador /> },
-  { path: "/evento-convidado", element: <EventoConvidado /> },
+  { path: "/evento/:id", element: <EventoConvidado /> },
   ...authRoutes,
   ...organizadorRoutes,
 ]);
