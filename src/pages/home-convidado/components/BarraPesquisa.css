@@ -1,14 +1,24 @@
+.HomeConv-ContainerBuscarEventoResultado{
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    width: 500px;
+    align-items: center;
+}
+
 .HomeConv-PesquisaEvento{
     display: flex;
     align-items: center;
-    justify-content: center;
-    border-radius: 30px;
+    border-radius: 10px 10px 0 0; 
     background-color: #FFF;
     width: 100%;
     height: 50px;
+    padding-left: 60px;
     padding-left: 18px;
-    outline: none;
-    border: green;
+    border: 1px solid #ddd; 
+    margin: 0; 
+    box-sizing: border-box;
 }
 
 #img-lupa::placeholder {
@@ -19,16 +29,53 @@
     border-radius: 30px;
 }
 
-input#img-lupa.HomeConv-PesquisaEvento{
-    border-radius: 30px;
-    background-color: #FFF;
-}
-
 #img-lupa{
     background-image: url("../../../assets/home-convidado/icon-lupa.svg");
     background-repeat: no-repeat;
     background-position: 15px;
     background-size: 30px;
     padding-left: 60px;
+}
+
+
+input#img-lupa.HomeConv-PesquisaEvento{
+    border-radius: 20px;
+    background-color: #FFF;
+    border: 0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+
+/* LISTA DE RESULTADOS */
+.HomeConv-ResultadoBusca{
+    border-radius: 0 0 10px 10px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-top: none; 
+    overflow: hidden;
+    width: 93%;
+    margin: 0; 
+    padding: 0; 
+    border: 0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    background-color: transparent;
+}
+
+
+.HomeConv-ResultadoBusca p{
+    margin: 0; 
+    padding: 10px 15px;
+    cursor: pointer;
+    padding-left: 20px;
+    border: 1px solid #5a5859;
+    border-radius: 0 0 10px 10px;
+}
+
+.HomeConv-ResultadoBusca p:hover{
+    background-color: transparent;
+    border-radius: 0 0 10px 10px;
+    color: #FFF;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    border: 1px solid #FFF;
 }
 
