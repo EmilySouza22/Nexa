@@ -1,0 +1,170 @@
+.box-07 {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 30px 40px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.box-07 .titulo-style {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.responsabilidades-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.checkbox-wrapper {
+  position: relative;
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.checkbox-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.checkbox-custom {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #d1d5db;
+  border-radius: 6px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.checkbox-custom.checked {
+  background: #a855f7;
+  border-color: #a855f7;
+}
+
+.checkbox-icon {
+  width: 14px;
+  height: 14px;
+  color: white;
+}
+
+.checkbox-wrapper:hover .checkbox-custom {
+  border-color: #a855f7;
+}
+
+.responsabilidades-texto {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #6b7280;
+  margin: 0;
+  flex: 1;
+}
+
+.error-message {
+  display: block;
+  color: #ef4444;
+  font-size: 13px;
+  margin-top: 6px;
+  font-weight: 500;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 1024px) {
+  .box-07 {
+    padding: 25px 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .box-07 {
+    padding: 20px 25px;
+    border-radius: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .box-07 {
+    padding: 15px 20px;
+  }
+}
+
+/* ============================================
+   BotaoEdicao.css
+   ============================================ */
+
+.box-08 {
+  background: transparent;
+  padding: 0;
+  margin: 30px auto;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-publicar-evento {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 40px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 12px rgba(168, 85, 247, 0.3);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-publicar-evento:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(168, 85, 247, 0.4);
+}
+
+.btn-publicar-evento:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-publicar-evento img {
+  width: 20px;
+  height: 20px;
+}
+
+.btn-text {
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .box-08 {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .btn-publicar-evento {
+    width: 100%;
+  }
+}

@@ -43,6 +43,10 @@ function MinhaConta() {
             nomeCompleto: data.usuario.nome || "",
             email: data.usuario.email || "",
             telefone: data.usuario.telefone || "",
+
+            dataNascimento: "",
+            cpf_cnpj: "",
+
             cpf_cnpj: data.usuario.cpf_cnpj || "",
             dataNascimento: "",
             senha: "", // Senha sempre vazia por segurança
