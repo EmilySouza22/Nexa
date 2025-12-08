@@ -43,8 +43,8 @@ function MinhaConta() {
             nomeCompleto: data.usuario.nome || "",
             email: data.usuario.email || "",
             telefone: data.usuario.telefone || "",
+            cpf_cnpj: data.usuario.cpf_cnpj || "",
             dataNascimento: "",
-            cpf_cnpj: "",
             senha: "", // Senha sempre vazia por segurança
           });
         }

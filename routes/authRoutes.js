@@ -89,10 +89,10 @@ router.post('/login', async (req, res) => {
         res.status(200).json({
             message: 'Login realizado com sucesso',
             usuario: {
-                idconta: usuario.idconta,  
+                idconta: usuario.idconta,
                 nome: usuario.nome,
                 email: usuario.email,
-                tipoConta: usuario.tipo_contaid  
+                tipoConta: usuario.tipo_contaid
             }
         });
 
@@ -146,7 +146,7 @@ router.get('/usuario/:id', async (req, res) => {
         const { id } = req.params;
 
         const [rows] = await db.query(
-            'SELECT idconta, nome, email, telefone FROM conta WHERE idconta = ?',
+            'SELECT idconta, nome, email, telefone, cpf_cnpj FROM conta WHERE idconta = ?',
             [id]
         );
 
@@ -172,7 +172,7 @@ router.get('/usuario/:id', async (req, res) => {
 router.put('/usuario/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const { nomeCompleto, email, telefone, senha } = req.body;
+        const { nomeCompleto, email, telefone, senha, cpf_cnpj } = req.body;
 
         // Se tiver senha nova, criptografa
         let senhaHash;
@@ -200,6 +200,10 @@ router.put('/usuario/:id', async (req, res) => {
             campos.push('senha = ?');
             valores.push(senhaHash);
         }
+        if (cpf_cnpj) {
+            campos.push('cpf_cnpj = ?');
+            valores.push(cpf_cnpj);
+        }
 
         if (campos.length === 0) {
             return res.status(400).json({
@@ -214,8 +218,17 @@ router.put('/usuario/:id', async (req, res) => {
             valores
         );
 
+        // Se cadastrou CPF/CNPJ, muda de convidado (1) para organizador (2)
+        if (cpf_cnpj) {
+            await db.query(
+                'UPDATE conta SET tipo_contaid = 2 WHERE idconta = ? AND tipo_contaid = 1',
+                [id]
+            );
+        }
+
         res.status(200).json({
-            message: 'Dados atualizados com sucesso!'
+            message: 'Dados atualizados com sucesso!',
+            mudouTipo: !!cpf_cnpj
         });
 
     } catch (error) {
