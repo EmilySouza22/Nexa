@@ -31,6 +31,36 @@ function PerfilConvidado() {
   const [carregando, setCarregando] = useState(false);
   const [abaAtiva, setAbaAtiva] = useState("minha-conta");
 
+
+
+  // === FORMATAÇÕES === //
+
+  // Função para limpar CPF/CNPJ -> remove tudo que não for número
+  const limparCpfCnpj = (valor) => {
+    return valor.replace(/\D/g, "");
+  };
+
+  // Função para formatar CPF/CNPJ enquanto digita
+  const formatarCpfCnpj = (value) => {
+    const limpo = limparCpfCnpj(value);
+
+    // CPF: 000.000.000-00 (11 dígitos)
+    if (limpo.length <= 11) {
+      return limpo
+        .replace(/(\d{3})(\d)/, "$1.$2")
+        .replace(/(\d{3})(\d)/, "$1.$2")
+        .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+    }
+    // CNPJ: 00.000.000/0000-00 (14 dígitos)
+    else {
+      return limpo
+        .replace(/(\d{2})(\d)/, "$1.$2")
+        .replace(/(\d{3})(\d)/, "$1.$2")
+        .replace(/(\d{3})(\d)/, "$1/$2")
+        .replace(/(\d{4})(\d{1,2})$/, "$1-$2");
+    }
+  };
+
   // ========== BUSCAR DADOS DO USUÁRIO QUANDO A PÁGINA CARREGAR ==========
   useEffect(() => {
     const buscarDados = async () => {
@@ -46,8 +76,14 @@ function PerfilConvidado() {
             nomeCompleto: data.usuario.nome || "",
             email: data.usuario.email || "",
             telefone: data.usuario.telefone || "",
+
             dataNascimento: "",
             cpf_cnpj: "",
+
+            cpf_cnpj: data.usuario.cpf_cnpj
+              ? formatarCpfCnpj(data.usuario.cpf_cnpj)
+              : "",
+            dataNascimento: "",
             senha: "", // Senha sempre vazia por segurança
           });
         }
@@ -66,9 +102,22 @@ function PerfilConvidado() {
   // ========== FUNÇÃO DE ATUALIZAÇÃO ==========
   const atualizarDados = (e) => {
     const { name, value } = e.target;
+
     setDadosPerfilConvidado((prev) => ({
       ...prev,
       [name]: value,
+
+
+    let valorFormatado = value;
+
+    // Se for o campo CPF/CNPJ, aplica a formatação automática
+    if (name === "cpf_cnpj") {
+      valorFormatado = formatarCpfCnpj(value);
+    }
+
+    setDadosPerfilConvidado((prev) => ({
+      ...prev,
+      [name]: valorFormatado,
     }));
   };
 
@@ -78,6 +127,22 @@ function PerfilConvidado() {
     setMensagem("");
     setCarregando(true);
 
+
+    // Limpa o CPF/CNPJ removendo a máscara - envia só números pro backend
+    const cpfCnpjLimpo = limparCpfCnpj(dadosPerfilConvidado.cpf_cnpj);
+
+    // Validação: CPF deve ter 11 dígitos, CNPJ deve ter 14 dígitos
+    if (
+      cpfCnpjLimpo &&
+      cpfCnpjLimpo.length !== 11 &&
+      cpfCnpjLimpo.length !== 14
+    ) {
+      setMensagem("CPF deve ter 11 dígitos ou CNPJ deve ter 14 dígitos");
+      setCarregando(false);
+      return;
+    }
+
+ main
     try {
       // Faz a chamada para a API de atualização
       const response = await fetch(
@@ -87,7 +152,13 @@ function PerfilConvidado() {
           headers: {
             "Content-Type": "application/json",
           },
+
           body: JSON.stringify(dadosPerfilConvidado),
+
+          body: JSON.stringify({
+            ...dadosPerfilConvidado,
+            cpf_cnpj: cpfCnpjLimpo, // Envia só números
+          }),
         }
       );
 
@@ -104,6 +175,10 @@ function PerfilConvidado() {
         // Atualiza o sessionStorage se cadastrou CPF
         if (dadosPerfilConvidado.cpf_cnpj) {
           sessionStorage.setItem("userCpf", dadosPerfilConvidado.cpf_cnpj);
+
+        if (cpfCnpjLimpo) {
+          sessionStorage.setItem("userCpf", cpfCnpjLimpo);
+ main
         }
       } else {
         setMensagem(data.error || "Erro ao atualizar dados");
@@ -136,7 +211,10 @@ function PerfilConvidado() {
                   abaAtiva === "minha-conta" ? "ativa" : "aba-com-risco"
                 }`}
               >
+
                 Minha conta
+
+                Dados
               </button>
             </div>
 
@@ -163,7 +241,9 @@ function PerfilConvidado() {
                     name="dataNascimento"
                     value={dadosPerfilConvidado.dataNascimento}
                     onChange={atualizarDados}
+
                     required
+
                   />
                 </div>
 
@@ -175,7 +255,11 @@ function PerfilConvidado() {
                     name="cpf_cnpj"
                     value={dadosPerfilConvidado.cpf_cnpj}
                     onChange={atualizarDados}
+
                     required
+
+                    maxLength="18"
+ 
                   />
                 </div>
 

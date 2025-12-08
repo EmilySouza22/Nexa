@@ -10,7 +10,8 @@ import SecaoIngressos from "./components/SecaoIngresso";
 import Responsabilidades from "./components/Responsabilidades";
 import BotaoPublicar from "./components/BotaoPublicar";
 import toastr from "../../utils/toastr";
-
+import Footer from "../../components/Footer";
+import toastr from "../../utils/toastr";
 function CriacaoEvento() {
   const userName = sessionStorage.getItem("userName") || "Organizador";
   const userInitials = sessionStorage.getItem("userInitials") || "OR";
@@ -238,7 +239,9 @@ function CriacaoEvento() {
       if (isNaN(idcontaInt)) {
         toastr.error(
           "ID de usuário inválido! Por favor, faça login novamente."
-        );
+        )
+
+
         setIsSubmitting(false);
         return;
       }
@@ -406,6 +409,7 @@ function CriacaoEvento() {
           </div>
         </main>
       </div>
+      <Footer />
     </div>
   );
 }

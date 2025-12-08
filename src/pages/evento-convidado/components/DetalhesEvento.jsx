@@ -2,6 +2,10 @@ import { icones } from "../../../utils/iconEventoConvidado";
 import "./DetalhesEvento.css";
 
 function DetalhesEvento({ evento }) {
+  if (!evento) {
+    return <div>Carregando detalhes...</div>;
+  }
+
   return (
     <div className="detalhes-evento-container">
       {/* DESCRIÇÃO */}
@@ -11,18 +15,36 @@ function DetalhesEvento({ evento }) {
           <h3>Descrição</h3>
         </div>
         <div className="detalhes-content">
-          <p>{evento.descricao}</p>
+          {/* Descrição principal (vem do banco: assunto_principal) */}
+          <p>{evento.descricao || "Sem descrição disponível"}</p>
           
+          {/* Descrição completa (campo opcional) */}
           {evento.descricaoCompleta && (
             <p className="descricao-adicional">{evento.descricaoCompleta}</p>
           )}
 
+          {/* Data do evento formatada */}
           {evento.dataEvento && (
             <p className="data-destaque">
               <strong>Data:</strong> {evento.dataEvento}
             </p>
           )}
 
+          {/* Horário */}
+          {evento.hora && (
+            <p className="data-destaque">
+              <strong>Horário:</strong> {evento.hora}
+            </p>
+          )}
+
+          {/* Categoria do evento */}
+          {evento.categoria && (
+            <p className="data-destaque">
+              <strong>Categoria:</strong> {evento.categoria}
+            </p>
+          )}
+
+          {/* Tópicos (para dados mockados mais complexos) */}
           {evento.topicos && evento.topicos.length > 0 && (
             <>
               <p className="topico-titulo">{evento.tituloTopicos}</p>
@@ -34,6 +56,7 @@ function DetalhesEvento({ evento }) {
             </>
           )}
 
+          {/* Detalhes adicionais */}
           {evento.detalhesAdicionais && evento.detalhesAdicionais.length > 0 && (
             <ul className="lista-detalhes">
               {evento.detalhesAdicionais.map((detalhe, index) => (
@@ -51,11 +74,29 @@ function DetalhesEvento({ evento }) {
             </ul>
           )}
 
+          {/* Prêmios */}
           {evento.premios && (
             <p className="premio-destaque">
               <strong>{evento.premios.titulo}</strong><br />
               {evento.premios.descricao}
             </p>
+          )}
+
+          {/* Mostrar ingressos disponíveis */}
+          {evento.ingressos && evento.ingressos.length > 0 && (
+            <div style={{ marginTop: '20px' }}>
+              <p className="topico-titulo">Ingressos disponíveis:</p>
+              <ul className="lista-topicos">
+                {evento.ingressos.map((ingresso, index) => (
+                  <li key={index}>
+                    <strong>{ingresso.titulo}</strong> - R$ {parseFloat(ingresso.valor_unitario).toFixed(2)} 
+                    {ingresso.disponiveis > 0 
+                      ? ` (${ingresso.disponiveis} disponíveis)`
+                      : ' (ESGOTADO)'}
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
         </div>
       </div>
@@ -67,7 +108,9 @@ function DetalhesEvento({ evento }) {
           <h3>Classificação</h3>
         </div>
         <div className="detalhes-content">
-          <p className="classificacao-valor">{evento.classificacao}</p>
+          <p className="classificacao-valor">
+            {evento.classificacao || "Classificação não informada"}
+          </p>
         </div>
       </div>
 
@@ -78,8 +121,12 @@ function DetalhesEvento({ evento }) {
           <h3>Local do evento</h3>
         </div>
         <div className="detalhes-content">
-          <p className="local-nome">{evento.local.nome}</p>
-          <p className="local-endereco">{evento.local.endereco}</p>
+          <p className="local-nome">
+            {evento.local?.nome || "Local não informado"}
+          </p>
+          <p className="local-endereco">
+            {evento.local?.endereco || "Endereço não informado"}
+          </p>
         </div>
       </div>
     </div>

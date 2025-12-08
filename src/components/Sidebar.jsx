@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Sidebar.css";
 import { iconsSidebar } from "../utils/icons";
+import toastr from "../utils/toastr";
 
 function Sidebar({ userType, userHasCpf }) {
   /*Criação de uma Side bar que para diferenciar vamos usar props, de acordo com o tipo de usuário 
@@ -20,11 +21,14 @@ function Sidebar({ userType, userHasCpf }) {
   };
 
   /*função pra trocar entre convidado e organizador*/
+
   const handleTrocaTipo = () => {
+  const handleTrocaTipo = async () => {
     if (userType === "organizador") {
       // Organizador sempre pode virar convidado
       navigate("/");
     } else if (userType === "convidado") {
+
       // Convidado só pode virar organizador se tiver CPF cadastrado
       if (userHasCpf) {
         navigate("/organizador");
@@ -34,6 +38,34 @@ function Sidebar({ userType, userHasCpf }) {
           "Você precisa cadastrar seu CPF no perfil para acessar a área de organizador!"
         );
         navigate("/perfil-convidado");
+      // Convidado precisa verificar se tem CPF cadastrado
+      const userId = sessionStorage.getItem("userId");
+
+      try {
+        // Busca os dados atualizados do banco
+        const response = await fetch(
+          `http://localhost:3000/api/auth/usuario/${userId}`
+        );
+        const data = await response.json();
+
+        if (response.ok && data.usuario.cpf_cnpj) {
+          // Tem CPF cadastrado! Atualiza o sessionStorage e navega
+          sessionStorage.setItem("userCpf", data.usuario.cpf_cnpj);
+          navigate("/organizador");
+        } else {
+          // Não tem CPF, mostra toastr de erro e redireciona pro perfil
+          toastr.info(
+            "Você precisa cadastrar seu CPF no perfil para acessar a área de organizador!",
+            "CPF não encontrado"
+          );
+          navigate("/perfil-convidado");
+        }
+      } catch (error) {
+        console.error("Erro ao verificar CPF:", error);
+        toastr.error(
+          "Erro ao verificar seus dados. Tente novamente.",
+          "Erro de conexão"
+        );
       }
     }
   };
