@@ -13,7 +13,7 @@ function SectionBuscarEvento() {
                 <p className='HomeConvTitle1'>Procure sua próxima experiência</p>
                 <BarraPesquisa/>
             </div>
-            <ProximoEvento/>  
+            {/* <ProximoEvento/>   */}
         </div>
         <div className='HomeConv-ContainerCategoria'>
             <p className='HomeConv-TitleCategoria'>Categorias</p>
@@ -104,10 +104,6 @@ function SectionBuscarEvento() {
         <div className='HomeConv-CarrosselEventos'>
             <div className='HomeConv-CarouselParaHoje'>
                 <p className='HomeConv-TitleEventsCarousel'>O que fazer hoje?</p>
-                <EventsCarousel/>
-            </div>
-            <div className='HomeConv-CarouselEmAltaNaRegiao'>
-                <p className='HomeConv-TitleEventsCarousel'>Em alta na sua região</p>
                 <EventsCarousel/>
             </div>
         </div>

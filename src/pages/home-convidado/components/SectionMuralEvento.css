@@ -18,11 +18,12 @@
 }
 
 .HomeConv-TitleEvento{
-    padding-bottom: 8px;
+    font-size: 30px;
+    padding-bottom: 15px;
 }
 
 .HomeConv-InfoEvento{
-    width: 500px;
+    width: 48%;
     display: flex;
     justify-content: space-around;
     padding-bottom: 30px;

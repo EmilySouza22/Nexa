@@ -43,6 +43,9 @@ export function EventsCarousel() {
 					<div className="embla__slide">Slide 3</div>
 					<div className="embla__slide">Slide 4</div>
 					<div className="embla__slide">Slide 5</div>
+                    <div className="embla__slide">Slide 6</div>
+                    <div className="embla__slide">Slide 7</div>
+                    <div className="embla__slide">Slide 8</div>
 				</div>
 			</div>
 

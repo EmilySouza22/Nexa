@@ -45,10 +45,6 @@ function Sidebar({ userType }) {
               <span>Meus ingressos</span>
             </a>
             <a href="#" className="sidebar-link">
-              <img src={iconsSidebar.microfone} alt="Palco" className="icon" />
-              <span>Palco principal</span>
-            </a>
-            <a href="#" className="sidebar-link">
               <img
                 src={iconsSidebar.certificado}
                 alt="Certificados"
