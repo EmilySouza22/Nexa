@@ -22,7 +22,8 @@
 		"react": "^19.1.1",
 		"react-dom": "^19.1.1",
 		"react-router-dom": "^7.9.5",
-		"toastr": "^2.1.4"
+		"toastr": "^2.1.4",
+        "jsonwebtoken": "^9.0.2"
 	},
 	"devDependencies": {
 		"@eslint/js": "^9.36.0",

@@ -31,6 +31,8 @@ function PerfilConvidado() {
   const [carregando, setCarregando] = useState(false);
   const [abaAtiva, setAbaAtiva] = useState("minha-conta");
 
+
+
   // === FORMATAÇÕES === //
 
   // Função para limpar CPF/CNPJ -> remove tudo que não for número
@@ -74,6 +76,10 @@ function PerfilConvidado() {
             nomeCompleto: data.usuario.nome || "",
             email: data.usuario.email || "",
             telefone: data.usuario.telefone || "",
+
+            dataNascimento: "",
+            cpf_cnpj: "",
+
             cpf_cnpj: data.usuario.cpf_cnpj
               ? formatarCpfCnpj(data.usuario.cpf_cnpj)
               : "",
@@ -97,6 +103,11 @@ function PerfilConvidado() {
   const atualizarDados = (e) => {
     const { name, value } = e.target;
 
+    setDadosPerfilConvidado((prev) => ({
+      ...prev,
+      [name]: value,
+
+
     let valorFormatado = value;
 
     // Se for o campo CPF/CNPJ, aplica a formatação automática
@@ -116,6 +127,7 @@ function PerfilConvidado() {
     setMensagem("");
     setCarregando(true);
 
+
     // Limpa o CPF/CNPJ removendo a máscara - envia só números pro backend
     const cpfCnpjLimpo = limparCpfCnpj(dadosPerfilConvidado.cpf_cnpj);
 
@@ -130,6 +142,7 @@ function PerfilConvidado() {
       return;
     }
 
+ main
     try {
       // Faz a chamada para a API de atualização
       const response = await fetch(
@@ -139,6 +152,9 @@ function PerfilConvidado() {
           headers: {
             "Content-Type": "application/json",
           },
+
+          body: JSON.stringify(dadosPerfilConvidado),
+
           body: JSON.stringify({
             ...dadosPerfilConvidado,
             cpf_cnpj: cpfCnpjLimpo, // Envia só números
@@ -157,8 +173,12 @@ function PerfilConvidado() {
         }
 
         // Atualiza o sessionStorage se cadastrou CPF
+        if (dadosPerfilConvidado.cpf_cnpj) {
+          sessionStorage.setItem("userCpf", dadosPerfilConvidado.cpf_cnpj);
+
         if (cpfCnpjLimpo) {
           sessionStorage.setItem("userCpf", cpfCnpjLimpo);
+ main
         }
       } else {
         setMensagem(data.error || "Erro ao atualizar dados");
@@ -191,6 +211,9 @@ function PerfilConvidado() {
                   abaAtiva === "minha-conta" ? "ativa" : "aba-com-risco"
                 }`}
               >
+
+                Minha conta
+
                 Dados
               </button>
             </div>
@@ -218,6 +241,9 @@ function PerfilConvidado() {
                     name="dataNascimento"
                     value={dadosPerfilConvidado.dataNascimento}
                     onChange={atualizarDados}
+
+                    required
+
                   />
                 </div>
 
@@ -229,7 +255,11 @@ function PerfilConvidado() {
                     name="cpf_cnpj"
                     value={dadosPerfilConvidado.cpf_cnpj}
                     onChange={atualizarDados}
+
+                    required
+
                     maxLength="18"
+ 
                   />
                 </div>
 

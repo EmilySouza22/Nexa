@@ -21,11 +21,23 @@ function Sidebar({ userType, userHasCpf }) {
   };
 
   /*função pra trocar entre convidado e organizador*/
+
+  const handleTrocaTipo = () => {
   const handleTrocaTipo = async () => {
     if (userType === "organizador") {
       // Organizador sempre pode virar convidado
       navigate("/");
     } else if (userType === "convidado") {
+
+      // Convidado só pode virar organizador se tiver CPF cadastrado
+      if (userHasCpf) {
+        navigate("/organizador");
+      } else {
+        // Se não tiver CPF, mostra um alerta e redireciona pro perfil
+        alert(
+          "Você precisa cadastrar seu CPF no perfil para acessar a área de organizador!"
+        );
+        navigate("/perfil-convidado");
       // Convidado precisa verificar se tem CPF cadastrado
       const userId = sessionStorage.getItem("userId");
 
