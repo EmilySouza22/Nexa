@@ -1,5 +1,6 @@
 import React from 'react';
 import './BotaoPublicar.css';
+import { iconsCE } from "../../../utils/icons";
 
 const BotaoPublicar = ({ isSubmitting, onSubmit }) => (
   <div className="box-08">
@@ -10,6 +11,7 @@ const BotaoPublicar = ({ isSubmitting, onSubmit }) => (
       disabled={isSubmitting}
       aria-label={isSubmitting ? "Publicando evento..." : "Publicar evento"}
     >
+      <img src={iconsCE.publicar} alt="Publicar" style={{ marginRight: '8px' }} />
       <span className="btn-text">
         {isSubmitting ? 'Publicando...' : 'Publicar evento'}
       </span>

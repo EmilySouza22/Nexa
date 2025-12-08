@@ -11,6 +11,8 @@ import setaIcon from "../assets/sidebar/icon-seta.svg";
 import setaIcon2 from "../assets/sidebar/icon-seta2.svg";
 import perfilIcon from "../assets/sidebar/icon-perfil.svg";
 import configuracoesIcon from "../assets/sidebar/icon-configuracoes.svg";
+import changeIcon from "../assets/sidebar/icon-change.svg";
+import exitIcon from "../assets/sidebar/icon-exit.svg";
 
 export const iconsSidebar = {
     home: homeIcon,
@@ -25,9 +27,11 @@ export const iconsSidebar = {
     seta2: setaIcon2,
     perfil: perfilIcon,
     configuracoes: configuracoesIcon,
+    change: changeIcon,
+    exit: exitIcon
 };
 
-// REFERENTES A TELA HOME-ORGANIZADOR 
+// REFERENTES A TELA HOME-ORGANIZADOR (HO)
 import relogioHO from "../assets/home-organizador/icon-relogio.svg"
 import ingressoHO from "../assets/home-organizador/icon-ingresso.svg"
 import assuntoHO from "../assets/home-organizador/icon-assunto.svg"
@@ -54,7 +58,7 @@ export const iconsHO= {
     analytics: analyticsHO
 };
 
-// REFERENTES A TELA DE CADASTRO 
+// REFERENTES A TELA DE CADASTRO (CA)
 import emailCA from "../assets/register/icon-email.svg"
 import olhoAbertoCA from "../assets/register/icon-olho-aberto.svg"
 import olhoFechadoCA from "../assets/register/icon-olho-fechado.svg"
@@ -62,7 +66,6 @@ import telefoneCA from "../assets/register/icon-telefone.svg"
 import userCA from "../assets/register/icon-user.svg"
 import icon1CA from "../assets/register/icon-logo1.svg"
 import icon2CA from "../assets/register/icon-logo2.svg"
-
 
 export const iconsCA = {
     email: emailCA,
@@ -72,4 +75,56 @@ export const iconsCA = {
     user: userCA,
     icon1: icon1CA,
     icon2: icon2CA
+};
+
+// REFERENTES A TELA DE CRIAÇÃO DE EVENTOS (CE)
+
+import adicionarCE from "../assets/criacao-evento/icon-adicionar.svg";
+import alertaCE from "../assets/criacao-evento/icon-alerta.svg";
+import checkCalendarioCE from "../assets/criacao-evento/icon-check-calendario.svg";
+import dataCE from "../assets/criacao-evento/icon-data.svg";
+import deletarCE from "../assets/criacao-evento/icon-deletar.svg";
+import duvidaCE from "../assets/criacao-evento/icon-duvida.svg";
+import editarCE from "../assets/criacao-evento/icon-editar.svg";
+import horaCE from "../assets/criacao-evento/icon-hora.svg";
+import divulgacaoCE from "../assets/criacao-evento/icon-divulgacao.svg";
+import ingressoCE from "../assets/criacao-evento/icon-ingresso.svg";
+import publicarCE from "../assets/criacao-evento/icon-publicar.svg";
+import selectCE from "../assets/criacao-evento/icon-select.svg";
+import setaCE from "../assets/criacao-evento/icon-seta.svg";
+import criarIngressoCE from "../assets/criacao-evento/icon-criar-ingresso.svg";
+import voltarCE from "../assets/criacao-evento/icon-voltar.svg";
+
+export const iconsCE = {
+    adicionar: adicionarCE,
+    alerta: alertaCE,
+    checkCalendario: checkCalendarioCE,
+    data: dataCE,
+    deletar: deletarCE,
+    duvida: duvidaCE,
+    editar: editarCE,
+    hora: horaCE,
+    divulgacao: divulgacaoCE,
+    ingresso: ingressoCE,
+    publicar: publicarCE,
+    select: selectCE,
+    seta: setaCE,
+    criar: criarIngressoCE,
+    voltar: voltarCE,
+};
+
+// REFERENTES A TELA DE PERFIL (CONVIDADO) (PE1)
+
+import savePE1 from "../assets/perfil-organizador&convidado/icon-save.svg"
+
+export const iconsPE1 = {
+    save: savePE1,
+};
+
+// REFERENTES A TELA DE PERFIL (ORGANIZADOR) (PE2)
+
+import savePE2 from "../assets/perfil-organizador&convidado/icon-save.svg"
+
+export const iconsPE2 = {
+    save: savePE2,
 };

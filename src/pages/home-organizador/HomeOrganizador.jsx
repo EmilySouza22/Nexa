@@ -11,12 +11,16 @@ function HomeOrganizador() {
   // Pegar dados do sessionStorage (salvos no login)
   const userName = sessionStorage.getItem("userName") || "Organizador";
   const userInitials = sessionStorage.getItem("userInitials") || "OR";
+  const userCpf = sessionStorage.getItem("userCpf"); // Pegar o CPF do usuário
 
   return (
     <div className="home-organizador">
       <Navbar userName={userName} userInitials={userInitials} />
       <div className="home-organizador-layout">
-        <Sidebar userType="organizador" />
+        <Sidebar
+          userType="organizador"
+          userHasCpf={!!userCpf} // !! converte em boolean (true se tiver CPF, false se não)
+        />
         <main className="home-organizador-content">
           <InfoEventos />
           <CardEvento />
@@ -27,8 +31,6 @@ function HomeOrganizador() {
       </div>
     </div>
   );
-
- 
 }
 
 export default HomeOrganizador;

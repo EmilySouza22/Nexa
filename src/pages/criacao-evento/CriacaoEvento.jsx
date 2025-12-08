@@ -9,6 +9,9 @@ import LocalEvento from "./components/LocalEvento";
 import SecaoIngressos from "./components/SecaoIngresso";
 import Responsabilidades from "./components/Responsabilidades";
 import BotaoPublicar from "./components/BotaoPublicar";
+import Footer from "../../components/Footer";
+import toastr from "../../utils/toastr";
+
 
 function CriacaoEvento() {
   const userName = sessionStorage.getItem("userName") || "Organizador";
@@ -34,16 +37,36 @@ function CriacaoEvento() {
     bairro: "",
     numero: "",
     aceitaTermos: false,
+    ingressos: [],
   });
 
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [buscandoCep, setBuscandoCep] = useState(false);
+  const [erroCep, setErroCep] = useState("");
 
   const handleChange = (field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
     if (errors[field]) {
       setErrors((prev) => ({ ...prev, [field]: "" }));
     }
+  };
+
+  const handleAddIngresso = (ingresso) => {
+    setFormData((prev) => ({
+      ...prev,
+      ingressos: [...prev.ingressos, ingresso],
+    }));
+    if (errors.ingressos) {
+      setErrors((prev) => ({ ...prev, ingressos: "" }));
+    }
+  };
+
+  const handleRemoveIngresso = (id) => {
+    setFormData((prev) => ({
+      ...prev,
+      ingressos: prev.ingressos.filter((ing) => ing.id !== id),
+    }));
   };
 
   const handleImageChange = (e) => {
@@ -87,8 +110,64 @@ function CriacaoEvento() {
     return `${numbers.slice(0, 5)}-${numbers.slice(5, 8)}`;
   };
 
+  const buscarCep = async (cep) => {
+    const cepLimpo = cep.replace(/\D/g, "");
+
+    if (cepLimpo.length !== 8) {
+      return;
+    }
+
+    setBuscandoCep(true);
+    setErroCep("");
+
+    try {
+      const response = await fetch(
+        `https://viacep.com.br/ws/${cepLimpo}/json/`
+      );
+      const data = await response.json();
+
+      if (data.erro) {
+        setErroCep("CEP não encontrado");
+        setBuscandoCep(false);
+        return;
+      }
+
+      // Preenche os campos automaticamente
+      setFormData((prev) => ({
+        ...prev,
+        avenidaRua: data.logradouro || prev.avenidaRua,
+        bairro: data.bairro || prev.bairro,
+        cidade: data.localidade || prev.cidade,
+        estado: data.uf || prev.estado,
+        complemento: data.complemento || prev.complemento,
+      }));
+
+      // Limpa erros dos campos preenchidos
+      setErrors((prev) => ({
+        ...prev,
+        avenidaRua: "",
+        bairro: "",
+        cidade: "",
+        estado: "",
+      }));
+
+      setBuscandoCep(false);
+    } catch (error) {
+      setErroCep("Erro ao buscar CEP");
+      setBuscandoCep(false);
+    }
+  };
+
   const handleCEPChange = (field, value) => {
-    handleChange(field, formatCEP(value));
+    const cepFormatado = formatCEP(value);
+    handleChange(field, cepFormatado);
+
+    const cepLimpo = cepFormatado.replace(/\D/g, "");
+    if (cepLimpo.length === 8) {
+      buscarCep(cepFormatado);
+    } else {
+      setErroCep("");
+    }
   };
 
   const validateForm = () => {
@@ -119,6 +198,10 @@ function CriacaoEvento() {
     if (!formData.estado) newErrors.estado = "Selecione um estado";
     if (!formData.cidade.trim()) newErrors.cidade = "Cidade é obrigatória";
     if (!formData.bairro.trim()) newErrors.bairro = "Bairro é obrigatório";
+
+    if (formData.ingressos.length === 0)
+      newErrors.ingressos = "Adicione pelo menos um ingresso";
+
     if (!formData.aceitaTermos)
       newErrors.aceitaTermos =
         "Você deve aceitar os termos para publicar o evento";
@@ -128,7 +211,10 @@ function CriacaoEvento() {
   };
 
   const handleSubmit = async () => {
-    if (!validateForm()) return;
+    if (!validateForm()) {
+      toastr.info("Por favor, preencha todos os campos obrigatórios");
+      return;
+    }
 
     setIsSubmitting(true);
     try {
@@ -142,8 +228,8 @@ function CriacaoEvento() {
       );
 
       if (!validId) {
-        alert(
-          "❌ Você precisa estar logado para criar um evento!\n\nPor favor, faça login novamente."
+        toastr.error(
+          "Você precisa estar logado para criar um evento! Por favor, faça login novamente."
         );
         setIsSubmitting(false);
         return;
@@ -152,7 +238,18 @@ function CriacaoEvento() {
       const idcontaInt = parseInt(validId);
 
       if (isNaN(idcontaInt)) {
-        alert("❌ ID de usuário inválido! Por favor, faça login novamente.");
+        toastr.error(
+          "ID de usuário inválido! Por favor, faça login novamente."
+        );
+
+        setIsSubmitting(false);
+        return;
+      }
+
+      if (!formData.preview) {
+        toastr.error(
+          "Imagem não foi carregada corretamente. Por favor, selecione a imagem novamente."
+        );
         setIsSubmitting(false);
         return;
       }
@@ -165,6 +262,7 @@ function CriacaoEvento() {
         data_inicio: `${formData.dateInicio} ${formData.timeInicio}:00`,
         data_termino: `${formData.dateTermino} ${formData.timeTermino}:00`,
         idconta: idcontaInt,
+        imagem: formData.preview,
         endereco: {
           local: formData.localEvento,
           rua: formData.avenidaRua,
@@ -175,6 +273,15 @@ function CriacaoEvento() {
           cep: formData.cep,
           numero: formData.numero || "",
         },
+        ingressos: formData.ingressos.map((ing) => ({
+          titulo: ing.titulo,
+          idtipo_ingresso: ing.idtipo_ingresso,
+          quantidade: ing.quantidade,
+          valor_unitario: ing.valor_unitario,
+          data_inicio: ing.data_inicio,
+          data_termino: ing.data_termino,
+          max_qtd_por_compra: ing.max_qtd_por_compra,
+        })),
       };
 
       const response = await fetch("http://localhost:3000/api/eventos/create", {
@@ -185,15 +292,47 @@ function CriacaoEvento() {
         body: JSON.stringify(eventoData),
       });
 
+      // Verifica se o erro é 413 (Payload Too Large)
+      if (response.status === 413) {
+        throw new Error(
+          "A imagem é muito pesada! Por favor, escolha uma imagem menor"
+        );
+      }
+
       const data = await response.json();
 
       if (!response.ok) {
         throw new Error(data.error || "Erro ao criar evento");
       }
 
-      alert("🎉 Evento publicado com sucesso!");
+      toastr.success("Evento publicado com sucesso!");
+
+      // Limpar formulário após sucesso
+      setFormData({
+        nameEvent: "",
+        category: "",
+        image: null,
+        preview: null,
+        classification: "",
+        dateInicio: "",
+        timeInicio: "",
+        dateTermino: "",
+        timeTermino: "",
+        descricao: "",
+        localEvento: "",
+        estado: "",
+        avenidaRua: "",
+        cidade: "",
+        complemento: "",
+        cep: "",
+        bairro: "",
+        numero: "",
+        aceitaTermos: false,
+        ingressos: [],
+      });
     } catch (error) {
-      alert(`❌ Erro ao publicar evento: ${error.message}`);
+      console.error("Erro completo:", error);
+      toastr.error(`Erro ao publicar evento: ${error.message}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -234,9 +373,28 @@ function CriacaoEvento() {
                   ? handleCEPChange(field, value)
                   : handleChange(field, value)
               }
+              buscandoCep={buscandoCep}
+              erroCep={erroCep}
             />
 
-            <SecaoIngressos />
+            <SecaoIngressos
+              ingressos={formData.ingressos}
+              onAddIngresso={handleAddIngresso}
+              onRemoveIngresso={handleRemoveIngresso}
+            />
+            {errors.ingressos && (
+              <span
+                className="error-message"
+                style={{
+                  color: "red",
+                  marginTop: "-15px",
+                  marginBottom: "15px",
+                  display: "block",
+                }}
+              >
+                {errors.ingressos}
+              </span>
+            )}
 
             <Responsabilidades
               aceitaTermos={formData.aceitaTermos}
@@ -251,6 +409,7 @@ function CriacaoEvento() {
           </div>
         </main>
       </div>
+      <Footer />
     </div>
   );
 }

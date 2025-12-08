@@ -1,8 +1,8 @@
 import React from 'react';
-import './Responsabilidades.css'
+import './Responsabilidades.css';
 
 const Responsabilidades = ({ aceitaTermos, onChange, error }) => (
-  <div className="box-07">
+  <div className="box-07 responsabilidades-section">
     <h2 className="titulo-style">6. Responsabilidades</h2>
 
     <div className="responsabilidades-container">

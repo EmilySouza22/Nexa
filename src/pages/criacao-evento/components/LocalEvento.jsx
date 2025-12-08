@@ -1,7 +1,7 @@
 import React from 'react';
 import './LocalEvento.css';
 
-const LocalEvento = ({ formData, errors, onChange }) => {
+const LocalEvento = ({ formData, errors, onChange, buscandoCep, erroCep }) => {
   const estados = [
     "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA",
     "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN",
@@ -114,9 +114,16 @@ const LocalEvento = ({ formData, errors, onChange }) => {
               onChange={(e) => onChange('cep', e.target.value)}
               placeholder="00000-000"
               maxLength="9"
-              aria-invalid={!!errors.cep}
+              aria-invalid={!!errors.cep || !!erroCep}
               aria-describedby={errors.cep ? "cep-error" : undefined}
+              disabled={buscandoCep}
             />
+            {buscandoCep && (
+              <span className="info-message">Buscando CEP...</span>
+            )}
+            {erroCep && (
+              <span className="error-message">{erroCep}</span>
+            )}
             {errors.cep && (
               <span id="cep-error" className="error-message">{errors.cep}</span>
             )}
