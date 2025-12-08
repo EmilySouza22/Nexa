@@ -1,0 +1,61 @@
+.emblaEventsCarousel{
+	overflow: hidden;
+    left: 170px;
+    display: flex;
+    margin: 20px 100px 40px 100px;
+}
+
+.embla__container {
+	display: flex;
+	height: 100%;
+	width: 100%;
+	gap: 15px;
+}
+
+.embla__slide {
+	background-color: rgb(140, 104, 195);
+	border-radius: 25px;
+	height: 150px;
+	width: 310px;
+	padding: 20px;
+    flex: 0 0 23.5%;
+}
+
+.embla__prev,
+.embla__next {
+	position: absolute;
+	background: rgb(255, 255, 255);
+	border: none;
+	font-size: 30px;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	cursor: pointer;
+	z-index: 10;
+	box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+    display: flex;
+	align-items: center;
+	justify-content: center;
+    margin-top: 50px;
+}
+
+.embla__prev {
+	left: 100px;
+	align-items: center;
+	justify-content: center;
+	outline: none;
+    margin-left: 50px;
+}
+
+.embla__next {
+	right: 10px;
+	align-items: center;
+	justify-content: center;
+	outline: none;
+    margin-right: 80px;
+}
+
+.HomeConv-EventsCarouselSeta {
+	height: 18px;
+	width: 18px;
+}

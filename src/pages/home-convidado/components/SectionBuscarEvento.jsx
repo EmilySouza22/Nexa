@@ -1,74 +1,119 @@
-import React from 'react';
-import "./SectionBuscarEvento.css";
-import { iconsHomeConv } from "../../../utils/iconsHomeConv.js";
+import React, { useState } from 'react';
+import './SectionBuscarEvento.css';
+import { iconsHomeConv } from '../../../utils/iconsHomeConv.js';
+import BarraPesquisa from './BarraPesquisa.jsx';
+import ProximoEvento from './ProximoEvento.jsx';
+import { EventsCarousel } from './EventsCarousel.jsx';
 
-function SectionBuscarEvento() {
-  return (
-    <div className='HomeConv-BuscarEvento'>
-        <div className='HomeConv-ContainerTop'>
-            <div className='HomeConv-ContainerPesquisa'>
-                <p className='HomeConvTitle1'>Procure sua próxima experiência</p>
-                <div className='HomeConv-PesquisaEvento'>
-                    <img src={iconsHomeConv.lupaIcon} alt="Lupa" className='HomeConv-IconLupa'/>
-                    <p className='HomeConv-TextSearch'>Buscar evento</p>
-                </div>
-            </div>
-            <div className='HomeConv-ContainerProximoEvento'>
-                {/* Só vai ter esse container se o convidado possuir um ingresso para um evento */}
-                <p>Próximo evento acontecerá em:</p>
-                <div className='HomeConv-ContainerTempo'>
-                    <img src={iconsHomeConv.horaIcon} alt="Relógio" />
-                    2d 16h
-                </div>
-            </div>
-        </div>
-        <div className='HomeConv-ContainerCategoria'>
-            <p>Categorias</p>
-            <div className='HomeConv-ContainerCategorias'>
-                <div>
-                    <img src={iconsHomeConv.musicIcon} alt="Icon-Nota-Musical" />
-                    <p>Festas</p>
-                </div>
-                <div>
-                    <img src={iconsHomeConv.mascaraIcon} alt="Icon-Mascara" />
-                    <p>Teatros</p>
-                </div>
-                <div>
-                    <img src={iconsHomeConv.infantilIcon} alt="Icon-Bebê" />
-                    <p>Infantil</p>
-                </div>
-                <div>
-                    <img src={iconsHomeConv.discoIcon} alt="Icon-Disco" />
-                    <p>Shows</p>
-                </div>
-                <div>
-                    <img src={iconsHomeConv.microfoneIcon} alt="Icon-Microfone" />
-                    <p>Stand Up</p>
-                </div>
-                <div>
-                    <img src={iconsHomeConv.esportesIcon} alt="Icon-PessoaJogando" />
-                    <p>Esportivos</p>
-                </div>
-                <div>
-                    <img src={iconsHomeConv.certificadoIcon} alt="Icon-Certificado" />
-                    <p>Workshops</p>
-                </div>
-                <div>
-                    <img src={iconsHomeConv.reuniaoIcon} alt="Icon-Reuniao-Online" />
-                    <p>Online</p>
-                </div>
-                <div>
-                    <img src={iconsHomeConv.gastronomiaIcon} alt="Icon-Garfo-Faca" />
-                    <p>Gastronomia</p>
-                </div>
-            </div>
-        </div>
-        <div className='HomeConv-CarrosselEventos'>
-            <div className='HomeConv-EventosParaHoje'></div>
-            <div className='HomeConv-EventosEmAltaRegiao'></div>
-        </div>
-    </div>
-  )
+function SectionBuscarEvento({ eventosHoje }) {
+	const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+	const currentEvent = eventosHoje[currentSlideIndex];
+
+	return (
+		<div className="HomeConv-BuscarEvento">
+			<div className="HomeConv-ContainerTop">
+				<div className="HomeConv-ContainerPesquisa">
+					<p className="HomeConvTitle1">Procure sua próxima experiência</p>
+					<BarraPesquisa />
+				</div>
+				{/* <ProximoEvento/>   */}
+			</div>
+			<div className="HomeConv-ContainerCategoria">
+				<p className="HomeConv-TitleCategoria">Categorias</p>
+				<div className="HomeConv-ContainerCategorias">
+					<div className="HomeConv-ContainerBotãoCategoria">
+						<div className="HomeConv-BotaoCategoria">
+							<img src={iconsHomeConv.musicIcon} alt="Icon-Nota-Musical" />
+						</div>
+						<div>
+							<p className="HomeConv-NomeCategoriaFiltro">Festas</p>
+						</div>
+					</div>
+
+					<div className="HomeConv-ContainerBotãoCategoria">
+						<div className="HomeConv-BotaoCategoria">
+							<img src={iconsHomeConv.mascaraIcon} alt="Icon-Mascara" />
+						</div>
+						<div>
+							<p className="HomeConv-NomeCategoriaFiltro">Teatros</p>
+						</div>
+					</div>
+
+					<div className="HomeConv-ContainerBotãoCategoria">
+						<div className="HomeConv-BotaoCategoria">
+							<img src={iconsHomeConv.infantilIcon} alt="Icon-Bebê" />
+						</div>
+						<div>
+							<p className="HomeConv-NomeCategoriaFiltro">Infantil</p>
+						</div>
+					</div>
+
+					<div className="HomeConv-ContainerBotãoCategoria">
+						<div className="HomeConv-BotaoCategoria">
+							<img src={iconsHomeConv.discoIcon} alt="Icon-Disco" />
+						</div>
+						<div>
+							<p className="HomeConv-NomeCategoriaFiltro">Shows</p>
+						</div>
+					</div>
+
+					<div className="HomeConv-ContainerBotãoCategoria">
+						<div className="HomeConv-BotaoCategoria">
+							<img src={iconsHomeConv.microfoneIcon} alt="Icon-Microfone" />
+						</div>
+						<div>
+							<p className="HomeConv-NomeCategoriaFiltro">Stand Up</p>
+						</div>
+					</div>
+
+					<div className="HomeConv-ContainerBotãoCategoria">
+						<div className="HomeConv-BotaoCategoria">
+							<img src={iconsHomeConv.esportesIcon} alt="Icon-PessoaJogando" />
+						</div>
+						<div>
+							<p className="HomeConv-NomeCategoriaFiltro">Esportivos</p>
+						</div>
+					</div>
+
+					<div className="HomeConv-ContainerBotãoCategoria">
+						<div className="HomeConv-BotaoCategoria">
+							<img src={iconsHomeConv.certificadoIcon} alt="Icon-Certificado" />
+						</div>
+						<div>
+							<p className="HomeConv-NomeCategoriaFiltro">Workshops</p>
+						</div>
+					</div>
+
+					<div className="HomeConv-ContainerBotãoCategoria">
+						<div className="HomeConv-BotaoCategoria">
+							<img src={iconsHomeConv.reuniaoIcon} alt="Icon-Reuniao-Online" />
+						</div>
+						<div>
+							<p className="HomeConv-NomeCategoriaFiltro">Online</p>
+						</div>
+					</div>
+
+					<div className="HomeConv-ContainerBotãoCategoria">
+						<div className="HomeConv-BotaoCategoria">
+							<img src={iconsHomeConv.gastronomiaIcon} alt="Icon-Garfo-Faca" />
+						</div>
+						<div>
+							<p className="HomeConv-NomeCategoriaGastronomia">Gastronomia</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div className="HomeConv-CarrosselEventos">
+				<div className="HomeConv-CarouselParaHoje">
+					<p className="HomeConv-TitleEventsCarousel">O que fazer hoje?</p>
+					<EventsCarousel
+						eventos={eventosHoje}
+						onSlideChange={setCurrentSlideIndex}
+					/>
+				</div>
+			</div>
+		</div>
+	);
 }
 
-export default SectionBuscarEvento
+export default SectionBuscarEvento;

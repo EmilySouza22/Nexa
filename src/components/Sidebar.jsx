@@ -101,7 +101,7 @@ function Sidebar({ userType, userHasCpf }) {
 
         {userType === "convidado" && (
           <>
-            <Link to="/meus-ingressos" className="sidebar-link">
+            <Link className="sidebar-link">
               <img
                 src={iconsSidebar.ingresso}
                 alt="Ingressos"
@@ -109,11 +109,7 @@ function Sidebar({ userType, userHasCpf }) {
               />
               <span>Meus ingressos</span>
             </Link>
-            <Link to="/palco-principal" className="sidebar-link">
-              <img src={iconsSidebar.microfone} alt="Palco" className="icon" />
-              <span>Palco principal</span>
-            </Link>
-            <Link to="/certificados" className="sidebar-link">
+            <Link href="#" className="sidebar-link">
               <img
                 src={iconsSidebar.certificado}
                 alt="Certificados"
@@ -121,7 +117,7 @@ function Sidebar({ userType, userHasCpf }) {
               />
               <span>Certificados</span>
             </Link>
-            <Link to="/pesquisas" className="sidebar-link">
+            <Link className="sidebar-link">
               <img
                 src={iconsSidebar.pesquisas}
                 alt="Pesquisas"
