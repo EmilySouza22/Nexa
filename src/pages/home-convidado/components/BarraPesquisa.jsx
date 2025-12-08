@@ -54,7 +54,7 @@ export default function BarraPesquisa() {
 	console.log('resultados', resultados);
 
 	return (
-		<>
+		<div className="HomeConv-ContainerBuscarEventoResultado">
 			<input
 				type="text"
 				id="img-lupa"
@@ -69,10 +69,13 @@ export default function BarraPesquisa() {
 			{Array.isArray(resultados) &&
 				resultados.length > 0 &&
 				resultados.map((evento) => (
-					<div onClick={() => redirectToDetail(evento.idevento)}>
-						<p key={evento.idevento}>{evento.nome}</p>
+					<div
+						className="HomeConv-ResultadoBusca"
+						onClick={() => redirectToDetail(evento.idevento)}
+					>
+						<p key={evento.id}>{evento.nome}</p>
 					</div>
 				))}
-		</>
+		</div>
 	);
 }
