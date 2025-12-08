@@ -20,10 +20,10 @@
 }
 
 .eventoCard{
-  background: #0b0f2b;
+  background: transparent;
   color: white;
   border-radius: 20px;
-  padding: 30px;
+  padding: 10px;
   min-height: 420px;
   display: flex;
   flex-direction: column;

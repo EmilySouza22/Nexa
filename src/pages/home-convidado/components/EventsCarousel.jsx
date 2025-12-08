@@ -18,6 +18,20 @@ export function EventsCarousel({ eventos, onSlideChange }) {
 		}
 	};
 
+	const getImageSrc = (imagem) => {
+		if (!imagem) return '';
+
+		// Remove all whitespace and newlines from base64 strings
+		let cleanedImagem = imagem.replace(/\s+/g, '');
+
+		// Check if it's already a complete data URI
+		if (cleanedImagem.startsWith('data:')) {
+			return cleanedImagem;
+		}
+		// If not, assume it's base64 and add the prefix
+		return `data:image/jpeg;base64,${cleanedImagem}`;
+	};
+
 	useEffect(() => {
 		if (emblaApi) {
 			// Listen for slide changes
@@ -52,7 +66,11 @@ export function EventsCarousel({ eventos, onSlideChange }) {
 				<div className="embla__container">
 					{eventos.map((evento) => (
 						<div className="embla__slide" key={evento.idevento}>
-							{evento.nome}
+							{evento.imagem ? (
+								<img className='HomeConv-img' src={getImageSrc(evento.imagem)} alt={evento.nome} />
+							) : (
+								<p>{evento.nome}</p>
+							)}
 						</div>
 					))}
 				</div>

@@ -13,12 +13,23 @@
 }
 
 .embla__slide {
-	background-color: rgb(140, 104, 195);
+	background-color: transparent;
 	border-radius: 25px;
 	height: 150px;
 	width: 310px;
-	padding: 20px;
+	padding: 5px;
+    align-items: center;
     flex: 0 0 23.5%;
+}
+
+.embla__slide.img{
+    padding-top: 5px;
+    width: 100%;
+    height: 100%;
+}
+
+.HomeConv-img{
+    padding-top: 12px;
 }
 
 .embla__prev,

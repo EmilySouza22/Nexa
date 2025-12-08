@@ -213,11 +213,7 @@ router.put('/usuario/:id', async (req, res) => {
 			`UPDATE conta SET ${campos.join(', ')} WHERE idconta = ?`,
 			valores
 		);
-
-		res.status(200).json({
-			message: 'Dados atualizados com sucesso!',
-		});
-
+        
 		// Se cadastrou CPF/CNPJ, muda de convidado (1) para organizador (2)
 		if (cpf_cnpj) {
 			await db.query(
@@ -230,6 +226,7 @@ router.put('/usuario/:id', async (req, res) => {
 			message: 'Dados atualizados com sucesso!',
 			mudouTipo: !!cpf_cnpj,
 		});
+        
 	} catch (error) {
 		console.error('Erro ao atualizar usuário:', error);
 		res.status(500).json({

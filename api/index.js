@@ -7,6 +7,6 @@ const router = express.Router();
 
 router.use('/auth', authRoutes);
 router.use('/eventos', eventosRoutes);
-// router.use('/eventos-view', eventosViewRoutes);
+router.use('/eventos/view', eventosViewRoutes);
 
 export default router;

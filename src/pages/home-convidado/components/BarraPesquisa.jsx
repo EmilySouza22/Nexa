@@ -1,12 +1,18 @@
 import './BarraPesquisa.css';
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 const API_URL = import.meta.env.VITE_API_URL;
 
-function BarraPesquisa() {
+export default function BarraPesquisa() {
+	const navigate = useNavigate();
 	const [palavra, setPalavra] = useState('');
 	const [resultados, setResultados] = useState([]);
 	const [loading, setLoading] = useState(false);
+
+	const redirectToDetail = (id) => {
+		navigate(`/evento/${id}`);
+	};
 
 	useEffect(() => {
 		// Cria uma função assíncrona dentro do useEffect
@@ -45,6 +51,8 @@ function BarraPesquisa() {
 		return () => clearTimeout(timer);
 	}, [palavra]);
 
+	console.log('resultados', resultados);
+
 	return (
 		<>
 			<input
@@ -58,13 +66,13 @@ function BarraPesquisa() {
 
 			{loading && <p>Carregando...</p>}
 
-			<ul>
-				{Array.isArray(resultados) &&
-					resultados.length > 0 &&
-					resultados.map((evento) => <li key={evento.id}>{evento.nome}</li>)}
-			</ul>
+			{Array.isArray(resultados) &&
+				resultados.length > 0 &&
+				resultados.map((evento) => (
+					<div onClick={() => redirectToDetail(evento.idevento)}>
+						<p key={evento.idevento}>{evento.nome}</p>
+					</div>
+				))}
 		</>
 	);
 }
-
-export default BarraPesquisa;

@@ -20,7 +20,7 @@ CREATE TABLE conta (
   idconta INT PRIMARY KEY AUTO_INCREMENT,
   nome VARCHAR(255) NOT NULL,
   email VARCHAR(255) NOT NULL UNIQUE,
-  cpf_cnpj VARCHAR(14) NOT NULL UNIQUE,
+  cpf_cnpj VARCHAR(14) UNIQUE,
   telefone VARCHAR(11),
   senha VARCHAR(255) NOT NULL,
   descricao TEXT,
@@ -53,7 +53,7 @@ CREATE TABLE endereco_evento (
 CREATE TABLE evento (
   idevento INT PRIMARY KEY AUTO_INCREMENT,
   nome VARCHAR(255) NOT NULL,
-  assunto_principal VARCHAR(255),
+  assunto_principal TEXT,
   classificacao VARCHAR(255),
   data_inicio DATETIME,
   data_termino DATETIME,

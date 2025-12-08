@@ -35,8 +35,6 @@ export function HeroCarousel({ eventos, onSlideChange }) {
 
 	useEffect(() => {
 		if (emblaApi) {
-			console.log(emblaApi.slideNodes()); // Access API
-
 			// Listen for slide changes
 			const onSelect = () => {
 				const selectedIndex = emblaApi.selectedScrollSnap();
@@ -71,8 +69,10 @@ export function HeroCarousel({ eventos, onSlideChange }) {
 					{eventos.map((slide) => (
 						<div className="eventoSlide" key={slide.idevento}>
 							<div className="eventoCard">
-								{slide.imagem && (
+								{slide.imagem ? (
 									<img src={getImageSrc(slide.imagem)} alt={slide.nome} />
+								) : (
+									<p>{slide.nome}</p>
 								)}
 							</div>
 						</div>

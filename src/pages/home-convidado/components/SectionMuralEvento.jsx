@@ -4,7 +4,7 @@ import { iconsHomeConv } from '../../../utils/iconsHomeConv.js';
 import { HeroCarousel } from './HeroCarousel.jsx';
 import { formatarData } from '../../../utils/dataFormat.js';
 
-function SectionMuralEvento({ eventosPremium }) {
+export default function SectionMuralEvento({ eventosPremium }) {
 	const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 	const currentEvent = eventosPremium[currentSlideIndex];
 
@@ -48,5 +48,3 @@ function SectionMuralEvento({ eventosPremium }) {
 		</div>
 	);
 }
-
-export default SectionMuralEvento;

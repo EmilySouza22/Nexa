@@ -4,10 +4,13 @@ import './Sidebar.css';
 import { iconsSidebar } from '../utils/icons';
 import toastr from '../utils/toastr';
 
-export default function Sidebar({ userType, userHasCpf }) {
+export default function Sidebar({ userType }) {
 	/*Criação de uma Side bar que para diferenciar vamos usar props, de acordo com o tipo de usuário 
     - userType: "convidado" ou "organizador"
     - userHasCpf: boolean que indica se o usuário tem CPF cadastrado */
+
+	// Convidado precisa verificar se tem CPF/CNPJ cadastrado
+	const userCpfCnpj = sessionStorage.getItem('userCpf');
 
 	const [isOpen, setIsOpen] = useState(false); /*Pra começar com ela fechada*/
 	/*- isOpen: guarda se a sidebar está aberta (true) ou fechada (false)
@@ -25,46 +28,14 @@ export default function Sidebar({ userType, userHasCpf }) {
 	const handleTrocaTipo = async () => {
 		if (userType === 'organizador') {
 			// Organizador sempre pode virar convidado
-			navigate('/');
+			navigate('/home');
 		} else if (userType === 'convidado') {
 			// Convidado só pode virar organizador se tiver CPF cadastrado
-			if (userHasCpf) {
+			if (userCpfCnpj) {
 				navigate('/organizador');
 			} else {
 				// Se não tiver CPF, mostra um alerta e redireciona pro perfil
-				alert(
-					'Você precisa cadastrar seu CPF no perfil para acessar a área de organizador!'
-				);
 				navigate('/perfil-convidado');
-			}
-			// Convidado precisa verificar se tem CPF cadastrado
-			const userId = sessionStorage.getItem('userId');
-
-			try {
-				// Busca os dados atualizados do banco
-				const response = await fetch(
-					`http://localhost:3000/api/auth/usuario/${userId}`
-				);
-				const data = await response.json();
-
-				if (response.ok && data.usuario.cpf_cnpj) {
-					// Tem CPF cadastrado! Atualiza o sessionStorage e navega
-					sessionStorage.setItem('userCpf', data.usuario.cpf_cnpj);
-					navigate('/organizador');
-				} else {
-					// Não tem CPF, mostra toastr de erro e redireciona pro perfil
-					toastr.info(
-						'Você precisa cadastrar seu CPF no perfil para acessar a área de organizador!',
-						'CPF não encontrado'
-					);
-					navigate('/perfil-convidado');
-				}
-			} catch (error) {
-				console.error('Erro ao verificar CPF:', error);
-				toastr.error(
-					'Erro ao verificar seus dados. Tente novamente.',
-					'Erro de conexão'
-				);
 			}
 		}
 	};

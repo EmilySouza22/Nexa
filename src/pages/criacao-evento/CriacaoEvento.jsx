@@ -244,6 +244,8 @@ function CriacaoEvento() {
 				return;
 			}
 
+			console.log('formData', formData);
+
 			if (!formData.preview) {
 				toastr.error(
 					'Imagem não foi carregada corretamente. Por favor, selecione a imagem novamente.'
