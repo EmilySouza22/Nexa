@@ -217,20 +217,25 @@ router.get('/organizador/:idconta/dashboard', async (req, res) => {
             [idconta]
         );
 
-        // Buscar total de ingressos
-        const [ingressosTotal] = await db.query(
-            `SELECT 
-                COALESCE(SUM(i.quantidade), 0) as total_ingressos,
-                COALESCE(SUM(i.vendidos), 0) as total_vendidos
-             FROM evento e
-             LEFT JOIN ingresso i ON e.idevento = i.evento_id
-             WHERE e.conta_id = ? AND e.evento_ativo = 1 AND e.data_termino >= CURDATE()`,
-            [idconta]
-        );
+        let totalIngressos = 0;
+        let totalVendidos = 0;
+        let totalRestantes = 0;
 
-        const totalIngressos = Number(ingressosTotal[0]?.total_ingressos) || 0;
-        const totalVendidos = Number(ingressosTotal[0]?.total_vendidos) || 0;
-        const totalRestantes = totalIngressos - totalVendidos;
+        // Se existe um próximo evento, buscar os ingressos SOMENTE desse evento
+        if (proximoEvento.length > 0) {
+            const [ingressosEvento] = await db.query(
+                `SELECT 
+                    COALESCE(SUM(i.quantidade), 0) as total_ingressos,
+                    COALESCE(SUM(i.vendidos), 0) as total_vendidos
+                 FROM ingresso i
+                 WHERE i.evento_id = ?`,
+                [proximoEvento[0].idevento]
+            );
+
+            totalIngressos = Number(ingressosEvento[0]?.total_ingressos) || 0;
+            totalVendidos = Number(ingressosEvento[0]?.total_vendidos) || 0;
+            totalRestantes = totalIngressos - totalVendidos;
+        }
 
         res.json({
             proximo_evento: proximoEvento[0] || null,
@@ -362,6 +367,100 @@ router.get('/:idevento/ingressos', async (req, res) => {
         console.error('Erro ao buscar ingressos:', error);
         res.status(500).json({
             error: 'Erro ao buscar ingressos',
+            details: error.message
+        });
+    }
+});
+
+// == BUSCAR ANALYTICS DO ORGANIZADOR == //
+router.get('/organizador/:idconta/analytics', async (req, res) => {
+    try {
+        const { idconta } = req.params;
+
+        if (!idconta || idconta === 'undefined' || idconta === 'null') {
+            return res.status(400).json({
+                error: 'ID da conta inválido'
+            });
+        }
+
+        // 1. Total de eventos (todos, inclusive passados)
+        const [totalEventos] = await db.query(
+            `SELECT COUNT(*) as total FROM evento WHERE conta_id = ? AND evento_ativo = 1`,
+            [idconta]
+        );
+
+        // 2. Total de ingressos vendidos e receita total
+        const [ingressosReceita] = await db.query(
+            `SELECT 
+                COALESCE(SUM(i.vendidos), 0) as total_vendidos,
+                COALESCE(SUM(i.vendidos * i.valor_unitario), 0) as receita_total
+             FROM evento e
+             LEFT JOIN ingresso i ON e.idevento = i.evento_id
+             WHERE e.conta_id = ? AND e.evento_ativo = 1`,
+            [idconta]
+        );
+
+        // 3. Taxa média de ocupação
+        const [ocupacao] = await db.query(
+            `SELECT 
+                COALESCE(SUM(i.quantidade), 0) as total_ingressos,
+                COALESCE(SUM(i.vendidos), 0) as total_vendidos
+             FROM evento e
+             LEFT JOIN ingresso i ON e.idevento = i.evento_id
+             WHERE e.conta_id = ? AND e.evento_ativo = 1`,
+            [idconta]
+        );
+
+        const totalIngressos = Number(ocupacao[0]?.total_ingressos) || 0;
+        const totalVendidos = Number(ocupacao[0]?.total_vendidos) || 0;
+        const taxaOcupacao = totalIngressos > 0 ? Math.round((totalVendidos / totalIngressos) * 100) : 0;
+
+        // 4. Eventos com lotação máxima (100% vendidos)
+        const [eventosLotacao] = await db.query(
+            `SELECT 
+                COUNT(DISTINCT e.idevento) as total_eventos,
+                COUNT(DISTINCT CASE 
+                    WHEN (SELECT SUM(i2.vendidos) FROM ingresso i2 WHERE i2.evento_id = e.idevento) >= 
+                         (SELECT SUM(i3.quantidade) FROM ingresso i3 WHERE i3.evento_id = e.idevento)
+                    THEN e.idevento 
+                END) as eventos_lotados
+             FROM evento e
+             WHERE e.conta_id = ? AND e.evento_ativo = 1`,
+            [idconta]
+        );
+
+        const totalEventosAtivos = Number(eventosLotacao[0]?.total_eventos) || 0;
+        const eventosLotados = Number(eventosLotacao[0]?.eventos_lotados) || 0;
+        const percentualLotacao = totalEventosAtivos > 0 ? Math.round((eventosLotados / totalEventosAtivos) * 100) : 0;
+
+        // 5. Evento mais lucrativo
+        const [eventoLucrativo] = await db.query(
+            `SELECT 
+                e.idevento,
+                e.nome,
+                e.imagem,
+                SUM(i.vendidos * i.valor_unitario) as receita
+             FROM evento e
+             LEFT JOIN ingresso i ON e.idevento = i.evento_id
+             WHERE e.conta_id = ? AND e.evento_ativo = 1
+             GROUP BY e.idevento, e.nome, e.imagem
+             ORDER BY receita DESC
+             LIMIT 1`,
+            [idconta]
+        );
+
+        res.json({
+            total_eventos: Number(totalEventos[0]?.total) || 0,
+            ingressos_vendidos: totalVendidos,
+            receita_total: Number(ingressosReceita[0]?.receita_total) || 0,
+            taxa_ocupacao: taxaOcupacao,
+            percentual_lotacao: percentualLotacao,
+            evento_mais_lucrativo: eventoLucrativo[0] || null
+        });
+    } catch (error) {
+        console.error('Erro ao buscar analytics:', error);
+        res.status(500).json({
+            error: 'Erro ao buscar dados de analytics',
             details: error.message
         });
     }

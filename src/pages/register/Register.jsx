@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "./Register.css";
 import axios from "axios";
 import { iconsCA } from "../../utils/icons";
+import toastr from "../../utils/toastr";
 
 function Cadastro() {
   const [dadosCadastro, setDadosCadastro] = useState({
@@ -137,11 +138,11 @@ function Cadastro() {
       );
 
       if (response.status === 201) {
-        alert("Cadastro realizado com sucesso!");
+        toastr["success"]("Cadastro realizado com sucesso!", "Sucesso");
 
         setTimeout(() => {
           window.location.href = "/login";
-        }, 1500);
+        }, 2000);
       }
     } catch (error) {
       console.error("Erro:", error);
