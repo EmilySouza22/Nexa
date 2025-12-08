@@ -7,7 +7,6 @@
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Labels específicos do Box 01 */
 .nome-evento,
 .classificacao {
   color: #d4a5d4;
@@ -18,7 +17,6 @@
   flex-direction: column;
 }
 
-/* Upload de Imagem - Box 01 */
 .upload-imagem {
   border: 2px dashed #e8d4f8;
   border-radius: 10px;
@@ -116,7 +114,6 @@
   transform: scale(1.1);
 }
 
-/* Responsividade Box 01 */
 @media (max-width: 768px) {
   .box-01 {
     padding: 20px;

@@ -89,10 +89,10 @@ router.post('/login', async (req, res) => {
         res.status(200).json({
             message: 'Login realizado com sucesso',
             usuario: {
-                idconta: usuario.idconta,  
+                idconta: usuario.idconta,
                 nome: usuario.nome,
                 email: usuario.email,
-                tipoConta: usuario.tipo_contaid  
+                tipoConta: usuario.tipo_contaid
             }
         });
 
@@ -136,6 +136,105 @@ router.post('/verificar-email', async (req, res) => {
         console.error('Erro ao verificar e-mail:', error);
         res.status(500).json({
             error: 'Erro interno do servidor'
+        });
+    }
+});
+
+// ROTA PARA BUSCAR DADOS DO USUÁRIO LOGADO
+router.get('/usuario/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const [rows] = await db.query(
+            'SELECT idconta, nome, email, telefone, cpf_cnpj FROM conta WHERE idconta = ?',
+            [id]
+        );
+
+        if (rows.length === 0) {
+            return res.status(404).json({
+                error: 'Usuário não encontrado'
+            });
+        }
+
+        res.status(200).json({
+            usuario: rows[0]
+        });
+
+    } catch (error) {
+        console.error('Erro ao buscar usuário:', error);
+        res.status(500).json({
+            error: 'Erro ao buscar dados do usuário'
+        });
+    }
+});
+
+// ROTA PARA ATUALIZAR DADOS DO USUÁRIO
+router.put('/usuario/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { nomeCompleto, email, telefone, senha, cpf_cnpj } = req.body;
+
+        // Se tiver senha nova, criptografa
+        let senhaHash;
+        if (senha) {
+            senhaHash = await bcrypt.hash(senha, 10);
+        }
+
+        // Monta a query dinamicamente (só atualiza o que foi enviado)
+        let campos = [];
+        let valores = [];
+
+        if (nomeCompleto) {
+            campos.push('nome = ?');
+            valores.push(nomeCompleto);
+        }
+        if (email) {
+            campos.push('email = ?');
+            valores.push(email);
+        }
+        if (telefone) {
+            campos.push('telefone = ?');
+            valores.push(telefone);
+        }
+        if (senhaHash) {
+            campos.push('senha = ?');
+            valores.push(senhaHash);
+        }
+        if (cpf_cnpj) {
+            campos.push('cpf_cnpj = ?');
+            valores.push(cpf_cnpj);
+        }
+
+        if (campos.length === 0) {
+            return res.status(400).json({
+                error: 'Nenhum dado para atualizar'
+            });
+        }
+
+        valores.push(id); // Adiciona o ID no final
+
+        await db.query(
+            `UPDATE conta SET ${campos.join(', ')} WHERE idconta = ?`,
+            valores
+        );
+
+        // Se cadastrou CPF/CNPJ, muda de convidado (1) para organizador (2)
+        if (cpf_cnpj) {
+            await db.query(
+                'UPDATE conta SET tipo_contaid = 2 WHERE idconta = ? AND tipo_contaid = 1',
+                [id]
+            );
+        }
+
+        res.status(200).json({
+            message: 'Dados atualizados com sucesso!',
+            mudouTipo: !!cpf_cnpj
+        });
+
+    } catch (error) {
+        console.error('Erro ao atualizar usuário:', error);
+        res.status(500).json({
+            error: 'Erro ao atualizar dados'
         });
     }
 });

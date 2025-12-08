@@ -1,45 +1,128 @@
-import React, { useState } from 'react';
-import './SecaoIngresso.css';
+import React, { useState } from "react";
+import "./SecaoIngresso.css";
+import { iconsCE } from "../../../utils/icons";
 
-const SecaoIngressos = () => {
+const SecaoIngressos = ({
+  ingressos = [],
+  onAddIngresso,
+  onRemoveIngresso,
+  onEditIngresso,
+}) => {
   const [modalAberto, setModalAberto] = useState(false);
   const [tipoIngresso, setTipoIngresso] = useState(null);
+  const [ingressoEditando, setIngressoEditando] = useState(null);
   const [formData, setFormData] = useState({
-    nomeIngresso: '',
-    quantidade: '',
-    preco: '',
-    dataInicio: '',
-    dataFim: '',
-    descricao: ''
+    tituloIngresso: "",
+    quantidade: "",
+    dataInicioVendas: "",
+    horaInicio: "",
+    dataTerminoVendas: "",
+    horaTermino: "",
+    quantidadeMaxima: "",
+    valorReceber: "",
   });
 
-  const abrirModal = (tipo) => {
+  const abrirModal = (tipo, ingresso = null) => {
     setTipoIngresso(tipo);
+    setIngressoEditando(ingresso);
     setModalAberto(true);
-    // Limpa o formulário ao abrir
-    setFormData({
-      nomeIngresso: '',
-      quantidade: '',
-      preco: '',
-      dataInicio: '',
-      dataFim: '',
-      descricao: ''
-    });
+
+    if (ingresso) {
+      // Preenche o formulário com dados do ingresso existente
+      const [dataTermino, horaTermino] = ingresso.data_termino
+        ? ingresso.data_termino.split(" ")
+        : ["", ""];
+      
+      setFormData({
+        tituloIngresso: ingresso.titulo,
+        quantidade: ingresso.quantidade.toString(),
+        dataInicioVendas: "",
+        horaInicio: "",
+        dataTerminoVendas: dataTermino,
+        horaTermino: horaTermino.substring(0, 5), // Remove os segundos
+        quantidadeMaxima: ingresso.max_qtd_por_compra?.toString() || "",
+        valorReceber: ingresso.valor_unitario?.toString() || "",
+      });
+    } else {
+      setFormData({
+        tituloIngresso: "",
+        quantidade: "",
+        dataInicioVendas: "",
+        horaInicio: "",
+        dataTerminoVendas: "",
+        horaTermino: "",
+        quantidadeMaxima: "",
+        valorReceber: "",
+      });
+    }
   };
 
   const fecharModal = () => {
     setModalAberto(false);
     setTipoIngresso(null);
+    setIngressoEditando(null);
   };
 
   const handleChange = (field, value) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleSubmit = () => {
-    console.log('Dados do ingresso:', { tipo: tipoIngresso, ...formData });
-    // Aqui você pode adicionar a lógica para salvar o ingresso
+    if (!formData.tituloIngresso || !formData.quantidade) {
+      alert("Preencha o título e a quantidade do ingresso");
+      return;
+    }
+
+    if (tipoIngresso === "pago" && !formData.valorReceber) {
+      alert("Preencha o valor do ingresso pago");
+      return;
+    }
+
+    const dataInicio =
+      formData.dataInicioVendas && formData.horaInicio
+        ? `${formData.dataInicioVendas} ${formData.horaInicio}:00`
+        : null;
+
+    const dataTermino =
+      formData.dataTerminoVendas && formData.horaTermino
+        ? `${formData.dataTerminoVendas} ${formData.horaTermino}:00`
+        : null;
+
+    const ingressoData = {
+      id: ingressoEditando ? ingressoEditando.id : Date.now(),
+      titulo: formData.tituloIngresso,
+      idtipo_ingresso: tipoIngresso === "pago" ? 1 : 2,
+      quantidade: parseInt(formData.quantidade),
+      valor_unitario:
+        tipoIngresso === "pago" ? parseFloat(formData.valorReceber) : 0,
+      data_inicio: dataInicio,
+      data_termino: dataTermino,
+      max_qtd_por_compra: formData.quantidadeMaxima
+        ? parseInt(formData.quantidadeMaxima)
+        : parseInt(formData.quantidade),
+      vendidos: ingressoEditando ? ingressoEditando.vendidos : 0,
+    };
+
+    if (ingressoEditando && onEditIngresso) {
+      onEditIngresso(ingressoData);
+    } else if (onAddIngresso) {
+      onAddIngresso(ingressoData);
+    }
+
     fecharModal();
+  };
+
+  const removerIngresso = (id) => {
+    if (onRemoveIngresso) {
+      onRemoveIngresso(id);
+    }
+  };
+
+  const formatarData = (dataCompleta) => {
+    if (!dataCompleta) return "-";
+    const [data] = dataCompleta.split(" ");
+    const [ano, mes, dia] = data.split("-");
+    return `${dia}/${mes}/${ano}`;
   };
 
   return (
@@ -52,133 +135,289 @@ const SecaoIngressos = () => {
           <button
             type="button"
             className="btn-ingresso"
-            onClick={() => abrirModal('pago')}
+            onClick={() => abrirModal("pago")}
             aria-label="Adicionar ingresso pago"
           >
-            <span className="icon">+</span>
+            <img src={iconsCE.adicionar} alt="Adicionar" className="icon" />
             Ingresso pago
           </button>
 
           <button
             type="button"
             className="btn-ingresso"
-            onClick={() => abrirModal('gratuito')}
+            onClick={() => abrirModal("gratuito")}
             aria-label="Adicionar ingresso gratuito"
           >
-            <span className="icon">+</span>
+            <img src={iconsCE.adicionar} alt="Adicionar" className="icon" />
             Ingresso gratuito
           </button>
         </div>
+
+        {/* Tabela de ingressos criados */}
+        {ingressos.length > 0 && (
+          <div className="ingressos-criados-tabela">
+            <h4>Ingressos criados:</h4>
+            <table className="tabela-ingressos">
+              <thead>
+                <tr>
+                  <th>Título</th>
+                  <th>Vendidos/Total</th>
+                  <th>Data de término da venda</th>
+                  <th>Valor a receber</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {ingressos.map((ingresso) => (
+                  <tr key={ingresso.id}>
+                    <td>{ingresso.titulo}</td>
+                    <td>
+                      <div className="vendidos-total">
+                        <span className="vendidos">
+                          {ingresso.vendidos || 0}
+                        </span>
+                        <span className="separador">/</span>
+                        <span className="total">{ingresso.quantidade}</span>
+                      </div>
+                    </td>
+                    <td>{formatarData(ingresso.data_termino)}</td>
+                    <td>
+                      {ingresso.idtipo_ingresso === 1
+                        ? `R$${ingresso.valor_unitario.toFixed(2)}`
+                        : "-"}
+                    </td>
+                    <td>
+                      <div className="acoes-tabela">
+                        <button
+                          type="button"
+                          className="btn-editar"
+                          onClick={() =>
+                            abrirModal(
+                              ingresso.idtipo_ingresso === 1
+                                ? "pago"
+                                : "gratuito",
+                              ingresso
+                            )
+                          }
+                          title="Editar ingresso"
+                        >
+                          <img src={iconsCE.editar} alt="Editar" />
+                        </button>
+                        <button
+                          type="button"
+                          className="btn-excluir-tabela"
+                          onClick={() => removerIngresso(ingresso.id)}
+                          title="Excluir ingresso"
+                        >
+                          <img src={iconsCE.deletar} alt="Excluir" />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
 
       {modalAberto && (
         <div className="modal-overlay" onClick={fecharModal}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            {/* Header */}
             <div className="modal-header">
               <h2 className="modal-title">
-                <span className="chevron-icon">›</span>
-                <span className={tipoIngresso === 'pago' ? 'tipo-pago' : 'tipo-gratuito'}>
-                  Ingresso {tipoIngresso === 'pago' ? 'Pago' : 'Gratuito'}
+                <img src={iconsCE.criar} alt="" className="chevron-icon" />
+                {ingressoEditando ? "Editando" : "Criando"} ingresso{" "}
+                <span
+                  className={
+                    tipoIngresso === "pago" ? "tipo-pago" : "tipo-gratuito"
+                  }
+                >
+                  {tipoIngresso}
                 </span>
               </h2>
             </div>
 
-            {/* Body */}
             <div className="modal-body">
               <div className="form-row">
                 <div className="form-field">
-                  <label htmlFor="nomeIngresso">Nome do ingresso*</label>
+                  <label htmlFor="tituloIngresso">Título do ingresso *</label>
                   <input
-                    id="nomeIngresso"
+                    id="tituloIngresso"
                     type="text"
                     className="input-field"
-                    placeholder="Ex: Pista, VIP, Camarote..."
-                    value={formData.nomeIngresso}
-                    onChange={(e) => handleChange('nomeIngresso', e.target.value)}
+                    value={formData.tituloIngresso}
+                    onChange={(e) =>
+                      handleChange("tituloIngresso", e.target.value)
+                    }
+                    required
                   />
                 </div>
 
                 <div className="form-field">
-                  <label htmlFor="quantidade">Quantidade disponível*</label>
+                  <label htmlFor="quantidade">Quantidade *</label>
                   <input
                     id="quantidade"
                     type="number"
                     className="input-field"
-                    placeholder="Ex: 100"
                     value={formData.quantidade}
-                    onChange={(e) => handleChange('quantidade', e.target.value)}
+                    onChange={(e) => handleChange("quantidade", e.target.value)}
+                    required
+                    min="1"
                   />
                 </div>
               </div>
 
-              {tipoIngresso === 'pago' && (
-                <div className="form-row single">
-                  <div className="form-field">
-                    <label htmlFor="preco">Preço*</label>
-                    <div className="input-with-icon">
-                      <div className="input-icon">R$</div>
-                      <input
-                        id="preco"
-                        type="number"
-                        step="0.01"
-                        className="input-field with-icon"
-                        placeholder="0,00"
-                        value={formData.preco}
-                        onChange={(e) => handleChange('preco', e.target.value)}
+              <div className="form-row">
+                <div className="form-field">
+                  <label htmlFor="dataInicioVendas">
+                    Data de início das vendas
+                  </label>
+                  <div className="input-simples">
+                    <div
+                      className="icon-area"
+                      onClick={() =>
+                        document.getElementById("dataInicioVendas").showPicker()
+                      }
+                    >
+                      <img
+                        src={iconsCE.checkCalendario}
+                        alt="Ícone de calendário"
                       />
                     </div>
+                    <input
+                      id="dataInicioVendas"
+                      type="date"
+                      value={formData.dataInicioVendas}
+                      onChange={(e) =>
+                        handleChange("dataInicioVendas", e.target.value)
+                      }
+                    />
                   </div>
                 </div>
-              )}
+
+                <div className="form-field">
+                  <label htmlFor="horaInicio">Hora de início</label>
+                  <div className="input-simples">
+                    <div
+                      className="icon-area"
+                      onClick={() =>
+                        document.getElementById("horaInicio").showPicker()
+                      }
+                    >
+                      <img src={iconsCE.hora} alt="Ícone de relógio" />
+                    </div>
+                    <input
+                      id="horaInicio"
+                      type="time"
+                      value={formData.horaInicio}
+                      onChange={(e) =>
+                        handleChange("horaInicio", e.target.value)
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
 
               <div className="form-row">
                 <div className="form-field">
-                  <label htmlFor="dataInicio">Data de início das vendas*</label>
-                  <input
-                    id="dataInicio"
-                    type="date"
-                    className="input-field"
-                    value={formData.dataInicio}
-                    onChange={(e) => handleChange('dataInicio', e.target.value)}
-                  />
+                  <label htmlFor="dataTerminoVendas">
+                    Data de término das vendas
+                  </label>
+                  <div className="input-simples">
+                    <div
+                      className="icon-area"
+                      onClick={() =>
+                        document
+                          .getElementById("dataTerminoVendas")
+                          .showPicker()
+                      }
+                    >
+                      <img
+                        src={iconsCE.checkCalendario}
+                        alt="Ícone de calendário"
+                      />
+                    </div>
+                    <input
+                      id="dataTerminoVendas"
+                      type="date"
+                      value={formData.dataTerminoVendas}
+                      onChange={(e) =>
+                        handleChange("dataTerminoVendas", e.target.value)
+                      }
+                    />
+                  </div>
                 </div>
 
                 <div className="form-field">
-                  <label htmlFor="dataFim">Data de término das vendas*</label>
-                  <input
-                    id="dataFim"
-                    type="date"
-                    className="input-field"
-                    value={formData.dataFim}
-                    onChange={(e) => handleChange('dataFim', e.target.value)}
-                  />
+                  <label htmlFor="horaTermino">Hora de término</label>
+                  <div className="input-simples">
+                    <div
+                      className="icon-area"
+                      onClick={() =>
+                        document.getElementById("horaTermino").showPicker()
+                      }
+                    >
+                      <img src={iconsCE.hora} alt="Ícone de relógio" />
+                    </div>
+                    <input
+                      id="horaTermino"
+                      type="time"
+                      value={formData.horaTermino}
+                      onChange={(e) =>
+                        handleChange("horaTermino", e.target.value)
+                      }
+                    />
+                  </div>
                 </div>
               </div>
 
               <div className="form-row single">
                 <div className="form-field">
-                  <label htmlFor="descricao">Descrição do ingresso</label>
+                  <label htmlFor="quantidadeMaxima">
+                    Quantidade máxima permitida por compra
+                  </label>
                   <input
-                    id="descricao"
-                    type="text"
+                    id="quantidadeMaxima"
+                    type="number"
                     className="input-field"
-                    placeholder="Informações adicionais sobre o ingresso"
-                    value={formData.descricao}
-                    onChange={(e) => handleChange('descricao', e.target.value)}
+                    value={formData.quantidadeMaxima}
+                    onChange={(e) =>
+                      handleChange("quantidadeMaxima", e.target.value)
+                    }
+                    min="1"
                   />
                 </div>
               </div>
+
+              {tipoIngresso === "pago" && (
+                <div className="form-row single">
+                  <div className="form-field">
+                    <label htmlFor="valorReceber">Valor a receber *</label>
+                    <input
+                      id="valorReceber"
+                      type="number"
+                      step="0.01"
+                      className="input-field"
+                      value={formData.valorReceber}
+                      onChange={(e) =>
+                        handleChange("valorReceber", e.target.value)
+                      }
+                      required
+                      min="0.01"
+                    />
+                  </div>
+                </div>
+              )}
             </div>
 
-            {/* Footer */}
             <div className="modal-footer">
               <button
                 type="button"
                 className="btn-cancelar"
                 onClick={fecharModal}
               >
-                <span className="btn-icon">✕</span>
+                <img src={iconsCE.seta} alt="Voltar" className="btn-icon" />
                 Cancelar
               </button>
 
@@ -187,8 +426,8 @@ const SecaoIngressos = () => {
                 className="btn-criar"
                 onClick={handleSubmit}
               >
-                <span className="btn-icon">✓</span>
-                Criar ingresso
+                <img src={iconsCE.ingresso} alt="Criar" className="btn-icon" />
+                {ingressoEditando ? "Salvar alterações" : "Criar ingresso"}
               </button>
             </div>
           </div>

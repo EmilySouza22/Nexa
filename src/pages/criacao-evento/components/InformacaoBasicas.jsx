@@ -1,4 +1,6 @@
+import React from 'react';
 import "./InformacaoBasicas.css";
+import { iconsCE } from "../../../utils/icons";
 
 const InformacoesBasicas = ({
   formData,
@@ -119,10 +121,11 @@ const InformacoesBasicas = ({
                 />
               </div>
             ) : (
-              <div className="upload-placeholder">
-                <div className="upload-placeholder-icon">📷</div>
-                <p>Clique para adicionar imagem</p>
-              </div>
+              <img
+                src={iconsCE.divulgacao}
+                alt=""
+                className="upload-placeholder-icon"
+              />
             )}
           </div>
           {errors.image && (
