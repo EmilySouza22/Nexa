@@ -8,7 +8,7 @@ import DetalhesEvento from "./components/DetalhesEvento";
 import SobreOrganizador from "./components/SobreOrganizador";
 
 function EventoConvidado() {
-  const { id } = useParams(); // Pega o ID da URL
+  const { id } = useParams();
   const navigate = useNavigate();
   const [evento, setEvento] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -25,7 +25,7 @@ function EventoConvidado() {
       setLoading(true);
       setError(null);
 
-      console.log('Buscando evento ID:', id);
+      console.log(' Buscando evento ID:', id);
 
       const response = await fetch(`http://localhost:3000/api/eventos-view/${id}`);
       
@@ -40,9 +40,8 @@ function EventoConvidado() {
         throw new Error(data.message || 'Erro ao buscar evento');
       }
 
-      // Transformar os dados do banco para o formato que os componentes esperam
       const eventoFormatado = transformarDadosEvento(data.data);
-      console.log('🎉 Evento formatado:', eventoFormatado);
+      console.log(' Evento formatado:', eventoFormatado);
       
       setEvento(eventoFormatado);
 
@@ -52,6 +51,65 @@ function EventoConvidado() {
     } finally {
       setLoading(false);
     }
+  };
+
+  // FUNÇÃO PARA FORMATAR IMAGEM BASE64
+  const formatarImagemBase64 = (imagemBase64) => {
+    if (!imagemBase64) return null;
+    
+    if (imagemBase64.startsWith("data:image")) {
+      return imagemBase64;
+    }
+    
+    if (imagemBase64.startsWith("http")) {
+      return imagemBase64;
+    }
+    
+    if (imagemBase64.startsWith("/9j/")) {
+      return `data:image/jpeg;base64,${imagemBase64}`;
+    } else if (imagemBase64.startsWith("iVBOR")) {
+      return `data:image/png;base64,${imagemBase64}`;
+    } else if (imagemBase64.startsWith("R0lGOD")) {
+      return `data:image/gif;base64,${imagemBase64}`;
+    }
+    
+    return `data:image/jpeg;base64,${imagemBase64}`;
+  };
+
+  // FUNÇÃO PARA FORMATAR DIA DA SEMANA + HORÁRIO
+  const formatarDiaSemanaHorario = (dataInicio, dataTermino) => {
+    const inicio = new Date(dataInicio);
+    const termino = new Date(dataTermino);
+
+    // Mapear dias da semana
+    const diasSemana = [
+      'Domingo', 'Segunda', 'Terça', 'Quarta', 
+      'Quinta', 'Sexta', 'Sábado'
+    ];
+
+    // Pegar dia da semana de início e término
+    const diaInicio = diasSemana[inicio.getDay()];
+    const diaTermino = diasSemana[termino.getDay()];
+
+    // Formatar horas
+    const horaInicio = inicio.toLocaleTimeString('pt-BR', {
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+    
+    const horaTermino = termino.toLocaleTimeString('pt-BR', {
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+
+    // Se for o mesmo dia
+    if (diaInicio === diaTermino) {
+      return `${diaInicio} às ${horaInicio}`;
+    }
+
+    // Se for dias diferentes
+    // Exemplo: "Quinta, Sexta às 20h00, Sábado às 16h00, Domingo às 15h00"
+    return `${diaInicio} às ${horaInicio}, ${diaTermino} às ${horaTermino}`;
   };
 
   // Função para transformar dados do banco para o formato dos componentes
@@ -89,15 +147,18 @@ function EventoConvidado() {
         ? `${enderecoCompleto} - CEP: ${dadosBanco.cep}`
         : enderecoCompleto;
 
+      //  PROCESSAR IMAGEM COM FORMATAÇÃO
+      const imagemFormatada = formatarImagemBase64(dadosBanco.imagem);
+
       return {
         // Dados básicos
         id: dadosBanco.idevento,
         nome: dadosBanco.nome,
-        bannerUrl: dadosBanco.imagem || "https://via.placeholder.com/800x400/6366f1/ffffff?text=Evento",
+        bannerUrl: imagemFormatada || "https://via.placeholder.com/800x400/6366f1/ffffff?text=Evento",
         
-        // Datas e horários formatados
+        //  DATAS E HORÁRIOS NO NOVO FORMATO
         data: `${formatarData(dataInicio)} até ${formatarData(dataTermino)}`,
-        hora: `${formatarHora(dataInicio)} às ${formatarHora(dataTermino)}`,
+        hora: formatarDiaSemanaHorario(dadosBanco.data_inicio, dadosBanco.data_termino),
         dataInicio: dadosBanco.data_inicio,
         dataTermino: dadosBanco.data_termino,
         dataEvento: `${dataInicio.getDate()} a ${dataTermino.getDate()} de ${dataInicio.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' })}`,
@@ -141,11 +202,9 @@ function EventoConvidado() {
     }
   };
 
-  // Pegar dados do usuário do sessionStorage
   const userName = sessionStorage.getItem("userName") || "Usuário";
   const userInitials = sessionStorage.getItem("userInitials") || "U";
 
-  // Estado de loading
   if (loading) {
     return (
       <div className="home-organizador">
@@ -165,7 +224,6 @@ function EventoConvidado() {
     );
   }
 
-  // Estado de erro
   if (error) {
     return (
       <div className="home-organizador">
@@ -190,7 +248,7 @@ function EventoConvidado() {
                     cursor: 'pointer'
                   }}
                 >
-                  Tentar novamente
+                   Tentar novamente
                 </button>
                 <button 
                   onClick={() => navigate(-1)}
@@ -213,7 +271,6 @@ function EventoConvidado() {
     );
   }
 
-  // Evento não encontrado
   if (!evento) {
     return (
       <div className="home-organizador">
@@ -222,7 +279,7 @@ function EventoConvidado() {
           <Sidebar userType="organizador" />
           <main style={{ padding: '40px', textAlign: 'center' }}>
             <h2 style={{ color: '#666', marginBottom: '20px' }}>
-              Evento não encontrado
+               Evento não encontrado
             </h2>
             <button 
               onClick={() => navigate(-1)}
@@ -243,7 +300,6 @@ function EventoConvidado() {
     );
   }
 
-  // Renderizar evento
   return (
     <div className="home-organizador">
       <Navbar userName={userName} userInitials={userInitials} />

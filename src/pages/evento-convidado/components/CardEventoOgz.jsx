@@ -1,8 +1,18 @@
+import { useState } from "react";
 import { icones } from "../../../utils/iconEventoConvidado";
 import "./CardEventoOgz.css";
 import exemploEvento from "../../../assets/home-organizador/exemplo-evento.png";
 
 function CardEventoOgz({ evento }) {
+  const [imagemComErro, setImagemComErro] = useState(false);
+
+  // Tratamento de erro de imagem
+  const handleImageError = (e) => {
+    console.log('Erro ao carregar imagem do evento, usando fallback');
+    setImagemComErro(true);
+    e.target.src = exemploEvento;
+  };
+
   // Se não tiver evento, mostra loading
   if (!evento) {
     return (
@@ -19,12 +29,16 @@ function CardEventoOgz({ evento }) {
       <div className="info-card-evento-ogz">
         <div className="info-evento-imagem-ogz">
           <img 
-            src={evento.bannerUrl || exemploEvento} 
+            src={imagemComErro ? exemploEvento : (evento.bannerUrl || exemploEvento)}
             alt={evento.nome || "imagem-evento"}
-            onError={(e) => {
-              // Se a imagem falhar ao carregar, usa a imagem de exemplo
-              console.log(' Erro ao carregar imagem, usando fallback');
-              e.target.src = exemploEvento;
+            onError={handleImageError}
+            style={{
+              width: '100%',
+              height: '383px', // ALTURA FIXA MENOR 
+              maxHeight: '383px', // ALTURA MÁXIMA
+              objectFit: 'cover', // Mantém proporção e preenche o espaço
+              objectPosition: 'center', // Centraliza a imagem
+              borderRadius: '8px', // Borda arredondada (opcional)
             }}
           />
         </div>
@@ -75,7 +89,7 @@ function CardEventoOgz({ evento }) {
           {/* BOTÃO COMPRAR */}
           <div className="evento-organizador">
             <button className="btn-ingresso-ogz">
-               Comprar Ingresso
+              Comprar Ingresso
             </button>
           </div>
         </div>

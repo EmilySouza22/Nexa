@@ -78,12 +78,12 @@
 .btn-ingresso-ogz { /* OGZ */
   background: linear-gradient(135deg, #E8A5D4 0%, #C8A8E8 100%);
   color: #fff;
-  padding: 12px 36px;
+  padding: 6px 37px;
   border: none;
   border-radius: 25px;
   cursor: pointer;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 23px; 
   transition: all 0.2s ease;
   box-shadow: 0 4px 12px rgba(232, 165, 212, 0.3);
   margin-top: 70px;
