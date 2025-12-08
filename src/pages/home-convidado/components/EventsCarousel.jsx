@@ -1,56 +1,69 @@
-import React, { useEffect, useRef } from 'react';
-import EmblaCarousel from 'embla-carousel';
+import React, { useEffect, usest } from 'react';
+import useEmblaCarousel from 'embla-carousel-react';
 import './EventsCarousel.css';
-import { iconsHomeConv } from "../../../utils/iconsHomeConv.js";
+import { iconsHomeConv } from '../../../utils/iconsHomeConv.js';
 
-export function EventsCarousel() {
-	const rootRef = useRef(null);
-	const prevBtnRef = useRef(null);
-	const nextBtnRef = useRef(null);
+export function EventsCarousel({ eventos, onSlideChange }) {
+	const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true });
+
+	const scrollPrev = () => {
+		if (emblaApi) {
+			emblaApi.scrollPrev();
+		}
+	};
+
+	const scrollNext = () => {
+		if (emblaApi) {
+			emblaApi.scrollNext();
+		}
+	};
 
 	useEffect(() => {
-		const rootNode = rootRef.current;
-		const viewportNode = rootNode.querySelector('.embla__viewport');
+		if (emblaApi) {
+			// Listen for slide changes
+			const onSelect = () => {
+				const selectedIndex = emblaApi.selectedScrollSnap();
+				if (onSlideChange) {
+					onSlideChange(selectedIndex);
+				}
+			};
 
-		const embla = EmblaCarousel(viewportNode);
+			emblaApi.on('select', onSelect);
+			// Call once on mount to set initial slide
+			onSelect();
 
-		const prevBtn = prevBtnRef.current;
-		const nextBtn = nextBtnRef.current;
-
-		const onPrevClick = () => embla.scrollPrev();
-		const onNextClick = () => embla.scrollNext();
-
-		prevBtn.addEventListener('click', onPrevClick);
-		nextBtn.addEventListener('click', onNextClick);
-
-		return () => {
-			prevBtn.removeEventListener('click', onPrevClick);
-			nextBtn.removeEventListener('click', onNextClick);
-			embla.destroy();
-		};
-	}, []);
+			return () => {
+				emblaApi.off('select', onSelect);
+			};
+		}
+	}, [emblaApi, onSlideChange]);
 
 	return (
-		<div className="emblaEventsCarousel" ref={rootRef}>
-			<button className="embla__prev" ref={prevBtnRef}>
-				<img src={iconsHomeConv.setadaEsquerda} className="HomeConv-EventsCarouselSeta" alt="Seta-Voltar" />
+		<div className="emblaEventsCarousel">
+			<button className="embla__prev" onClick={scrollPrev}>
+				<img
+					src={iconsHomeConv.setadaEsquerda}
+					className="HomeConv-EventsCarouselSeta"
+					alt="Seta-Voltar"
+				/>
 			</button>
 
-			<div className="embla__viewport">
+			<div className="embla__viewport" ref={emblaRef}>
 				<div className="embla__container">
-					<div className="embla__slide">Slide 1</div>
-					<div className="embla__slide">Slide 2</div>
-					<div className="embla__slide">Slide 3</div>
-					<div className="embla__slide">Slide 4</div>
-					<div className="embla__slide">Slide 5</div>
-                    <div className="embla__slide">Slide 6</div>
-                    <div className="embla__slide">Slide 7</div>
-                    <div className="embla__slide">Slide 8</div>
+					{eventos.map((evento) => (
+						<div className="embla__slide" key={evento.idevento}>
+							{evento.nome}
+						</div>
+					))}
 				</div>
 			</div>
 
-			<button className="embla__next" ref={nextBtnRef}>
-				<img src={iconsHomeConv.setadaDireita} className="HomeConv-EventsCarouselSeta" alt="Seta-Proximo" />
+			<button className="embla__next" onClick={scrollNext}>
+				<img
+					src={iconsHomeConv.setadaDireita}
+					className="HomeConv-EventsCarouselSeta"
+					alt="Seta-Proximo"
+				/>
 			</button>
 		</div>
 	);

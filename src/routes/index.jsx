@@ -8,7 +8,7 @@ import perfilOrgRoutes from "./perfilOrgRoutes";
 import perfilConvidadoRoutes from "./perfilConvidadoRoutes";
 
 const router = createBrowserRouter([
-  { path: "/home-convidado", element: <HomeConvidado /> },
+  { path: "/", element: <HomeConvidado /> },
   { path: "/organizador", element: <HomeOrganizador /> },
   { path: "/evento/:id", element: <EventoConvidado /> },
   ...authRoutes,

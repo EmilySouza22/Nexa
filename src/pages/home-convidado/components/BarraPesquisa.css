@@ -1,5 +1,3 @@
-
-
 .HomeConv-PesquisaEvento{
     display: flex;
     align-items: center;
@@ -23,6 +21,7 @@
 
 input#img-lupa.HomeConv-PesquisaEvento{
     border-radius: 30px;
+    background-color: #FFF;
 }
 
 #img-lupa{

@@ -89,7 +89,7 @@ function Sidebar({ userType, userHasCpf }) {
 
         {userType === "convidado" && (
           <>
-            <Link to="/meus-ingressos" className="sidebar-link">
+            <Link className="sidebar-link">
               <img
                 src={iconsSidebar.ingresso}
                 alt="Ingressos"
@@ -105,7 +105,7 @@ function Sidebar({ userType, userHasCpf }) {
               />
               <span>Certificados</span>
             </Link>
-            <Link to="/pesquisas" className="sidebar-link">
+            <Link className="sidebar-link">
               <img
                 src={iconsSidebar.pesquisas}
                 alt="Pesquisas"
