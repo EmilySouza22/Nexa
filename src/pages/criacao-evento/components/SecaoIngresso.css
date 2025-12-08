@@ -1,4 +1,3 @@
-/* ===== BOX INGRESSOS ===== */
 .box-05 {
   background: white;
   border: 2px solid transparent;
@@ -14,23 +13,6 @@
 
 .box-05:hover {
   box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
-}
-
-/* Títulos do Box 05 */
-.box-05 h1 {
-  color: #1a1a1a;
-  font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 8px;
-  text-align: left;
-}
-
-.box-05 h2 {
-  color: #1a1a1a;
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 24px;
-  text-align: left;
 }
 
 .box-05 h3 {
@@ -79,14 +61,6 @@
   box-shadow: 0 6px 16px rgba(248, 183, 217, 0.4);
 }
 
-.btn-ingresso .icon {
-  background: rgba(255, 255, 255, 0.25);
-  padding: 6px 10px;
-  border-radius: 50%;
-  font-weight: bold;
-  font-size: 16px;
-}
-
 .btn-ingresso img.icon {
   background: none;
   padding: 0;
@@ -95,7 +69,152 @@
   height: 20px;
 }
 
-/* Modal Ingresso - Overlay */
+.ingressos-criados-tabela {
+  margin: 0 0 0 0;
+  padding: 0;
+  background: #FFFFFF;
+  border-radius: 16px;
+  overflow: hidden;
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.ingressos-criados-tabela h4 {
+  margin: 0;
+  padding: 16px 24px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #1a1a1a;
+  background: white;
+  border-bottom: none;
+}
+
+.tabela-ingressos {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabela-ingressos thead {
+  background: linear-gradient(90deg, #F8D4ED 0%, #E8CFFA 100%);
+}
+
+.tabela-ingressos thead th {
+  padding: 12px 24px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1a1a1a;
+  border: none;
+}
+
+.tabela-ingressos thead th:first-child {
+  border-radius: 0;
+  padding-left: 24px;
+}
+
+.tabela-ingressos thead th:last-child {
+  text-align: right;
+  padding-right: 24px;
+  width: 100px;
+  border-radius: 0;
+}
+
+.tabela-ingressos tbody tr {
+  background: white;
+  border-bottom: none;
+  transition: all 0.2s ease;
+}
+
+.tabela-ingressos tbody tr:hover {
+  background: #FEFAFD;
+}
+
+.tabela-ingressos tbody td {
+  padding: 16px 24px;
+  font-size: 14px;
+  color: #1a1a1a;
+  font-weight: 400;
+  border: none;
+}
+
+.tabela-ingressos tbody td:first-child {
+  padding-left: 24px;
+}
+
+.tabela-ingressos tbody td:last-child {
+  text-align: right;
+  padding-right: 24px;
+}
+
+.vendidos-total {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  background: linear-gradient(90deg, #F8D4ED 0%, #E8CFFA 100%);
+  padding: 4px 0;
+  border-radius: 12px;
+  font-size: 14px;
+  min-width: 80px;
+  justify-content: center;
+}
+
+.vendidos-total .vendidos {
+  color: #FF6B9D;
+  font-weight: 600;
+}
+
+.vendidos-total .separador {
+  color: #1a1a1a;
+  font-weight: 400;
+  margin: 0 2px;
+}
+
+.vendidos-total .total {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+.acoes-tabela {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.btn-editar,
+.btn-excluir-tabela {
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  background: transparent;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.btn-editar img,
+.btn-excluir-tabela img {
+  width: 18px;
+  height: 18px;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.btn-editar:hover img,
+.btn-excluir-tabela:hover img {
+  opacity: 1;
+}
+
+.btn-editar:active,
+.btn-excluir-tabela:active {
+  transform: scale(0.95);
+}
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -110,7 +229,6 @@
   padding: 20px;
 }
 
-/* Modal Content - OTIMIZADO */
 .modal-content {
   background-color: #fff;
   border-radius: 20px;
@@ -134,7 +252,6 @@
   }
 }
 
-/* Modal Header - REDUZIDO */
 .modal-header {
   padding: 22px 32px 14px;
 }
@@ -157,14 +274,7 @@
   margin-right: 4px;
 }
 
-.tipo-pago {
-  background: linear-gradient(to right, #F8A0CC 0%, #D296FF 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 600;
-}
-
+.tipo-pago,
 .tipo-gratuito {
   background: linear-gradient(to right, #F8A0CC 0%, #D296FF 100%);
   -webkit-background-clip: text;
@@ -173,7 +283,6 @@
   font-weight: 600;
 }
 
-/* Modal Body - OTIMIZADO */
 .modal-body {
   padding: 0 32px 14px;
 }
@@ -217,59 +326,6 @@
   box-shadow: 0 0 0 3px rgba(212, 165, 212, 0.1);
 }
 
-.input-field::placeholder {
-  color: #C5C5C5;
-  opacity: 1;
-}
-
-/* Input with Icon - OTIMIZADO */
-.input-with-icon {
-  position: relative;
-  display: flex;
-  align-items: stretch;
-  border: 1.5px solid #E8D4E8;
-  border-radius: 12px;
-  background: #ffffff;
-  overflow: hidden;
-  transition: all 0.3s ease;
-}
-
-.input-with-icon:focus-within {
-  border-color: #D4A5D4;
-  box-shadow: 0 0 0 3px rgba(212, 165, 212, 0.1);
-}
-
-.input-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 38px;
-  background-color: #F5EFF5;
-  border-right: 1.5px solid #E8D4E8;
-  font-size: 16px;
-  color: #CE93D8;
-  flex-shrink: 0;
-}
-
-.input-field.with-icon {
-  border: none;
-  border-radius: 0;
-  padding: 10px 14px;
-  flex: 1;
-  background-color: transparent;
-}
-
-.input-field.with-icon:focus {
-  border: none;
-  box-shadow: none;
-}
-
-.input-field.with-icon::placeholder {
-  color: #C5C5C5;
-  opacity: 1;
-}
-
-/* Date and Time Inputs - OTIMIZADO */
 .input-simples {
   position: relative;
   display: flex;
@@ -323,16 +379,6 @@
   font-family: inherit;
 }
 
-.input-simples input::placeholder {
-  color: #c0c0c0;
-  opacity: 1;
-}
-
-.input-simples input[type="date"],
-.input-simples input[type="time"] {
-  cursor: pointer;
-}
-
 .input-simples input[type="date"]::-webkit-calendar-picker-indicator,
 .input-simples input[type="time"]::-webkit-calendar-picker-indicator {
   opacity: 0;
@@ -343,14 +389,6 @@
   left: 0;
 }
 
-/* Textarea - OTIMIZADO */
-textarea.input-field {
-  min-height: 70px;
-  resize: vertical;
-  font-family: inherit;
-}
-
-/* Modal Footer - OTIMIZADO */
 .modal-footer {
   padding: 0 32px 22px;
   display: flex;
@@ -407,13 +445,6 @@ textarea.input-field {
   flex-shrink: 0;
 }
 
-.btn-icon img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-/* Scrollbar customization */
 .modal-content::-webkit-scrollbar {
   width: 6px;
 }
@@ -432,7 +463,6 @@ textarea.input-field {
   background: #D4A5D4;
 }
 
-/* Responsividade Box 05 */
 @media (max-width: 1024px) {
   .box-05 {
     padding: 35px 45px;
@@ -445,14 +475,12 @@ textarea.input-field {
     border-radius: 15px;
   }
 
-  .box-05 h1,
   .box-05 h3 {
-    font-size: 24px;
+    font-size: 18px;
   }
 
-  .box-05 h2,
   .box-05 p {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .buttons-wrapper {
@@ -465,26 +493,21 @@ textarea.input-field {
     max-width: 300px;
     justify-content: center;
   }
-}
 
-@media (max-width: 480px) {
-  .box-05 {
-    padding: 20px 15px;
+  .ingressos-criados-tabela {
+    overflow-x: auto;
   }
 
-  .box-05 h1,
-  .box-05 h3 {
-    font-size: 22px;
+  .tabela-ingressos {
+    min-width: 600px;
   }
 
-  .box-05 h2,
-  .box-05 p {
-    font-size: 15px;
+  .tabela-ingressos thead th,
+  .tabela-ingressos tbody td {
+    font-size: 12px;
+    padding: 10px 12px;
   }
-}
 
-/* Modal Responsive */
-@media (max-width: 600px) {
   .modal-content {
     margin: 10px;
     max-height: 95vh;
@@ -518,145 +541,34 @@ textarea.input-field {
   }
 }
 
-/* ===== INGRESSOS CRIADOS ===== */
-.ingressos-criados {
-  margin: 0 0 24px 0;
-  padding: 20px;
-  background: linear-gradient(135deg, #fef5fb 0%, #f9f4fd 100%);
-  border-radius: 15px;
-  border: 2px solid #f0e4f5;
-  transition: all 0.3s ease;
-}
-
-.ingressos-criados:hover {
-  border-color: #e8d4f8;
-  box-shadow: 0 4px 12px rgba(210, 150, 255, 0.1);
-}
-
-.ingressos-criados h4 {
-  margin: 0 0 16px 0;
-  font-size: 16px;
-  font-weight: 600;
-  color: #1a1a1a;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.ingressos-criados h4::before {
-  content: '🎟️';
-  font-size: 18px;
-}
-
-.ingresso-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 14px 16px;
-  margin-bottom: 10px;
-  background: white;
-  border-radius: 12px;
-  border: 2px solid #f0e4f5;
-  font-size: 14px;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-}
-
-.ingresso-item:last-child {
-  margin-bottom: 0;
-}
-
-.ingresso-item:hover {
-  border-color: #e8d4f8;
-  box-shadow: 0 4px 12px rgba(210, 150, 255, 0.15);
-  transform: translateY(-1px);
-}
-
-.ingresso-item > div {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  flex: 1;
-}
-
-.ingresso-item strong {
-  font-size: 15px;
-  font-weight: 600;
-  color: #1a1a1a;
-}
-
-.ingresso-item span {
-  font-size: 13px;
-  color: #666;
-  font-weight: 400;
-}
-
-.btn-remover {
-  background: linear-gradient(135deg, #ff6b9d 0%, #ff4444 100%);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  width: 32px;
-  height: 32px;
-  cursor: pointer;
-  font-size: 18px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 6px rgba(255, 68, 68, 0.2);
-  flex-shrink: 0;
-}
-
-.btn-remover:hover {
-  background: linear-gradient(135deg, #ff4d7a 0%, #cc0000 100%);
-  box-shadow: 0 4px 10px rgba(255, 68, 68, 0.3);
-  transform: scale(1.05);
-}
-
-.btn-remover:active {
-  transform: scale(0.95);
-}
-
-/* Responsividade para ingressos criados */
-@media (max-width: 768px) {
-  .ingressos-criados {
-    padding: 16px;
-  }
-
-  .ingresso-item {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 12px;
-  }
-
-  .ingresso-item > div {
-    width: 100%;
-  }
-
-  .btn-remover {
-    align-self: flex-end;
-    width: 36px;
-    height: 36px;
-  }
-}
-
 @media (max-width: 480px) {
-  .ingressos-criados h4 {
-    font-size: 14px;
+  .box-05 {
+    padding: 20px 15px;
   }
 
-  .ingresso-item {
-    padding: 10px;
+  .box-05 h3 {
+    font-size: 16px;
   }
 
-  .ingresso-item strong {
-    font-size: 14px;
+  .box-05 p {
+    font-size: 13px;
   }
 
-  .ingresso-item span {
-    font-size: 12px;
+  .tabela-ingressos thead th,
+  .tabela-ingressos tbody td {
+    font-size: 11px;
+    padding: 8px 10px;
+  }
+
+  .vendidos-total {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+
+  .btn-editar,
+  .btn-excluir-tabela {
+    width: 28px;
+    height: 28px;
+    font-size: 16px;
   }
 }

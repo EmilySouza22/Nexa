@@ -9,6 +9,7 @@ const router = express.Router();
 // =========================================================
 router.get('/', async (req, res) => {
     try {
+
         console.log(' Buscando todos os eventos ativos...');
 
         const [eventos] = await db.query(
@@ -33,6 +34,7 @@ router.get('/', async (req, res) => {
             ORDER BY e.data_inicio DESC`
         );
 
+
         console.log(` ${eventos.length} eventos encontrados`);
 
         res.json({
@@ -41,7 +43,9 @@ router.get('/', async (req, res) => {
         });
 
     } catch (error) {
+
         console.error(' Erro ao buscar eventos:', error);
+      
         res.status(500).json({
             success: false,
             message: 'Erro ao buscar eventos',
@@ -59,7 +63,9 @@ router.get('/:id', async (req, res) => {
     
     try {
         const { id } = req.params;
+
         console.log(` Buscando evento ID: ${id}`);
+
 
         if (isNaN(id)) {
             return res.status(400).json({
@@ -109,9 +115,11 @@ router.get('/:id', async (req, res) => {
             });
         }
 
+
         console.log(` Evento encontrado: ${eventos[0].nome}`);
 
         console.log(` Buscando ingressos do evento...`);
+
         const [ingressos] = await connection.query(
             `SELECT 
                 i.idingresso,
@@ -132,7 +140,9 @@ router.get('/:id', async (req, res) => {
             [id]
         );
 
+
         console.log(` ${ingressos.length} ingressos encontrados`);
+
 
         const evento = eventos[0];
         evento.ingressos = ingressos;
@@ -143,7 +153,9 @@ router.get('/:id', async (req, res) => {
         });
 
     } catch (error) {
+
         console.error(' Erro ao buscar evento:', error);
+
         res.status(500).json({
             success: false,
             message: 'Erro ao buscar dados do evento',

@@ -9,6 +9,9 @@ import LocalEvento from "./components/LocalEvento";
 import SecaoIngressos from "./components/SecaoIngresso";
 import Responsabilidades from "./components/Responsabilidades";
 import BotaoPublicar from "./components/BotaoPublicar";
+import Footer from "../../components/Footer";
+import toastr from "../../utils/toastr";
+
 
 function CriacaoEvento() {
   const userName = sessionStorage.getItem("userName") || "Organizador";
@@ -209,7 +212,7 @@ function CriacaoEvento() {
 
   const handleSubmit = async () => {
     if (!validateForm()) {
-      alert("Por favor, preencha todos os campos obrigatórios");
+      toastr.info("Por favor, preencha todos os campos obrigatórios");
       return;
     }
 
@@ -225,8 +228,8 @@ function CriacaoEvento() {
       );
 
       if (!validId) {
-        alert(
-          "❌ Você precisa estar logado para criar um evento!\n\nPor favor, faça login novamente."
+        toastr.error(
+          "Você precisa estar logado para criar um evento! Por favor, faça login novamente."
         );
         setIsSubmitting(false);
         return;
@@ -235,14 +238,17 @@ function CriacaoEvento() {
       const idcontaInt = parseInt(validId);
 
       if (isNaN(idcontaInt)) {
-        alert("❌ ID de usuário inválido! Por favor, faça login novamente.");
+        toastr.error(
+          "ID de usuário inválido! Por favor, faça login novamente."
+        );
+
         setIsSubmitting(false);
         return;
       }
 
       if (!formData.preview) {
-        alert(
-          "❌ Erro: Imagem não foi carregada corretamente. Por favor, selecione a imagem novamente."
+        toastr.error(
+          "Imagem não foi carregada corretamente. Por favor, selecione a imagem novamente."
         );
         setIsSubmitting(false);
         return;
@@ -286,13 +292,20 @@ function CriacaoEvento() {
         body: JSON.stringify(eventoData),
       });
 
+      // Verifica se o erro é 413 (Payload Too Large)
+      if (response.status === 413) {
+        throw new Error(
+          "A imagem é muito pesada! Por favor, escolha uma imagem menor"
+        );
+      }
+
       const data = await response.json();
 
       if (!response.ok) {
         throw new Error(data.error || "Erro ao criar evento");
       }
 
-      alert("🎉 Evento publicado com sucesso!");
+      toastr.success("Evento publicado com sucesso!");
 
       // Limpar formulário após sucesso
       setFormData({
@@ -319,7 +332,7 @@ function CriacaoEvento() {
       });
     } catch (error) {
       console.error("Erro completo:", error);
-      alert(`❌ Erro ao publicar evento: ${error.message}`);
+      toastr.error(`Erro ao publicar evento: ${error.message}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -396,6 +409,7 @@ function CriacaoEvento() {
           </div>
         </main>
       </div>
+      <Footer />
     </div>
   );
 }
