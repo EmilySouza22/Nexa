@@ -1,0 +1,88 @@
+/* ================================
+   CONTAINER GLOBAL CENTRALIZADO
+   ================================ */
+.form-container {
+  width: 100%;
+  max-width: 900px;        /* largura ideal baseada no print */
+  margin: 0 auto;          /* centralização */
+  padding: 24px 16px 80px;
+}
+
+/* ====== PADRÃO GLOBAL DO FIGMA ====== */
+
+.card-box {
+  background: #ffffff;
+  border-radius: 18px;               /* FIGMA */
+  padding: 28px 32px;                /* FIGMA */
+  margin: 0 auto 28px auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03); 
+  border: 1px solid #f1f1f1;
+  width: 100%;
+}
+
+/* Títulos */
+.card-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 6px;
+}
+
+.card-subtitle {
+  font-size: 13.5px;
+  font-weight: 400;
+  color: #64748b;
+  margin-bottom: 22px;
+}
+
+/* Inputs padrão */
+.input-default, .select-default, textarea.input-default {
+  width: 100%;
+  padding: 14px 16px;
+  height: 50px;
+  border-radius: 10px;
+  border: 1.8px solid #e2e8f0;
+  background: #ffffff;
+  color: #1e293b;
+  font-size: 14px;
+  outline: none;
+  transition: 0.2s;
+}
+
+.input-default:focus,
+.select-default:focus,
+textarea.input-default:focus {
+  border-color: #b057f3;
+  box-shadow: 0 0 0 3px rgba(176, 87, 243, 0.15);
+}
+
+textarea.input-default {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.label-default {
+  font-size: 14px;
+  color: #334155;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .grid-2, .grid-3 {
+    grid-template-columns: 1fr;
+  }
+}

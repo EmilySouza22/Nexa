@@ -1,0 +1,295 @@
+/* ===== BOX INGRESSOS ===== */
+.box-05 {
+  background: white;
+  border: 2px solid transparent;
+  border-radius: 20px;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(to right, #F8B7D9, #D296FF) border-box;
+  padding: 30px 50px;
+  max-width: 1100px;
+  margin: 20px auto 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.box-05:hover {
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* Títulos do Box 05 */
+.box-05 h1 {
+  color: #1a1a1a;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.box-05 h2 {
+  color: #1a1a1a;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.box-05 h3 {
+  color: #1a1a1a;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  text-align: left;
+}
+
+.box-05 p {
+  color: #1a1a1a;
+  font-size: 16px;
+  font-weight: 400;
+  margin: 0 0 24px 0;
+  text-align: left;
+}
+
+.buttons-wrapper {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 40px; /* Aumentado para dar mais espaço antes da tabela */
+}
+
+.btn-ingresso {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(to right, #F8B7D9, #D296FF);
+  color: white;
+  border: none;
+  padding: 16px 48px;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(248, 183, 217, 0.3);
+  min-width: 200px;
+}
+
+.btn-ingresso:hover {
+  background: linear-gradient(to right, #F8A0CC, #C886F5);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(248, 183, 217, 0.4);
+}
+
+.btn-ingresso .icon {
+  background: rgba(255, 255, 255, 0.25);
+  padding: 6px 10px;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.btn-ingresso img.icon {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  width: 20px;
+  height: 20px;
+}
+
+/* ===== TABELA DE INGRESSOS CRIADOS ===== */
+.tabela-ingressos {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 20px;
+}
+
+.tabela-ingressos thead {
+  background: linear-gradient(to right, #F8B7D9, #D296FF);
+}
+
+.tabela-ingressos th {
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  text-align: left;
+  padding: 16px 20px;
+  border: none;
+}
+
+.tabela-ingressos th:first-child {
+  border-top-left-radius: 12px;
+}
+
+.tabela-ingressos th:last-child {
+  border-top-right-radius: 12px;
+}
+
+.tabela-ingressos tbody tr {
+  background: white;
+  border-bottom: 2px solid #F5EFF5;
+  transition: all 0.3s ease;
+}
+
+.tabela-ingressos tbody tr:hover {
+  background: #FDFAFF;
+  box-shadow: 0 4px 12px rgba(210, 150, 255, 0.1);
+}
+
+.tabela-ingressos td {
+  padding: 20px;
+  font-size: 15px;
+  color: #1a1a1a;
+  vertical-align: middle;
+}
+
+.tabela-ingressos tbody tr:last-child {
+  border-bottom: none;
+}
+
+.tabela-ingressos tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 12px;
+}
+
+.tabela-ingressos tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 12px;
+}
+
+/* Estilo para a célula de título com cor especial */
+.titulo-ingresso {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.titulo-ingresso strong {
+  color: #1a1a1a;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+/* Estilo para células numéricas */
+.vendidos-total {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+}
+
+.vendidos-total span {
+  color: #666;
+  font-weight: 500;
+}
+
+.vendidos-total span:first-child {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+.vendidos-total span:last-child {
+  color: #888;
+  font-weight: 400;
+}
+
+/* Estilo para valor a receber */
+.valor-receber {
+  color: #1a1a1a;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+/* Botão de remover na tabela */
+.btn-remover-tabela {
+  background: linear-gradient(135deg, #ff6b9d 0%, #ff4444 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(255, 68, 68, 0.2);
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.btn-remover-tabela:hover {
+  background: linear-gradient(135deg, #ff4d7a 0%, #cc0000 100%);
+  box-shadow: 0 4px 10px rgba(255, 68, 68, 0.3);
+  transform: scale(1.05);
+}
+
+.btn-remover-tabela:active {
+  transform: scale(0.95);
+}
+
+/* Responsividade para tabela */
+@media (max-width: 768px) {
+  .buttons-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btn-ingresso {
+    width: 100%;
+    max-width: 300px;
+    justify-content: center;
+  }
+
+  .tabela-ingressos {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .tabela-ingressos th,
+  .tabela-ingressos td {
+    padding: 14px 12px;
+    font-size: 14px;
+  }
+
+  .titulo-ingresso {
+    min-width: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .box-05 {
+    padding: 20px 15px;
+  }
+
+  .box-05 h1,
+  .box-05 h3 {
+    font-size: 22px;
+  }
+
+  .box-05 h2,
+  .box-05 p {
+    font-size: 15px;
+  }
+
+  .tabela-ingressos th,
+  .tabela-ingressos td {
+    padding: 12px 10px;
+    font-size: 13px;
+  }
+
+  .vendidos-total {
+    flex-direction: column;
+    gap: 2px;
+    align-items: flex-start;
+  }
+}
+
+/* Estilos para quando não há ingressos */
+.tabela-vazia {
+  text-align: center;
+  padding: 40px;
+  color: #888;
+  font-style: italic;
+  background: #F9F9F9;
+  border-radius: 12px;
+  margin-top: 20px;
+}

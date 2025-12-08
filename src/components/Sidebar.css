@@ -98,6 +98,15 @@
   white-space: nowrap; /* adicione isso - impede quebra de linha no texto */
 }
 
+button.sidebar-link {
+  background: none;
+  border: none;
+  width: calc(100% + 32px); 
+  text-align: left;
+  cursor: pointer;
+  margin: 0 -16px; /* mesmo margin dos links */
+}
+
 .sidebar-footer {
   display: flex;
   flex-direction: column;

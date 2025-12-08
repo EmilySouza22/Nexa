@@ -3,7 +3,7 @@
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 20px;
-   position: relative;
+  position: relative;
   z-index: 1;
 }
 
@@ -22,14 +22,21 @@
 .info-evento-imagem {
   flex-shrink: 0; /* impede a imagem de encolher */
   width: 650px;
+  height: 380px;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 12px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
 .info-evento-imagem img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
 }
 
 /* Conteúdo do evento */
@@ -77,4 +84,15 @@
   font-weight: 600;
   color: #554b50;
   line-height: 1.5;
+  /* Quebra de linha automática */
+  word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  /* Limita a 3 linhas com reticências */
+  display: -webkit-box;
+  /* -webkit-line-clamp: 3; */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
 }

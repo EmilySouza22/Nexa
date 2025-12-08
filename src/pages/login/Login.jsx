@@ -5,6 +5,7 @@ import image from "../../assets/login/image.png";
 import image1 from "../../assets/login/image1.png";
 import linhaEsquerda from "../../assets/login/linhaEsquerda.png";
 import linhaDireita from "../../assets/login/linhaDireita.png";
+import toastr from "../../utils/toastr";
 
 function Login() {
   const navigate = useNavigate();
@@ -79,12 +80,20 @@ function Login() {
         console.log("Nome:", data.usuario.nome);
         console.log("Iniciais:", iniciais);
 
+        // Notificação de sucesso
+        toastr.success(
+          `Olá, ${data.usuario.nome.split(" ")[0]}!`,
+          "Login realizado"
+        );
+
         // Redirecionar baseado no tipo de conta
-        if (data.usuario.tipoConta === 2) {
-          navigate("/organizador");
-        } else {
-          navigate("/home");
-        }
+        setTimeout(() => {
+          if (data.usuario.tipoConta === 2) {
+            navigate("/organizador");
+          } else {
+            navigate("/home");
+          }
+        }, 1500);
       } else {
         // Erro de autenticação
         setErro(data.error || "Erro ao fazer login");

@@ -1,0 +1,186 @@
+/* ========== LAYOUT PRINCIPAL (NOVO) ========== */
+.perfil-convidado {
+  min-height: 100vh;
+}
+
+.perfil-convidado-layout {
+  display: flex;
+  min-height: calc(100vh - 70px); /* altura da navbar */
+}
+
+.perfil-convidado-content {
+  flex: 1;
+  padding: 102px 0 32px 0;
+  margin-left: 100px; /* largura da sidebar */
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* CENTRALIZADO */
+}
+
+/* Quando a sidebar estiver fechada */
+/* .perfil-convidado-content.sidebar-closed {
+  margin-left: 90px; /* DIMINUI: largura da sidebar fechada + pequeno espaço
+} */
+
+/* ========== CONTAINER PRINCIPAL ========== */
+/* Caixa branca que envolve todo o formulário */
+.minha-conta-container {
+  width: 100%;
+  max-width: 900px;                    /* Largura máxima */
+  margin: auto;                        /* Centraliza na tela */
+  padding: 40px;                       /* Espaçamento interno */
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* ========== BARRA DE NAVEGAÇÃO ========== */
+.abas-container {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+/* Estilo básico de cada aba */
+.aba {
+  padding: 10px 20px;
+  text-decoration: none;
+  font-weight: 600;
+  color: #000;
+  border-radius: 10px;
+  transition: 0.2s;
+  position: relative;  /* Necessário pro risco embaixo */
+}
+
+/* Hover */
+.aba:hover {
+  color: #333;
+}
+
+/* Aba ativa (gradiente no texto) */
+.ativa {
+  background-image: linear-gradient(90deg, #F2B2DF 0%, #D397FD 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Linha colorida embaixo da aba ativa */
+.ativa::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #F2B2DF 0%, #D397FD 100%);
+}
+
+/* Aba NÃO ativa → mantém risco preto */
+.aba-com-risco {
+  position: relative;
+}
+
+/* Linha preta padrão */
+.aba-com-risco::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #000;
+}
+
+/* ========== FORMULÁRIO ========== */
+.form-minha-conta {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Campos */
+.campo-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.campo-input > label {
+  font-weight: 600;
+  color: #625E62;
+  font-size: 15px;
+  margin-bottom: 8px;
+  display: block;
+  line-height: 1.2;
+}
+
+.campo-input input[type="text"],
+.campo-input input[type="email"],
+.campo-input input[type="password"],
+.form-minha-conta input[type="text"],
+.form-minha-conta input[type="email"],
+.form-minha-conta input[type="password"] {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 16px;
+  border: 2px solid transparent;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(90deg, #F2B2DF 0%, #D397FD 100%) border-box;
+  outline: none;
+  font-size: 14px;
+  color: #3c2c43;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.form-minha-conta input[type="text"]:focus,
+.form-minha-conta input[type="email"]:focus,
+.form-minha-conta input[type="password"]:focus {
+  border-color: #d296ff;
+  box-shadow: 0 0 0 3px rgba(210, 150, 255, 0.1);
+}
+
+/* ========== BOTÃO ========== */
+.btn-salvar {
+  background: linear-gradient(90deg, #F2B2DF 0%, #D397FD 100%);
+  border: none;
+  border-radius: 25px;
+  padding: 10px 16px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: fit-content;
+  align-self: flex-start;
+}
+
+.btn-salvar:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-salvar:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.icon-save {
+  width: 18px;
+  height: 18px;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .minha-conta-container {
+    padding: 25px;
+    margin: 20px;
+  }
+}

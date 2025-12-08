@@ -1,0 +1,141 @@
+.box-02 {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 30px 40px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.box-02 .titulo-style {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+.box-02 p {
+  font-size: 14px;
+  font-weight: 400;
+  color: #6b7280;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.form-linha-datas {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.form-linha-datas .campo {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-linha-datas .campo label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+.input-simples {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  background: #ffffff;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  height: 48px;
+}
+
+.input-simples:focus-within {
+  border-color: #a855f7;
+  box-shadow: 0 0 0 4px rgba(168, 85, 247, 0.1);
+}
+
+.icon-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 100%;
+  background: transparent;
+  cursor: pointer;
+  border-right: 2px solid #e5e7eb;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.icon-area:hover {
+  background-color: #fafafa;
+}
+
+.icon-area img {
+  width: 20px;
+  height: 20px;
+  opacity: 0.4;
+}
+
+.input-simples input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 0 16px;
+  height: 100%;
+  font-size: 14px;
+  color: #1f2937;
+  background: transparent;
+  font-family: inherit;
+}
+
+.input-simples input::placeholder {
+  color: #9ca3af;
+}
+
+.input-simples input[type="date"],
+.input-simples input[type="time"] {
+  cursor: pointer;
+}
+
+.input-simples input[type="date"]::-webkit-calendar-picker-indicator,
+.input-simples input[type="time"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+}
+
+@media (max-width: 1024px) {
+  .box-02 {
+    padding: 25px 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .box-02 {
+    padding: 20px 25px;
+    border-radius: 15px;
+  }
+
+  .form-linha-datas {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .box-02 {
+    padding: 15px 20px;
+  }
+
+  .form-linha-datas {
+    grid-template-columns: 1fr;
+  }
+}
