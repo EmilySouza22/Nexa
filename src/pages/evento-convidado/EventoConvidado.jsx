@@ -25,7 +25,7 @@ function EventoConvidado() {
       setLoading(true);
       setError(null);
 
-      console.log(' Buscando evento ID:', id);
+      console.log('Buscando evento ID:', id);
 
       const response = await fetch(`http://localhost:3000/api/eventos-view/${id}`);
       
@@ -42,12 +42,12 @@ function EventoConvidado() {
 
       // Transformar os dados do banco para o formato que os componentes esperam
       const eventoFormatado = transformarDadosEvento(data.data);
-      console.log(' Evento formatado:', eventoFormatado);
+      console.log('🎉 Evento formatado:', eventoFormatado);
       
       setEvento(eventoFormatado);
 
     } catch (err) {
-      console.error(' Erro ao buscar evento:', err);
+      console.error('Erro ao buscar evento:', err);
       setError(err.message);
     } finally {
       setLoading(false);
@@ -93,7 +93,7 @@ function EventoConvidado() {
         // Dados básicos
         id: dadosBanco.idevento,
         nome: dadosBanco.nome,
-        bannerUrl: dadosBanco.imagem_url || "https://via.placeholder.com/800x400/6366f1/ffffff?text=Evento",
+        bannerUrl: dadosBanco.imagem || "https://via.placeholder.com/800x400/6366f1/ffffff?text=Evento",
         
         // Datas e horários formatados
         data: `${formatarData(dataInicio)} até ${formatarData(dataTermino)}`,
@@ -110,7 +110,7 @@ function EventoConvidado() {
         
         // Descrição
         descricao: dadosBanco.assunto_principal || "Sem descrição disponível",
-        descricaoCompleta: null, // Pode ser adicionado no banco depois
+        descricaoCompleta: null,
         classificacao: dadosBanco.classificacao || "Classificação não informada",
         
         // Categoria
@@ -129,7 +129,7 @@ function EventoConvidado() {
         // Status
         ativo: dadosBanco.evento_ativo,
 
-        // Campos opcionais (se precisar adicionar no futuro)
+        // Campos opcionais
         topicos: null,
         tituloTopicos: null,
         detalhesAdicionais: null,
@@ -156,7 +156,7 @@ function EventoConvidado() {
             <div className="loading-container">
               <div className="spinner"></div>
               <p style={{ marginTop: '20px', fontSize: '18px', color: '#666' }}>
-                Carregando evento...
+                 Carregando evento...
               </p>
             </div>
           </main>
@@ -190,7 +190,7 @@ function EventoConvidado() {
                     cursor: 'pointer'
                   }}
                 >
-                   Tentar novamente
+                  Tentar novamente
                 </button>
                 <button 
                   onClick={() => navigate(-1)}
@@ -222,7 +222,7 @@ function EventoConvidado() {
           <Sidebar userType="organizador" />
           <main style={{ padding: '40px', textAlign: 'center' }}>
             <h2 style={{ color: '#666', marginBottom: '20px' }}>
-               Evento não encontrado
+              Evento não encontrado
             </h2>
             <button 
               onClick={() => navigate(-1)}

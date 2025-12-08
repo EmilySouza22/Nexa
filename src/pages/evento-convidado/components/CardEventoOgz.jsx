@@ -23,6 +23,7 @@ function CardEventoOgz({ evento }) {
             alt={evento.nome || "imagem-evento"}
             onError={(e) => {
               // Se a imagem falhar ao carregar, usa a imagem de exemplo
+              console.log(' Erro ao carregar imagem, usando fallback');
               e.target.src = exemploEvento;
             }}
           />
@@ -74,7 +75,7 @@ function CardEventoOgz({ evento }) {
           {/* BOTÃO COMPRAR */}
           <div className="evento-organizador">
             <button className="btn-ingresso-ogz">
-              Comprar Ingresso
+               Comprar Ingresso
             </button>
           </div>
         </div>
