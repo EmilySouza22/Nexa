@@ -136,7 +136,7 @@ function PerfilConvidado() {
                   abaAtiva === "minha-conta" ? "ativa" : "aba-com-risco"
                 }`}
               >
-                Minha conta
+                Dados
               </button>
             </div>
 
