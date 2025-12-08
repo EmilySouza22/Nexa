@@ -21,11 +21,6 @@ function CardEventoOgz({ evento }) {
           <img 
             src={evento.bannerUrl || exemploEvento} 
             alt={evento.nome || "imagem-evento"}
-            onError={(e) => {
-              // Se a imagem falhar ao carregar, usa a imagem de exemplo
-              console.log(' Erro ao carregar imagem, usando fallback');
-              e.target.src = exemploEvento;
-            }}
           />
         </div>
         

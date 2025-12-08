@@ -81,23 +81,7 @@ function DetalhesEvento({ evento }) {
               {evento.premios.descricao}
             </p>
           )}
-
-          {/* Mostrar ingressos disponíveis */}
-          {evento.ingressos && evento.ingressos.length > 0 && (
-            <div style={{ marginTop: '20px' }}>
-              <p className="topico-titulo">Ingressos disponíveis:</p>
-              <ul className="lista-topicos">
-                {evento.ingressos.map((ingresso, index) => (
-                  <li key={index}>
-                    <strong>{ingresso.titulo}</strong> - R$ {parseFloat(ingresso.valor_unitario).toFixed(2)} 
-                    {ingresso.disponiveis > 0 
-                      ? ` (${ingresso.disponiveis} disponíveis)`
-                      : ' (ESGOTADO)'}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+          
         </div>
       </div>
 
