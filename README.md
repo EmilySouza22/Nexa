@@ -4,10 +4,33 @@
 
 <h1 align="center"><b>Nexa - Gestão de Eventos</b></h2>
 
-<p align="center">
+<p 
   Plataforma de gestão completa para organização, acompanhamento e análise de eventos.
 </p>
 
-<p align="center">
-  Este projeto é um sistema web que está sendo desenvolvido durante a Situação de Aprendizagem da segunda fase no SENAI-SC.
+<p >
+  Este projeto é um sistema web desenvolvido durante a Situação de Aprendizagem da segunda fase no SENAI-Floripa,
 </p>
+
+<p>
+  O Nexa é uma plataforma digital que conecta Organizadores e Convidados em um único espaço. 
+</p>
+
+<h2>
+   🛠️ Funcionalidades Principais
+</h2>
+
+<ul>
+  <li>Autenticação</li>
+  <li>Cadastro de eventos</li>
+  <li>Gestão de Eventos</li>
+  <li>Dashboard</li>
+</ul>
+
+## **💻 Stack**
+
+ • React
+ • Node.js
+ • Express
+ • Mysql
+
