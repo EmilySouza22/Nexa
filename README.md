@@ -29,8 +29,9 @@
 
 ## **💻 Stack**
 
+ • Javascript
  • React
  • Node.js
  • Express
- • Mysql
+ • MySql
 
